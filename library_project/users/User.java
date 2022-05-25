@@ -1,4 +1,4 @@
-package library_project;
+package library_project.users;
 
 import library_project.utils.ConsoleColors;
 
@@ -36,6 +36,7 @@ public class User {
         this.email = email;
     }
 
+    //TODO set specific exception
     public void writeToFile() {
         try {
             FileWriter fw = new FileWriter(filepath, true);

@@ -1,4 +1,4 @@
-package library_project;
+package library_project.users;
 
 import library_project.utils.ConsoleColors;
 
@@ -19,7 +19,8 @@ public class Users {
             Scanner sc = new Scanner(usersFile);
             while(sc.hasNextLine()) {
                 String[] userFields = sc.nextLine().split(",");
-                users.add(new User(Integer.parseInt(userFields[0]),userFields[1], userFields[2].toCharArray(), userFields[3], userFields[4]));
+                User user = new User(Integer.parseInt(userFields[0]),userFields[1], userFields[2].toCharArray(), userFields[3], userFields[4]);
+                users.add(user);
             }
         }
         catch (FileNotFoundException e) {
