@@ -1,6 +1,6 @@
-package testing_package;
+package library_project;
 
-import testing_package.utils.ConsoleColors;
+import library_project.utils.ConsoleColors;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
     private static final AtomicInteger IDCount = new AtomicInteger(0);
-    public static final String filepath = "testing_package/files/users.csv";
+    public static final String filepath = "library_project/files/users.csv";
 
     private final int ID;
     private String username;

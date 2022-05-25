@@ -1,4 +1,4 @@
-package testing_package;
+package library_project;
 
 public class Book {
     String name;

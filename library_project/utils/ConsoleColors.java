@@ -1,4 +1,4 @@
-package testing_package.utils;
+package library_project.utils;
 
 public class ConsoleColors {
     public static final String RED = "\033[0;31m";     // RED

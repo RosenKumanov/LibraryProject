@@ -1,6 +1,6 @@
-package testing_package;
+package library_project;
 
-import testing_package.utils.ConsoleColors;
+import library_project.utils.ConsoleColors;
 
 import java.io.File;
 import java.io.FileNotFoundException;

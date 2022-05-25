@@ -1,7 +1,7 @@
-package demo;
+package library_project.demo;
 
-import testing_package.User;
-import testing_package.Users;
+import library_project.User;
+import library_project.Users;
 
 import java.util.Set;
 
