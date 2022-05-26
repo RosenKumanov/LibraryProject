@@ -27,6 +27,7 @@ public class Users {
 
         System.out.println("username: ");
         String inputUsername = sc.nextLine();
+
         System.out.println("password: ");
         String inputPassword = sc.nextLine();
 
@@ -34,6 +35,7 @@ public class Users {
             if(user.getUsername().equalsIgnoreCase(inputUsername)) {
                 if(inputPassword.equals(String.valueOf(user.getPassword()))) {
                     System.out.println(ConsoleColors.GREEN + "You have logged in successfully!" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN + "Welcome, " + user.getFirstName() + "!" + ConsoleColors.RESET);
                     return true;
                 }
                 else {
@@ -80,6 +82,13 @@ public class Users {
         System.out.println("Type your desired username: ");
         String username = sc.nextLine();
 
+        for(User user : allUsers) {
+            if (user.getUsername().equalsIgnoreCase(username)) {
+                System.out.println(ConsoleColors.YELLOW + "Username " + username + " already exists!" + ConsoleColors.RESET);
+                return null;
+            }
+        }
+
         System.out.println("Type your desired password: ");
         String password = sc.nextLine();
 
@@ -87,12 +96,8 @@ public class Users {
         String email = sc.nextLine();
 
         for(User user : allUsers) {
-            if(user.getUsername().equalsIgnoreCase(username)) {
-                System.out.println(ConsoleColors.YELLOW + "Username " + username + " already exists!");
-                return null;
-            }
             if(user.getEmail().equalsIgnoreCase(email)) {
-                System.out.println(ConsoleColors.YELLOW + "Email address " + email + " already exists!");
+                System.out.println(ConsoleColors.YELLOW + "Email address " + email + " already exists!" + ConsoleColors.RESET);
                 return null;
             }
         }

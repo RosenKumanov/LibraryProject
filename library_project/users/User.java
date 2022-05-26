@@ -1,5 +1,7 @@
 package library_project.users;
 
+import library_project.library.Book;
+import library_project.library.PersonalLibrary;
 import library_project.utils.ConsoleColors;
 
 import java.io.*;
@@ -15,6 +17,8 @@ public class User {
     private String password;
     private String firstName;
     private String email;
+    PersonalLibrary library;
+    Book[] favouriteBooks;
 
     //TODO set proper IDCount increment (value should be fetched from last user entry)
     public User(String username, String password, String firstName, String email) {
@@ -38,6 +42,7 @@ public class User {
     //TODO set specific exception
     public void writeToFile() {
         try {
+
             FileWriter fw = new FileWriter(filepath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
