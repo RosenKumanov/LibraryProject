@@ -1,5 +1,7 @@
 package library_project.library;
 
+import library_project.utils.ConsoleColors;
+
 import java.util.Set;
 
 public class Library {
@@ -14,6 +16,9 @@ public class Library {
         if(books.contains(book)) {
             System.out.println("Successfully removed book from the library.");
             books.remove(book);
+        }
+        else {
+            System.out.println(ConsoleColors.YELLOW + "Book " + book.name + " is not present in the Library." + ConsoleColors.RESET);
         }
     }
 
