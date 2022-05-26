@@ -2,9 +2,7 @@ package library_project.users;
 
 import library_project.utils.ConsoleColors;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,11 +12,12 @@ public class User {
 
     private final int ID;
     private String username;
-    private char[] password;
+    private String password;
     private String firstName;
     private String email;
 
-    public User(String username, char[] password, String firstName, String email) {
+    //TODO set proper IDCount increment (value should be fetched from last user entry)
+    public User(String username, String password, String firstName, String email) {
         this.ID = IDCount.incrementAndGet();
         this.username = username;
         this.password = password;
@@ -28,7 +27,7 @@ public class User {
         writeToFile();
     }
 
-    public User(int ID, String username, char[] password, String firstName, String email) {
+    public User(int ID, String username, String password, String firstName, String email) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -43,13 +42,13 @@ public class User {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println(ID + "," + username + "," + Arrays.toString(password) + "," + firstName + "," + email);
+            pw.println(ID + "," + username + "," + password + "," + firstName + "," + email);
             pw.flush();
             pw.close();
 
-            System.out.println(ConsoleColors.GREEN + "Successfully added user " + username + " to file!");
+            System.out.println(ConsoleColors.GREEN + "Successfully added user " + username + " to file!" + ConsoleColors.RESET);
         }
-        catch (Exception e) {
+        catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Failed to add user " + username + " to file!");
 
         }
@@ -64,11 +63,11 @@ public class User {
         this.username = username;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
