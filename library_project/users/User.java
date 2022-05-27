@@ -3,12 +3,13 @@ package library_project.users;
 import library_project.library.Book;
 import library_project.library.PersonalLibrary;
 import library_project.utils.ConsoleColors;
+import library_project.utils.IUseFiles;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class User {
+public class User implements IUseFiles {
     private static final AtomicInteger IDCount = new AtomicInteger(0);
     public static final String filepath = "library_project/files/users.csv";
 
@@ -57,6 +58,11 @@ public class User {
             System.out.println(ConsoleColors.RED + "Failed to add user " + username + " to file!");
 
         }
+    }
+
+    @Override
+    public void editFile() {
+
     }
 
     public String getUsername() {
