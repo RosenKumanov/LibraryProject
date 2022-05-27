@@ -1,6 +1,5 @@
 package library_project.library;
 
-import library_project.users.User;
 import library_project.utils.ConsoleColors;
 
 import java.io.File;
@@ -23,13 +22,13 @@ public class Library {
 
     public void showAllBooks() {
         for(Book book : books) {
-            System.out.println("Title: " + book.name + " | written by: " + book.author + " | Rating: " + book.bookReview.averageRating + "\n\n" + book.resume + "\n");
+            System.out.println("Title: " + book.getBookName() + " | written by: " + book.getAuthor() + " | Rating: " + book.bookReview.getAverageRating() + "\n\n" + book.getResume() + "\n");
         }
     }
 
     public static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
-        File booksFile = new File(User.filepath);
+        File booksFile = new File(Book.filepath);
 
         try {
             Scanner sc = new Scanner(booksFile);
