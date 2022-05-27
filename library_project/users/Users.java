@@ -11,7 +11,6 @@ import java.util.Set;
 
 public class Users {
 
-
     public static void loginForm() {
 
         System.out.println("LOGIN FORM");
