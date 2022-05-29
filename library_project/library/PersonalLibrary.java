@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class PersonalLibrary extends Library {
 
-    PersonalLibrary(Set<Book> books) {
+    public PersonalLibrary(Set<Book> books) {
         super(books);
     }
 
