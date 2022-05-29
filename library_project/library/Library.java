@@ -20,13 +20,17 @@ public class Library {
         this.books = books;
     }
 
+    public Library generateMainLibrary() {
+        return new Library(getAllBooksFromFile());
+    }
+
     public void showAllBooks() {
         for(Book book : books) {
             System.out.println("Title: " + book.getBookName() + " | written by: " + book.getAuthor() + " | Rating: " + book.bookReview.getAverageRating() + "\n\n" + book.getResume() + "\n");
         }
     }
 
-    public static Set<Book> getAllBooksFromFile() {
+    private static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
         File booksFile = new File(Book.filepath);
 
@@ -67,6 +71,8 @@ public class Library {
             books.add(book);
         }
     }
+
+
 
 
     public Set<Book> getBooks() {
