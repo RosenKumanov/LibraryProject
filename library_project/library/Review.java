@@ -89,9 +89,4 @@ public class Review implements IUseFiles {
         // TODO A user can edit its own comments!
     }
 
-    @Override
-    public void deleteFile() {
-        // TODO if a book is deleted by its owner, the comments must be deleted
-
-    }
 }
