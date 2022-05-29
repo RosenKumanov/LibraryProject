@@ -57,7 +57,13 @@ public class Menu {
             case 1:
                 exploreBooks(library, user);
                 break;
+            case 2:
+
         }
+
+    }
+
+    private static void myLibrary(User user) {
 
     }
 
