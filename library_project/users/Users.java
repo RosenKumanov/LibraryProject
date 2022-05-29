@@ -11,15 +11,19 @@ import java.util.Set;
 
 public class Users {
 
-    public static void loginForm() {
 
-        System.out.println("LOGIN FORM");
-        while(!checkLoginInput()) {
-            System.out.println("LOGIN FORM");
+    public static User logIn() {
+
+        User user = loginForm();
+
+        while(user == null) {
+            System.out.println(ConsoleColors.YELLOW + "Unsuccessful log in attempt - Try again!" + ConsoleColors.RESET);
+            user = Users.logIn();
         }
+        return user;
     }
 
-    private static boolean checkLoginInput() {
+    private static User loginForm() {
         Scanner sc = new Scanner(System.in);
 
         Set<User> allUsers = Users.getExistingUsersFromFile();
@@ -34,8 +38,8 @@ public class Users {
             if(user.getUsername().equalsIgnoreCase(inputUsername)) {
                 if(inputPassword.equals(String.valueOf(user.getPassword()))) {
                     System.out.println(ConsoleColors.GREEN + "You have logged in successfully!" + ConsoleColors.RESET);
-                    System.out.println(ConsoleColors.GREEN + "Welcome, " + user.getFirstName() + "!" + ConsoleColors.RESET);
-                    return true;
+                    System.out.println("Welcome, " + user.getFirstName() + "!");
+                    return user;
                 }
                 else {
                     break;
@@ -43,7 +47,7 @@ public class Users {
             }
         }
         System.out.println(ConsoleColors.RED + "Wrong username or password!" + ConsoleColors.RESET);
-        return false;
+        return null;
     }
 
     public static Set<User> getExistingUsersFromFile() {
@@ -60,14 +64,23 @@ public class Users {
             }
         }
         catch (FileNotFoundException e) {
-            System.out.println(ConsoleColors.RED + "Could not open file!");
+            System.out.println(ConsoleColors.RED + "File users.csv not found!" + ConsoleColors.RESET);
+            System.out.println("No users are registered yet.");
         }
 
         return users;
     }
 
+    public static User register() {
+        User newUser = registrationForm();
+        while(newUser == null) {
+            newUser = registrationForm();
+        }
+        return newUser;
+    }
+
     //TODO add data validation; check existing users for the same username and password
-    public static User registrationForm() {
+    private static User registrationForm() {
         Scanner sc = new Scanner(System.in);
 
         Set<User> allUsers = Users.getExistingUsersFromFile();

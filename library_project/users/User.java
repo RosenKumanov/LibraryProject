@@ -7,6 +7,7 @@ import library_project.utils.IUseFiles;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.concurrent.CompletionService;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements IUseFiles {
@@ -40,6 +41,27 @@ public class User implements IUseFiles {
         this.email = email;
     }
 
+    public void userInfo() {
+        System.out.println();
+        System.out.println("USERNAME: " + ConsoleColors.GREEN + username + ConsoleColors.RESET);
+        System.out.println("YOUR NAME: " + ConsoleColors.GREEN + firstName + ConsoleColors.RESET);
+        System.out.println("E-MAIL ADDRESS: " + ConsoleColors.GREEN + email + ConsoleColors.RESET);
+    }
+
+    private void changeEmail(String newEmail) {
+
+    }
+
+    private void changePassword(String newPassword) {
+
+    }
+
+    private void changeName(String newName) {
+
+    }
+
+
+
     //TODO set specific exception
     public void writeToFile() {
         try {
@@ -52,11 +74,10 @@ public class User implements IUseFiles {
             pw.flush();
             pw.close();
 
-            System.out.println(ConsoleColors.GREEN + "Successfully added user " + username + " to file!" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Successfully added user " + username + " to file!\n" + ConsoleColors.RESET);
         }
         catch (IOException e) {
-            System.out.println(ConsoleColors.RED + "Failed to add user " + username + " to file!");
-
+            System.out.println(ConsoleColors.RED + "Failed to add user " + username + " to file!\n" + ConsoleColors.RESET);
         }
     }
 
