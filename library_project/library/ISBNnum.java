@@ -3,6 +3,7 @@ package library_project.library;
 import library_project.utils.ConsoleColors;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ISBNnum {
@@ -42,15 +43,13 @@ public class ISBNnum {
             return ISBN;
         }
 
-        public ISBNnum setISBNnum() {
+        public static ISBNnum setISBNnum() {
             String ISBN = null;
+            InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
+            BufferedReader br = new BufferedReader(in);
+            boolean willTry = true;
             try {
-                //create BufferedReader class object to get input from user
-                InputStreamReader in = new InputStreamReader(System.in);
-                BufferedReader br = new BufferedReader(in);
-
-                //show custom message
-                System.out.println("Enter first 13 digit ISBN number");
+                System.out.println("Enter ISBN number");
 
                 //store user entered value into variable num
                 ISBN = new String(br.readLine());
@@ -58,15 +57,23 @@ public class ISBNnum {
                 if (isISBN13(ISBN)) {
                     System.out.println("Book IBSN: " + ISBN); }
                 else {
-                    System.out.println(ConsoleColors.GREEN + ISBN + " is not valid!"+ ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + ISBN + " is not valid!"+ ConsoleColors.RESET);
+                    System.out.println("---------");
+                    System.out.println("Options:" + "\n" + "1. Try again           " + "2. Exit");
+                    int command = Integer.parseInt(br.readLine());
+
+                    while (command == 1) {
+                        ISBNnum.setISBNnum();
+                        command = Integer.parseInt(br.readLine());
+                    }
                 }
             }catch(Exception e) {
-                System.out.println("Please enter the ISBN for this book!");
+                System.out.println(ConsoleColors.RED + ISBN + " is not valid!"+ ConsoleColors.RESET);
+             // TODO restart
             }
             return new library_project.library.ISBNnum(ISBN);
 
         }
-
     }
 
 
