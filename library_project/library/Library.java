@@ -20,13 +20,13 @@ public class Library {
         this.books = books;
     }
 
-    public Library generateMainLibrary() {
+    public static Library generateMainLibrary() {
         return new Library(getAllBooksFromFile());
     }
 
     public void showAllBooks() {
         for(Book book : books) {
-            System.out.println("Title: " + book.getBookName() + " | written by: " + book.getAuthor() + " | Rating: " + book.bookReview.getAverageRating() + "\n\n" + book.getResume() + "\n");
+            System.out.println("Title: " + book.getBookName() + " | written by: " + book.getAuthor() + " | Rating: " + book.getAverageRating() + "\n\n" + book.getResume() + "\n");
         }
     }
 
@@ -38,10 +38,12 @@ public class Library {
             Scanner sc = new Scanner(booksFile);
             while(sc.hasNextLine()) {
                 String[] bookFields = sc.nextLine().split(",");
-                Review review = new Review(Double.parseDouble(bookFields[4]), null );
-                Book book = new Book(bookFields[0],bookFields[1], Integer.parseInt(bookFields[2]), bookFields[3], review);
+                //TODO create a function to get all reviews from file
+                Set<Review> reviews = new HashSet<>();
+                Book book = new Book(bookFields[0],bookFields[1], new ISBNnum(bookFields[2]), bookFields[3], Double.parseDouble(bookFields[4]), reviews);
                 allBooks.add(book);
             }
+            sc.close();
         }
         catch (FileNotFoundException e) {
             System.out.println(ConsoleColors.RED + "Could not open file!");

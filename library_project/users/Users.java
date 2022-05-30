@@ -17,7 +17,7 @@ public class Users {
         User user = loginForm();
 
         while(user == null) {
-            System.out.println(ConsoleColors.YELLOW + "Unsuccessful log in attempt - Try again!" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW + "\nUnsuccessful log in attempt - Try again!\n" + ConsoleColors.RESET);
             user = Users.logIn();
         }
         return user;
@@ -34,11 +34,12 @@ public class Users {
         System.out.println("password: ");
         String inputPassword = sc.nextLine();
 
+        assert allUsers != null;
         for(User user : allUsers) {
             if(user.getUsername().equalsIgnoreCase(inputUsername)) {
                 if(inputPassword.equals(String.valueOf(user.getPassword()))) {
-                    System.out.println(ConsoleColors.GREEN + "You have logged in successfully!" + ConsoleColors.RESET);
-                    System.out.println("Welcome, " + user.getFirstName() + "!");
+                    System.out.println(ConsoleColors.GREEN + "\nYou have logged in successfully!\n" + ConsoleColors.RESET);
+                    System.out.println("      Welcome, " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET + "!");
                     return user;
                 }
                 else {
@@ -57,26 +58,29 @@ public class Users {
 
         try {
             Scanner sc = new Scanner(usersFile);
+            if(!sc.hasNextLine()) {
+                System.out.println("No users are registered yet.");
+                return null;
+            }
             while(sc.hasNextLine()) {
                 String[] userFields = sc.nextLine().split(",");
                 User user = new User(Integer.parseInt(userFields[0]),userFields[1], userFields[2], userFields[3], userFields[4]);
                 users.add(user);
             }
+            sc.close();
         }
         catch (FileNotFoundException e) {
             System.out.println(ConsoleColors.RED + "File users.csv not found!" + ConsoleColors.RESET);
-            System.out.println("No users are registered yet.");
         }
-
         return users;
     }
 
-    public static User register() {
+    public static void register() {
         User newUser = registrationForm();
         while(newUser == null) {
             newUser = registrationForm();
         }
-        return newUser;
+        newUser.writeToFile();
     }
 
     //TODO add data validation; check existing users for the same username and password
@@ -94,6 +98,7 @@ public class Users {
         System.out.println("Type your desired username: ");
         String username = sc.nextLine();
 
+        assert allUsers != null;
         for(User user : allUsers) {
             if (user.getUsername().equalsIgnoreCase(username)) {
                 System.out.println(ConsoleColors.YELLOW + "Username " + username + " already exists!" + ConsoleColors.RESET);

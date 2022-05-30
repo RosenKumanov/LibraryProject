@@ -1,6 +1,7 @@
 package library_project.users;
 
 import library_project.library.Book;
+import library_project.library.ISBNnum;
 import library_project.library.PersonalLibrary;
 import library_project.library.Review;
 import library_project.utils.ConsoleColors;
@@ -8,10 +9,8 @@ import library_project.utils.IUseFiles;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class User implements IUseFiles {
-    private static final AtomicInteger IDCount = new AtomicInteger(0);
     public static final String filepath = "library_project/files/users.csv";
 
     private final int ID;
@@ -34,7 +33,6 @@ public class User implements IUseFiles {
         favouriteBooksFilepath = "library_project/files/" + username + "/favouriteBooks.csv";
         favouriteBooks = new Book[10];
 
-        writeToFile();
     }
 
     public User(int ID, String username, String password, String firstName, String email) {
@@ -55,15 +53,15 @@ public class User implements IUseFiles {
         System.out.println("E-MAIL ADDRESS: " + ConsoleColors.GREEN + email + ConsoleColors.RESET);
     }
 
-
     private int getLastID() {
 
-        File booksFile = new File(Book.filepath);
+        File usersFile = new File(filepath);
         int lastID = 0;
         try {
-            Scanner sc = new Scanner(booksFile);
+            Scanner sc = new Scanner(usersFile);
             while(sc.hasNextLine()) {
                 lastID++;
+                sc.nextLine();
             }
         } catch (FileNotFoundException e) {
             return lastID;
@@ -81,17 +79,26 @@ public class User implements IUseFiles {
             String[] favouriteISBNs = scan.nextLine().split(",");
 
             int index = 0;
+            if(personalLibrary.getBooks().isEmpty()) {
+                return null;
+            }
             for(Book book : personalLibrary.getBooks()) {
                 for(String ISBN : favouriteISBNs) {
-                    if (String.valueOf(book.getNumberISBN()).equals(ISBN)) {
-                        favouriteBooks[index] = book;
-                        index++;
-                    }
+//                    if (String.valueOf(book.bookISBN.getISBN()).equals(ISBN)) {
+//                        favouriteBooks[index] = book;
+//                        index++;
+//                    }
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            System.out.println(ConsoleColors.RED + "File not found!" + ConsoleColors.RESET);
+        } catch(NullPointerException e) {
+            return null;
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println(ConsoleColors.RED + "File not found! Creating it instead..." + ConsoleColors.RESET);
+            File file = new File(favouriteBooksFilepath);
+            file.mkdirs();
         }
 
         return favouriteBooks;
@@ -128,32 +135,56 @@ public class User implements IUseFiles {
             String[] ISBNs = scan.nextLine().split(",");
             scan = new Scanner(booksFile);
 
+
             for(String ISBN : ISBNs) {
                 while (scan.hasNextLine()) {
                     String[] bookFields = scan.nextLine().split(",");
                     if (bookFields[2].equals(ISBN)) {
 
-                        Review review = new Review(Double.parseDouble(bookFields[4]), null);
-                        Book book = new Book(bookFields[0], bookFields[1], Integer.parseInt(bookFields[2]), bookFields[3], review);
+                        //TODO add function for getting all reviews from file
+                        Set<Review> reviews = new HashSet<>();
+                        Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]),bookFields[3], Double.parseDouble(bookFields[4]),  reviews);
                         allBooks.add(book);
                     }
                 }
             }
         }
         catch (NullPointerException e) {
-            System.out.println(ConsoleColors.YELLOW + "Filepath is empty!" + ConsoleColors.RESET);
+            return null;
         }
         catch (FileNotFoundException e) {
-            System.out.println(ConsoleColors.RED + "Could not open file!" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + "File not found! Creating it instead..." + ConsoleColors.RESET);
+            File file = new File(libraryFilepath);
+            file.mkdirs();
         }
 
         return allBooks;
     }
 
+    public void changeEmail() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Type the new email address you'd like to use: ");
+
+        String input = sc.nextLine();
+        while(input.contains(" ") || !input.contains("@") || !input.contains(".")) {
+            System.out.println("Invalid email address! Type a proper email: ");
+            input = sc.nextLine();
+        }
+        updateEmailAddress(input);
+        System.out.println("\nSuccessfully changed email address to \"" + ConsoleColors.CYAN + email + ConsoleColors.RESET + "\"");
+    }
+
+    private void updateEmailAddress(String newEmail) {
 
 
 
-    private void changeEmail(String newEmail) {
+        try {
+            updateFile(filepath, email, newEmail);
+
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Failed to update email - filepath missing" + ConsoleColors.RESET);
+        }
+        email = newEmail;
 
     }
 
@@ -164,8 +195,6 @@ public class User implements IUseFiles {
     private void changeName(String newName) {
 
     }
-
-
 
     //TODO set specific exception
 
