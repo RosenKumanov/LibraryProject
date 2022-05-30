@@ -4,10 +4,7 @@ import library_project.users.User;
 import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.Set;
 
@@ -17,12 +14,20 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     private String author;
     private String resume;
     double averageRating;
-    library_project.library.ISBNnum bookISBN;
+    public library_project.library.ISBNnum bookISBN;
+
+    public Book() {
+    }
 
     DecimalFormat df = new DecimalFormat("x.x");
     User bookOwner;
     //TODO bookOwnerUser, method edit book to be here, to add resume
     Set<library_project.library.Review> bookReviews;
+
+    public Book(String name, User bookOwner) {
+        this.name = name;
+        this.bookOwner = bookOwner;
+    }
 
     public Book(String name, String author, library_project.library.ISBNnum bookISBN, String resume) {
         this.name = name;
@@ -51,7 +56,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
 
     private void updateRating (int ratingByCurrentUser) {
         averageRating = (averageRating+ratingByCurrentUser)/bookReviews.size();
-        System.out.println("Thank you for your rating!");
+        System.out.println(ConsoleColors.YELLOW + "Thank you for your rating!" + ConsoleColors.RESET);
     }
 
     public static void editBook (User user) { //TODO
@@ -85,6 +90,26 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         return resume;
     }
 
+    public static void addNewBook () {
+        Book bookToAdd = new Book();
+
+        System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(in);
+        try {
+            bookToAdd.name = br.readLine();
+            System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
+            bookToAdd.name = br.readLine();
+            System.out.println(ConsoleColors.YELLOW + "Type book ISBN: " + ConsoleColors.RESET);
+            ISBNnum.setISBNnum();
+
+            System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
+            bookToAdd.name = br.readLine();
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.GREEN + "Book " + bookToAdd.name + " is added" + ConsoleColors.RESET);
+
+        }
+    }
 
     @Override
     public void writeToFile() {
@@ -94,14 +119,14 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println("STEFI: to add an object here"); // TODO how to write an object in a file
+            pw.println(name + "|" + author + "|" + bookISBN  + "|" + resume);
             pw.flush();
             pw.close();
 
             System.out.println(ConsoleColors.GREEN + "Successfully uploaded book! " + getBookName() + ConsoleColors.RESET);
         }
         catch (IOException e) {
-            System.out.println(ConsoleColors.RED + "Book was not uploaded!");
+            System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
 
         }
     }
