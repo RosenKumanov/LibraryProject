@@ -3,6 +3,8 @@ package library_project.library;
 import library_project.users.User;
 import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
+import library_project.utils.Menu;
+import library_project.utils.Utils;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -14,7 +16,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     private String author;
     private String resume;
     double averageRating;
-    public library_project.library.ISBNnum bookISBN;
+    public ISBNnum bookISBN;
 
     public Book() {
     }
@@ -22,21 +24,21 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     DecimalFormat df = new DecimalFormat("x.x");
     User bookOwner;
     //TODO bookOwnerUser, method edit book to be here, to add resume
-    Set<library_project.library.Review> bookReviews;
+    Set<Review> bookReviews;
 
     public Book(String name, User bookOwner) {
         this.name = name;
         this.bookOwner = bookOwner;
     }
 
-    public Book(String name, String author, library_project.library.ISBNnum bookISBN, String resume) {
+    public Book(String name, String author, ISBNnum bookISBN, String resume) {
         this.name = name;
         this.author = author;
         this.bookISBN = bookISBN;
         this.resume = resume;
     }
 
-    public Book(String name, String author, library_project.library.ISBNnum bookISBN, String resume, double averageRating, Set<library_project.library.Review> bookReviews) {
+    public Book(String name, String author, ISBNnum bookISBN, String resume, double averageRating, Set<Review> bookReviews) {
         this.name = name;
         this.author = author;
         this.bookISBN = bookISBN;
@@ -47,11 +49,11 @@ public class Book implements IUseFiles { //TODO encapsulate fields
 
     @Override
     public String toString() {
-        return "Book:" + ConsoleColors.GREEN + name + '\n' + //TODO add colors
-                "Author: " + author + '\n' +
-                "ISBN: " + bookISBN + '\n' +
-                "Rating: " + averageRating + '\n'+
-                "Resume: " + resume + '\n' ;
+        return "Book:" + ConsoleColors.CYAN + name + '\n' + ConsoleColors.RESET +
+                "Author: " + ConsoleColors.CYAN + author + '\n' + ConsoleColors.RESET +
+                "ISBN: " + ConsoleColors.CYAN + bookISBN + '\n' + ConsoleColors.RESET +
+                "Rating: " + ConsoleColors.CYAN + averageRating + '\n'+ ConsoleColors.RESET +
+                "Resume: " + ConsoleColors.CYAN + resume + '\n' ;
     }
 
     private void updateRating (int ratingByCurrentUser) {
@@ -68,11 +70,14 @@ public class Book implements IUseFiles { //TODO encapsulate fields
 
     }
 
-    public void addReviewToSet (library_project.library.Review review) {
+    public void addReviewToSet (Review review) {
         bookReviews.add(review);
         updateRating(review.ratingByCurrentUser); //TODO encapsulate in review
     }
 
+    public ISBNnum getBookISBN() {
+        return bookISBN;
+    }
 
     public double getAverageRating() {
         return averageRating;
@@ -90,25 +95,51 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         return resume;
     }
 
-    public static void addNewBook () {
+    public static Book addNewBook () {
         Book bookToAdd = new Book();
 
+        try {
         System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
         InputStreamReader in = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(in);
-        try {
+
             bookToAdd.name = br.readLine();
             System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
-            bookToAdd.name = br.readLine();
-            System.out.println(ConsoleColors.YELLOW + "Type book ISBN: " + ConsoleColors.RESET);
-            ISBNnum.setISBNnum();
+            bookToAdd.author = br.readLine();
+
+            bookToAdd.bookISBN = ISBNnum.setISBNnum();
 
             System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
-            bookToAdd.name = br.readLine();
+            bookToAdd.resume = br.readLine();
+
         } catch (Exception e) {
-            System.out.println(ConsoleColors.GREEN + "Book " + bookToAdd.name + " is added" + ConsoleColors.RESET);
+            InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
+            BufferedReader br = new BufferedReader(in);
+            try {
+                System.out.println("Something went wrong :(");
+                System.out.println("---------");
+                System.out.println("Options:" + "\n" + "1. Try again           " + "2. Exit");
+                int command = Integer.parseInt(br.readLine());
+                if (command == 1) {
+                    Book.addNewBook();
+                } else if (command == 2) {
+                    //to exit to the main menu
+                    System.out.println("Exiting to the main menu...");
+                    Menu.start();
+                } else {
+                    System.out.println("Wrong input...");
+                }
+            } catch (IOException e2){
+                System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+                //to exit to the main menu
+                System.out.println("Exiting to the main menu...");
+                Menu.start();
+            }
 
         }
+
+        bookToAdd.writeToFile();
+        return bookToAdd;
     }
 
     @Override
@@ -119,11 +150,16 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println(name + "|" + author + "|" + bookISBN  + "|" + resume);
+            pw.println( name + "," + author + "," + bookISBN  + "," + resume.replaceAll(",", "/") + "," + bookOwner);
             pw.flush();
             pw.close();
 
-            System.out.println(ConsoleColors.GREEN + "Successfully uploaded book! " + getBookName() + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Successfully uploaded: "+ '\n' +
+                     "Book: " + ConsoleColors.CYAN + name + '\n' +
+                            ConsoleColors.GREEN + "Author: " + ConsoleColors.CYAN + author + '\n' +
+                            ConsoleColors.GREEN + "ISBN: " + ConsoleColors.CYAN + bookISBN.getISBN() + '\n' +
+                            ConsoleColors.GREEN + "Resume: " + ConsoleColors.CYAN + resume
+                    );
         }
         catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
