@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Library {
-    private Set<Book> books;
+    protected Set<Book> books;
 
     //TODO move getAllBooks() to a separate function, as default constructor should not fetch all books
 
@@ -40,8 +40,14 @@ public class Library {
                 String[] bookFields = sc.nextLine().split(",");
                 //TODO create a function to get all reviews from file
                 Set<Review> reviews = new HashSet<>();
-                Book book = new Book(bookFields[0],bookFields[1], new ISBNnum(bookFields[2]), bookFields[3], Double.parseDouble(bookFields[4]), reviews);
-                allBooks.add(book);
+                if(bookFields.length == 4) {
+                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","));
+                    allBooks.add(book);
+                }
+                else {
+                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), Double.parseDouble(bookFields[4]), reviews);
+                    allBooks.add(book);
+                }
             }
             sc.close();
         }
@@ -52,26 +58,10 @@ public class Library {
         return allBooks;
     }
 
-    protected void removeBook(Book book) {
-        System.out.println("Removing " + book.getBookName() + " from the library...");
-        if(books.contains(book)) {
-            System.out.println("Successfully removed book from the library.");
-            books.remove(book);
-        }
-        else {
-            System.out.println(ConsoleColors.YELLOW + "Book " + book.getBookName() + " is not present in the Library." + ConsoleColors.RESET);
-        }
-    }
 
-    protected void addBook(Book book) {
-        System.out.println("Adding " + book.getBookName() + " to the library...");
-        if(books.contains(book)) {
-            System.out.println("Book already exists.");
-        }
-        else {
-            System.out.println("Successfully added book to library.");
+    public void addBook(Book book) {
+            System.out.println("Successfully added.");
             books.add(book);
-        }
     }
 
 
