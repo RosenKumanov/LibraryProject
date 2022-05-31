@@ -16,9 +16,9 @@ public class Menu {
 
     private static void firstScreen() {
         System.out.println();
-        System.out.println("|-----------------------------------|");
+        System.out.println("|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=|");
         System.out.println("| " + ConsoleColors.BLUE + "DIGITAL LIBRARY " + ConsoleColors.PURPLE + "\"A-TEAM\"" + ConsoleColors.BLUE + " HOMEPAGE" + ConsoleColors.RESET + " |");
-        System.out.println("|-----------------------------------|\n\n");
+        System.out.println("|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=|\n\n");
         System.out.println(ConsoleColors.YELLOW + "    1. Register        " + ConsoleColors.GREEN + "2. Log in\n\n\n\n" + ConsoleColors.RESET);
 
         User currentUser;
@@ -94,9 +94,24 @@ public class Menu {
         }
         else {
             System.out.println("Choose a book to interact with: \n");
+            boolean color = true;
+
+            Book[] allBooks = new Book[library.getBooks().size()];
+            int index = 0;
             for (Book book : library.getBooks()) {
-                System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + " , Rating: " + book.getAverageRating());
+                allBooks[index] = book;
+                index++;
+                if(color) {
+                    System.out.print(ConsoleColors.BLUE);
+                    color = false;
+                }
+                else {
+                    System.out.print(ConsoleColors.CYAN);
+                    color = true;
+                }
+                System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + " , Rating: " + ((book.getAverageRating() > 0) ? book.getAverageRating() : "Not yet rated") + ConsoleColors.RESET);
             }
+            System.out.println(++bookCounter + ". Go back");
 
             int command = getInput();
 
@@ -104,8 +119,15 @@ public class Menu {
                 System.out.println("You need to type a number between 1-" + bookCounter + ":");
                 command = getInput();
             }
+            if(command == bookCounter) {
+                options(library, user);
+            }
+            else {
+                bookInteract(library, user, allBooks[command-1]);
+            }
             //getBookByID(int ID) - a method which returns a book object by provided ID. It should find it in the file
-            //bookInteract(library, user, book);
+
+
         }
     }
 
@@ -117,22 +139,36 @@ public class Menu {
 
         int bookCounter = 0;
         if(user.getPersonalLibrary().getBooks() == null) {
-            System.out.println("No books in our library yet. Sorry!");
+            System.out.println("You don't have any books added here yet.");
             System.out.println("Returning to main menu...\n\n");
             options(library, user);
 
         }
         else {
             System.out.println("Choose a book to interact with: \n");
+
+            boolean color = true;
             for (Book book : user.getPersonalLibrary().getBooks()) {
-                System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + " , Rating: " + book.getAverageRating());
+                if(color) {
+                    System.out.print(ConsoleColors.BLUE);
+                    color = false;
+                }
+                else {
+                    System.out.print(ConsoleColors.CYAN);
+                    color = true;
+                }
+                System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + " , Rating: " + ((book.getAverageRating() > 0) ? book.getAverageRating() : "Not yet rated") + ConsoleColors.RESET);
             }
+            System.out.println((++bookCounter) + ". Go back");
 
             int command = getInput();
 
             while (command < 1 || command > bookCounter) {
                 System.out.println("You need to type a number between 1-" + bookCounter + ":");
                 command = getInput();
+            }
+            if(command == bookCounter) {
+                options(library, user);
             }
         }
     }
@@ -141,15 +177,17 @@ public class Menu {
     }
 
     private static void addNewBook(Library library, User user) {
-        System.out.println("We will soon have an addBook() method :)");
+        Book newBook = Book.addNewBook();
+        newBook.writeToFile();
+        library = Library.generateMainLibrary();
         options(library, user);
     }
 
     private static void accountInfo(Library library, User user) {
         System.out.println();
-        System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=-=-");
+        System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=");
         System.out.println("| " + ConsoleColors.BLUE + "ACCOUNT INFO" + ConsoleColors.PURPLE + " |");
-        System.out.println("-=-=-=-=-=-=-=-=-=-\n\n" +  ConsoleColors.RESET);
+        System.out.println("-=-=-=-=-=-=-=-=\n\n" +  ConsoleColors.RESET);
         System.out.println("YOUR NAME: " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET);
         System.out.println("USERNAME: " + ConsoleColors.CYAN + user.getUsername() + ConsoleColors.RESET);
         System.out.println("EMAIL ADDRESS: " + ConsoleColors.CYAN + user.getEmail() + ConsoleColors.RESET);
@@ -174,22 +212,36 @@ public class Menu {
     }
 
     private static void bookInteract(Library library, User user, Book book) {
-        System.out.println("Selected book: ");
-        //print the book name here
+        System.out.println("Selected book: " + ConsoleColors.CYAN + book.getBookName() + ConsoleColors.RESET);
         System.out.println();
         System.out.println("Options: ");
         System.out.println("1. Rate");
         System.out.println("2. Leave a review");
-        System.out.println("3. Edit book");
-        System.out.println("4. Go back");
+        System.out.println("3. Add to \"My Library\"");
+        System.out.println("4. Add to \"Favourites\"");
+        System.out.println("5. Edit book");
+        System.out.println("6. Go back");
 
         int input = getInput();
-        while(input < 1 || input > 4) {
-            System.out.println("Type a number between 1-4: ");
+        while(input < 1 || input > 6) {
+            System.out.println("Type a number between 1-6: ");
             input = getInput();
         }
-        if(input == 4) {
-            options(library, user);
+        switch(input) {
+            case 1:
+            case 2:
+                return;
+            case 3:
+                user.addBookToLibrary(book);
+                options(library, user);
+            case 4:
+                user.addBookToFavourites(book);
+                options(library, user);
+            case 5:
+                //editBook(user) method
+                return;
+            case 6:
+                options(library, user);
         }
     }
 

@@ -12,6 +12,7 @@ import java.util.*;
 
 public class User implements IUseFiles {
     public static final String filepath = "library_project/files/users.csv";
+    public static final String root = "library_project/files/";
 
     private final int ID;
     private String username;
@@ -20,7 +21,6 @@ public class User implements IUseFiles {
     private String email;
     private PersonalLibrary personalLibrary;
     private Book[] favouriteBooks;
-    private String libraryFilepath;
     private String favouriteBooksFilepath;
 
     public User(String username, String password, String firstName, String email) {
@@ -29,8 +29,8 @@ public class User implements IUseFiles {
         this.password = password;
         this.firstName = firstName;
         this.email = email;
-        libraryFilepath = "library_project/files/" + username + "/personalLibrary.csv";
-        favouriteBooksFilepath = "library_project/files/" + username + "/favouriteBooks.csv";
+        personalLibrary.setLibraryFilepath("library_project/files/" + username + "PersonalLibrary.csv");
+        favouriteBooksFilepath = "library_project/files/" + username + "FavouriteBooks.csv";
         favouriteBooks = new Book[10];
 
     }
@@ -42,8 +42,9 @@ public class User implements IUseFiles {
         this.firstName = firstName;
         this.email = email;
         personalLibrary = new PersonalLibrary(getAllBooksFromFile());
+        personalLibrary.setLibraryFilepath("library_project/files/" + username + "/personalLibrary.csv");
+        favouriteBooksFilepath = "library_project/files/" + username + "/favouriteBooks.csv";
         favouriteBooks = getUserFavouriteBooks();
-
     }
 
     public void userInfo() {
@@ -84,10 +85,10 @@ public class User implements IUseFiles {
             }
             for(Book book : personalLibrary.getBooks()) {
                 for(String ISBN : favouriteISBNs) {
-//                    if (String.valueOf(book.bookISBN.getISBN()).equals(ISBN)) {
-//                        favouriteBooks[index] = book;
-//                        index++;
-//                    }
+                    if (book.bookISBN.getISBN().equals(ISBN)) {
+                        favouriteBooks[index] = book;
+                        index++;
+                    }
                 }
             }
 
@@ -96,12 +97,23 @@ public class User implements IUseFiles {
         }
 
         catch (FileNotFoundException e) {
-            System.out.println(ConsoleColors.RED + "File not found! Creating it instead..." + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + "Folder not found! Creating it instead..." + ConsoleColors.RESET);
             File file = new File(favouriteBooksFilepath);
-            file.mkdirs();
         }
 
         return favouriteBooks;
+    }
+
+    public void addBookToLibrary(Book book) {
+        Set<Book> books = personalLibrary.getBooks();
+        if(books != null) {
+            if (books.contains(book)) {
+                System.out.println(ConsoleColors.YELLOW + "Book is already in your Library." + ConsoleColors.RESET);
+                return;
+            }
+        }
+        personalLibrary.writeToFile(book);
+        updateInfo();
     }
 
     public void addBookToFavourites(Book book) {
@@ -117,11 +129,15 @@ public class User implements IUseFiles {
         for(int i = 0; i < favouriteBooks.length; i++) {
             if(favouriteBooks[i] == null) {
                 favouriteBooks[i] = book;
-                System.out.println(ConsoleColors.GREEN + "Successfully added book to Favourites!" );
-                System.out.println(book);
-                return;
+                System.out.println("Successfully added " + ConsoleColors.CYAN + book.getBookName() + " to Favourites!" );
             }
         }
+        updateInfo();
+    }
+
+    public void updateInfo() {
+        personalLibrary = new PersonalLibrary(getAllBooksFromFile());
+        favouriteBooks = getUserFavouriteBooks();
     }
 
     private Set<Book> getAllBooksFromFile() {
@@ -129,7 +145,7 @@ public class User implements IUseFiles {
 
         try {
             File booksFile = new File(Book.filepath);
-            File personalLibraryFile = new File(libraryFilepath);
+            File personalLibraryFile = new File(personalLibrary.getLibraryFilepath());
 
             Scanner scan = new Scanner(personalLibraryFile);
             String[] ISBNs = scan.nextLine().split(",");
@@ -154,7 +170,7 @@ public class User implements IUseFiles {
         }
         catch (FileNotFoundException e) {
             System.out.println(ConsoleColors.RED + "File not found! Creating it instead..." + ConsoleColors.RESET);
-            File file = new File(libraryFilepath);
+            File file = new File(personalLibrary.getLibraryFilepath());
             file.mkdirs();
         }
 
@@ -188,8 +204,22 @@ public class User implements IUseFiles {
 
     }
 
-    private void changePassword(String newPassword) {
+    public void changePassword() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Type the new password you'd like to use: ");
 
+        String input = sc.nextLine();
+        updatePassword(input);
+    }
+
+    private void updatePassword(String newPassword) {
+        try {
+            updateFile(filepath, password, newPassword);
+
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Failed to update email - filepath missing" + ConsoleColors.RESET);
+        }
+        password = newPassword;
     }
 
     private void changeName(String newName) {
@@ -265,13 +295,6 @@ public class User implements IUseFiles {
         this.favouriteBooks = favouriteBooks;
     }
 
-    public String getLibraryFilepath() {
-        return libraryFilepath;
-    }
-
-    public void setLibraryFilepath(String libraryFilepath) {
-        this.libraryFilepath = libraryFilepath;
-    }
 
     public String getFavouriteBooksFilepath() {
         return favouriteBooksFilepath;
