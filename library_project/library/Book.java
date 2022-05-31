@@ -6,6 +6,7 @@ import library_project.utils.IUseFiles;
 
 import java.io.*;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Book implements IUseFiles { //TODO encapsulate fields
@@ -90,26 +91,43 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         return resume;
     }
 
-    public static void addNewBook () {
+    public static Book addNewBook() {
         Book bookToAdd = new Book();
 
         System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
-        InputStreamReader in = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(in);
-        try {
-            bookToAdd.name = br.readLine();
-            System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
-            bookToAdd.name = br.readLine();
-            System.out.println(ConsoleColors.YELLOW + "Type book ISBN: " + ConsoleColors.RESET);
-            ISBNnum.setISBNnum();
+        Scanner sc = new Scanner(System.in);
 
-            System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
-            bookToAdd.name = br.readLine();
-        } catch (Exception e) {
-            System.out.println(ConsoleColors.GREEN + "Book " + bookToAdd.name + " is added" + ConsoleColors.RESET);
+        bookToAdd.name = sc.nextLine();
+        System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
+        bookToAdd.author = sc.nextLine();
+        System.out.println(ConsoleColors.YELLOW + "Type book ISBN: " + ConsoleColors.RESET);
+        bookToAdd.bookISBN = ISBNnum.setISBNnum();
+        System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
+        bookToAdd.resume = sc.nextLine();
 
-        }
+        return bookToAdd;
     }
+
+//    public static void addNewBook () {
+//        Book bookToAdd = new Book();
+//
+//        System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
+//        InputStreamReader in = new InputStreamReader(System.in);
+//        BufferedReader br = new BufferedReader(in);
+//        try {
+//            bookToAdd.name = br.readLine();
+//            System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
+//            bookToAdd.name = br.readLine();
+//            System.out.println(ConsoleColors.YELLOW + "Type book ISBN: " + ConsoleColors.RESET);
+//            ISBNnum.setISBNnum();
+//
+//            System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
+//            bookToAdd.name = br.readLine();
+//        } catch (Exception e) {
+//            System.out.println(ConsoleColors.GREEN + "Book " + bookToAdd.name + " is added" + ConsoleColors.RESET);
+//
+//        }
+//    }
 
     @Override
     public void writeToFile() {
@@ -119,7 +137,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println(name + "|" + author + "|" + bookISBN  + "|" + resume);
+            pw.println(name + "," + author + "," + bookISBN  + "," + resume.replaceAll(",", "/"));
             pw.flush();
             pw.close();
 
@@ -130,6 +148,24 @@ public class Book implements IUseFiles { //TODO encapsulate fields
 
         }
     }
+//    public void writeToFile() {
+//        try {
+//
+//            FileWriter fw = new FileWriter(filepath, true);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            PrintWriter pw = new PrintWriter(bw);
+//
+//            pw.println(name + "|" + author + "|" + bookISBN  + "|" + resume);
+//            pw.flush();
+//            pw.close();
+//
+//            System.out.println(ConsoleColors.GREEN + "Successfully uploaded book! " + getBookName() + ConsoleColors.RESET);
+//        }
+//        catch (IOException e) {
+//            System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
+//
+//        }
+//    }
 
     @Override
     public void editFile() {
