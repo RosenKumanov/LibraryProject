@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu">
-      <change beforePath="$PROJECT_DIR$/.idea/LibraryProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LibraryProject.iml" afterDir="false" />
+    <list default="true" id="5fbe3b2e-ddcb-48aa-a307-cb9112cd66c1" name="Default Changelist" comment="ISBN set method updates;&#10;Book class new method &quot;add book&quot;">
       <change beforePath="$PROJECT_DIR$/library_project/demo/DemoClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/demo/DemoClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/files/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/library/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/library/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Library.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/library/PersonalLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/PersonalLibrary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/users/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/utils/IUseFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/IUseFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/utils/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/.idea/LibraryProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/.idea/LibraryProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/PersonalLibrary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/PersonalLibrary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/Users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/IUseFiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/IUseFiles.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +12,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
+    <option name="BRANCH" value="main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -49,13 +28,15 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
-  <component name="ProjectId" id="29cQZzGmTWMK4dEUprM1weee6Kf" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="29cS5Do3VcbQnyGU8Vd7rQmVvhp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -63,18 +44,14 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/commons-lang3-3.12.0" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\buiik\IdeaProjects\LibraryProject\testing_package\files" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="testing_package" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DemoClass (1)">
-    <configuration name="DemoClass (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="DemoClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="library_project.demo.DemoClass" />
       <module name="LibraryProject" />
       <extension name="coverage">
@@ -87,151 +64,54 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DemoClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="demo.DemoClass" />
-      <module name="LibraryProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DemoClass (1)" />
         <item itemvalue="Application.DemoClass" />
-        <item itemvalue="Application.DemoClass (1)" />
         <item itemvalue="Application.DemoClass" />
-        <item itemvalue="Application.DemoClass (1)" />
+        <item itemvalue="Application.DemoClass" />
+        <item itemvalue="Application.DemoClass" />
+        <item itemvalue="Application.DemoClass" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="" />
-      <created>1653409954201</created>
+      <changelist id="5fbe3b2e-ddcb-48aa-a307-cb9112cd66c1" name="Default Changelist" comment="" />
+      <created>1653410698509</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1653409954201</updated>
+      <updated>1653410698509</updated>
     </task>
-    <task id="LOCAL-00001" summary="First commit ever">
-      <created>1653410169458</created>
+    <task id="LOCAL-00001" summary="Added interface IUseFiles;&#10;Class Review is described and constructor and methods are added;&#10;Class Book is described and constructor and methods are added;">
+      <created>1653584737626</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1653410169458</updated>
+      <updated>1653584737626</updated>
     </task>
-    <task id="LOCAL-00002" summary="Added String variable">
-      <created>1653410905073</created>
+    <task id="LOCAL-00002" summary="Implements IUse file in Review;&#10;Adds method addRating in Review;&#10;Method writeToFile body added in Review;&#10;Encapsulated book fields;">
+      <created>1653675560185</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1653410905073</updated>
+      <updated>1653675560186</updated>
     </task>
-    <task id="LOCAL-00003" summary="Added Review Class">
-      <created>1653412244877</created>
+    <task id="LOCAL-00003" summary="ISB class is added;&#10;Book class has new methods&#10;Review class is edited to include book review from current user">
+      <created>1653847499395</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1653412244878</updated>
+      <updated>1653847499395</updated>
     </task>
-    <task id="LOCAL-00004" summary="Added registration form &#10;Added getting all registered users &#10;Added ConsoleColors utils &#10;Added Users class for static functions&#10;&#10;Adding all unversioned files">
-      <created>1653486049744</created>
+    <task id="LOCAL-00004" summary="ISBN set method updates;&#10;Book class new method &quot;add book&quot;">
+      <created>1653924988685</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1653486049744</updated>
+      <updated>1653924988685</updated>
     </task>
-    <task id="LOCAL-00005" summary="Added registration form &#10;Added getting all registered users &#10;Added ConsoleColors utils &#10;Added Users class for static functions&#10;&#10;Adding all unversioned files">
-      <created>1653486081396</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1653486081396</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Added registration form &#10;Added getting all registered users &#10;Added ConsoleColors utils &#10;Added Users class for static functions&#10;&#10;Adding all unversioned files">
-      <created>1653486278647</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1653486278647</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Added registration form &#10;Added getting all registered users &#10;Added ConsoleColors utils &#10;Added Users class for static functions&#10;&#10;Adding all unversioned files">
-      <created>1653492225661</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1653492225661</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Registration form now checks for existing user/email&#10;Login form added &#10;Library and PersonalLibrary added with addBook() and removeBook()">
-      <created>1653564266542</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1653564266542</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Registration form now checks for existing user/email&#10;Login form added &#10;Library and PersonalLibrary added with addBook() and removeBook()">
-      <created>1653564339935</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1653564339935</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Registration form now checks for existing user/email&#10;Login form added &#10;Library and PersonalLibrary added with addBook() and removeBook()&#10;Added Menu class">
-      <created>1653582640907</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1653582640907</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Added ExploreBooks() in Menu and getInput() functions &#10;Added showAllBooks() and getAllBooksFromFile() in Library">
-      <created>1653676301293</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1653676301293</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Added ExploreBooks() in Menu and getInput() functions &#10;Added showAllBooks() and getAllBooksFromFile() in Library">
-      <created>1653676475638</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1653676475638</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Added more options in the Menu class">
-      <created>1653813915809</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1653813915809</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Added more options in the Menu class">
-      <created>1653813954817</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1653813954817</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu">
-      <created>1653845153432</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1653845153432</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu">
-      <created>1653846213730</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1653846213730</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -244,17 +124,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First commit ever" />
-    <MESSAGE value="Added String variable" />
-    <MESSAGE value="Added Review Class" />
-    <MESSAGE value="Added registration form &#10;Added getting all registered users &#10;Added ConsoleColors utils &#10;Added Users class for static functions&#10;&#10;Adding all unversioned files" />
-    <MESSAGE value="Registration form now checks for existing user/email&#10;Login form added &#10;Library and PersonalLibrary added with addBook() and removeBook()" />
-    <MESSAGE value="Registration form now checks for existing user/email&#10;Login form added &#10;Library and PersonalLibrary added with addBook() and removeBook()&#10;Added Menu class" />
-    <MESSAGE value="Added ExploreBooks() in Menu and getInput() functions &#10;Added showAllBooks() and getAllBooksFromFile() in Library" />
-    <MESSAGE value="Added more options in the Menu class" />
-    <MESSAGE value="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu" />
+    <MESSAGE value="Added interface IUseFiles;&#10;Class Review is described and constructor and methods are added;&#10;Class Book is described and constructor and methods are added;" />
+    <MESSAGE value="Implements IUse file in Review;&#10;Adds method addRating in Review;&#10;Method writeToFile body added in Review;&#10;Encapsulated book fields;" />
+    <MESSAGE value="current push" />
+    <MESSAGE value="ISB class is added;&#10;Book class has new methods&#10;Review class is edited to include book review from current user" />
+    <MESSAGE value="ISBN set method updates;&#10;Book class new method &quot;add book&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="ISBN set method updates;&#10;Book class new method &quot;add book&quot;" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/library_project/demo/DemoClass.java</url>
+          <line>10</line>
+          <properties class="library_project.demo.DemoClass" method="main">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
