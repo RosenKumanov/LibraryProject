@@ -11,7 +11,10 @@ import java.util.Set;
 public class Library {
     protected Set<Book> books;
 
-    //TODO move getAllBooks() to a separate function, as default constructor should not fetch all books
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+//TODO move getAllBooks() to a separate function, as default constructor should not fetch all books
 
     public Library() {
 
@@ -40,7 +43,7 @@ public class Library {
                 String[] bookFields = sc.nextLine().split(",");
                 //TODO create a function to get all reviews from file
                 Set<Review> reviews = new HashSet<>();
-                if(bookFields.length == 4) {
+                if(bookFields.length < 6) {
                     Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","));
                     allBooks.add(book);
                 }
@@ -57,15 +60,6 @@ public class Library {
 
         return allBooks;
     }
-
-
-    public void addBook(Book book) {
-            System.out.println("Successfully added.");
-            books.add(book);
-    }
-
-
-
 
     public Set<Book> getBooks() {
         return books;

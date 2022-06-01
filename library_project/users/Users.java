@@ -4,7 +4,6 @@ import library_project.utils.ConsoleColors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -37,9 +36,9 @@ public class Users {
         assert allUsers != null;
         for(User user : allUsers) {
             if(user.getUsername().equalsIgnoreCase(inputUsername)) {
-                if(inputPassword.equals(String.valueOf(user.getPassword()))) {
-                    System.out.println(ConsoleColors.GREEN + "\nYou have logged in successfully!\n" + ConsoleColors.RESET);
-                    System.out.println("      Welcome, " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET + "!");
+                if(User.encryptPassword(inputPassword).equals(String.valueOf(user.getPassword()))) {
+                    System.out.println(ConsoleColors.GREEN + "\n       You have logged in successfully!\n" + ConsoleColors.RESET);
+                    System.out.println("              Welcome, " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET + "!");
                     return user;
                 }
                 else {
@@ -83,14 +82,14 @@ public class Users {
         newUser.writeToFile();
     }
 
-    //TODO add data validation; check existing users for the same username and password
     private static User registrationForm() {
         Scanner sc = new Scanner(System.in);
 
         Set<User> allUsers = Users.getExistingUsersFromFile();
 
-        System.out.println("REGISTRATION");
-        System.out.println("---------------------------");
+        System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=-");
+        System.out.println("| " + ConsoleColors.BLUE + "REGISTRATION" + ConsoleColors.PURPLE + " |");
+        System.out.println("-=-=-=-=-=-=-=-=-" + ConsoleColors.RESET);
 
         System.out.println("Type your First name: ");
         String name = sc.nextLine();
@@ -109,6 +108,15 @@ public class Users {
         System.out.println("Type your desired password: ");
         String password = sc.nextLine();
 
+        while(isPasswordWeak(password)) {
+            System.out.println(ConsoleColors.YELLOW + "You need to include at least 3 of the following: \n" + ConsoleColors.RESET);
+            System.out.println("1. Lower case letters");
+            System.out.println("2. Upper case letters");
+            System.out.println("3. Numbers");
+            System.out.println("4. Symbols");
+            password = sc.nextLine();
+        }
+
         System.out.println("Type your email address: ");
         String email = sc.nextLine();
 
@@ -119,6 +127,38 @@ public class Users {
             }
         }
         return new User(username, password, name, email);
+    }
+
+    public static boolean isPasswordWeak(String password) {
+        char[] pass = password.toCharArray();
+        if(pass.length < 8) {
+            return true;
+        }
+        boolean lowerCase = false;
+        boolean nums = false;
+        boolean symbols = false;
+        boolean upperCase = false;
+        for (char c : pass) {
+            if (c > 47 && c < 58) {
+                nums = true;
+            } else if (c > 96 && c < 123) {
+                lowerCase = true;
+            } else if (c > 64 && c < 91) {
+                upperCase = true;
+            } else {
+                symbols = true;
+            }
+        }
+        if(lowerCase && nums && symbols && upperCase) {
+            return false;
+        }
+        else if(lowerCase && nums && upperCase) {
+            return false;
+        }
+        else if(lowerCase && nums && symbols) {
+            return false;
+        }
+        else return !lowerCase || !symbols || !upperCase;
     }
 
 }

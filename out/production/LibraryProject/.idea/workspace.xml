@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="Added even more pages in Menu()&#10;Added editFile() function in IUseFiles interface&#10;Added changeEmail() functions in User">
+    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function">
+      <change beforePath="$PROJECT_DIR$/library_project/demo/DemoClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/demo/DemoClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/files/books.csv" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/files/books.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/files/divinecomedy/personalLibrary.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/files/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/library/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/library/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/library/PersonalLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/PersonalLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/library/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/users/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/utils/IUseFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/IUseFiles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library_project/utils/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/books.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/books.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/divinecomedy/personalLibrary.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/ISBNnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/ISBNnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/PersonalLibrary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/PersonalLibrary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/Users.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/IUseFiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/IUseFiles.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -23,7 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="ChangePasswordFunction&amp;MoreMenuPages" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -217,7 +242,28 @@
       <option name="project" value="LOCAL" />
       <updated>1653923815163</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function">
+      <created>1654005913932</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1654005913932</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function">
+      <created>1654005936582</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1654005936582</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function">
+      <created>1654005988161</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1654005988161</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -242,6 +288,17 @@
     <MESSAGE value="Added more options in the Menu class" />
     <MESSAGE value="Added getAllBooksFromFile() for personalLibrary and favouriteBooks &#10;Added more options in Menu" />
     <MESSAGE value="Added even more pages in Menu()&#10;Added editFile() function in IUseFiles interface&#10;Added changeEmail() functions in User" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added even more pages in Menu()&#10;Added editFile() function in IUseFiles interface&#10;Added changeEmail() functions in User" />
+    <MESSAGE value="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added even more pages in Menu()&#10;added ChangePassword() function&#10;added bookInteract() function" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="9" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

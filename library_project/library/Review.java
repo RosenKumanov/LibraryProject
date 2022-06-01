@@ -87,9 +87,6 @@ public class Review implements IUseFiles {
         }
     }
 
-    @Override
-    public void editFile() {
-        // TODO A user can edit its own comments!
-    }
+
 
 }

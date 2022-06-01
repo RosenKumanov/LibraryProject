@@ -4,9 +4,6 @@ import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public class PersonalLibrary extends Library implements IUseFiles {
@@ -15,6 +12,10 @@ public class PersonalLibrary extends Library implements IUseFiles {
 
     public PersonalLibrary(Set<Book> books) {
         super(books);
+    }
+
+    public PersonalLibrary(String filepath) {
+        libraryFilepath = filepath;
     }
 
 
@@ -29,11 +30,14 @@ public class PersonalLibrary extends Library implements IUseFiles {
             pw.flush();
             pw.close();
 
-            System.out.println(ConsoleColors.GREEN + "Successfully added " + ConsoleColors.CYAN + bookToAdd.getBookName() + " to My Library!\n" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Successfully added " + ConsoleColors.CYAN + bookToAdd.getBookName() + ConsoleColors.GREEN + " to My Library!\n" + ConsoleColors.RESET);
         }
 
-        catch (
-    IOException e) {
+        catch (NullPointerException e) {
+            System.out.println("Something is wrong/Null pointer");
+        }
+
+        catch (IOException e) {
         System.out.println(ConsoleColors.RED + "Failed to add " + ConsoleColors.CYAN + bookToAdd.getBookName() + " to file!\n" + ConsoleColors.RESET);
     }
 
@@ -48,10 +52,7 @@ public class PersonalLibrary extends Library implements IUseFiles {
 
     }
 
-    @Override
-    public void editFile() {
 
-    }
 
     public String getLibraryFilepath() {
         return libraryFilepath;

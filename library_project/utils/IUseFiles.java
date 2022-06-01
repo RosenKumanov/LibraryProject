@@ -7,7 +7,6 @@ import java.util.Scanner;
 public interface IUseFiles {
 
     void writeToFile();
-    void editFile();
 
     default void updateFile(String fileToUpdate, String old, String replace) throws IOException {
         File oldFile = new File(fileToUpdate);

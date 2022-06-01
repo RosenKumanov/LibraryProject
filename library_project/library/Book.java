@@ -150,7 +150,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println( name + "," + author + "," + bookISBN  + "," + resume.replaceAll(",", "/") + "," + bookOwner);
+            pw.println( name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",", "/") + "," + bookOwner);
             pw.flush();
             pw.close();
 
@@ -160,6 +160,8 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                             ConsoleColors.GREEN + "ISBN: " + ConsoleColors.CYAN + bookISBN.getISBN() + '\n' +
                             ConsoleColors.GREEN + "Resume: " + ConsoleColors.CYAN + resume
                     );
+
+            System.out.println(ConsoleColors.RESET);
         }
         catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
@@ -167,9 +169,6 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         }
     }
 
-    @Override
-    public void editFile() {
 
-    }
 
 }
