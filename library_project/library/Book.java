@@ -20,16 +20,24 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     private String resume;
     double averageRating;
     public library_project.library.ISBNnum bookISBN;
+    private String bookOwner;
+    private DecimalFormat df = new DecimalFormat("x.x");
+    private Set<library_project.library.Review> bookReviews;
+
+
 
     public Book() {
     }
 
-    DecimalFormat df = new DecimalFormat("x.x");
-    User bookOwner;
+    public Book(String name, String author, ISBNnum bookISBN, String resume, String user) {
+        this.name = name;
+        this.author = author;
+        this.bookISBN = bookISBN;
+        this.resume = resume;
+        this.bookOwner = user;
+    }
 
-    Set<library_project.library.Review> bookReviews;
-
-    public Book(String name, String author, library_project.library.ISBNnum bookISBN, String resume) {
+    public Book(String name, String author, ISBNnum bookISBN, String resume) {
         this.name = name;
         this.author = author;
         this.bookISBN = bookISBN;
@@ -61,14 +69,42 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         System.out.println("The Rating of this book is: " + averageRating);
     }
 
-    public void editBook() throws IOException { //TODO
-        // if user is bookowner
-        editBookOptions();
-        //else
-        System.out.println("Only the Book Owner can Edit a book!");
-
+    public void editBook(String username) { //TODO
+        try {
+            if (bookOwner.equalsIgnoreCase(username)) {
+                editBookOptions();
+            }
+            else {
+                System.out.println("Only the Book Owner can Edit a book!");
+            }
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Something went wrong - IO exception");
+        }
 
     }
+
+    private static int getInput() {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+
+        while(true) {
+            if(input.isEmpty()) {
+                System.out.println("You need to type something!");
+                input = sc.nextLine();
+                continue;
+            }
+            try {
+                return Integer.parseInt(input);
+            }
+            catch (NumberFormatException e) {
+                System.out.println("You need to type a number!");
+                input = sc.nextLine();
+            }
+
+        }
+
+    }
+
     private void editBookOptions () throws IOException {
         System.out.println("---------");
         System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET +
@@ -77,19 +113,28 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 "3. Edit Book ISBN" + '\n' +
                 "4. Edit Book resume" + '\n' +
                 "5. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
-        int command = Integer.parseInt(scan.nextLine());
-        String editedItem = scan.nextLine();
+        int command = getInput();
+
+
         switch (command) {
             case 1:
+                System.out.println("Type the new book name: ");
+                String editedItem = scan.nextLine();
                 updateFile(filepath,name,editedItem);
                 break;
             case 2:
+                System.out.println("Type the new book author: ");
+                editedItem = scan.nextLine();
                 updateFile(filepath,author,editedItem);
                 break;
             case 3:
-                updateFile(filepath, library_project.library.ISBNnum.setISBNnum().getISBN(),editedItem);
+                System.out.println("Type the new book ISBN: ");
+                editedItem = scan.nextLine();
+                updateFile(filepath, ISBNnum.setISBNnum().getISBN(),editedItem);
                 break;
             case 4:
+                System.out.println("Type the new book resume: ");
+                editedItem = scan.nextLine();
                 updateFile(filepath,resume,editedItem.replaceAll(",", "/"));
                 break;
             case 5:
@@ -99,7 +144,6 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 editBookOptions();
         }
     }
-
 
     public Set<library_project.library.Review> showAllReviews() {
         bookReviews = new HashSet<>();
@@ -143,10 +187,10 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     }
 
     public String getResume() {
-        return showResume();
+        return resume;
     }
 
-    public static Book addNewBook () {
+    public static Book addNewBook (String user) {
         Book bookToAdd = new Book();
         try {
             System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
@@ -163,7 +207,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
 
             bookToAdd.resume = br.readLine();
 
-            //bookToAdd.bookOwner.getUsername();
+            bookToAdd.setBookOwner(user);
 
         } catch (Exception e) {
             InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
@@ -174,7 +218,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.YELLOW_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 int command = Integer.parseInt(br.readLine());
                 if (command == 1) {
-                    Book.addNewBook();
+                    Book.addNewBook(user);
                 } else if (command == 2) {
                     //to exit to the main menu
                     System.out.println('\n' + "Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
@@ -204,7 +248,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println( name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",","/") );
+            pw.println( name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",","/") + "," + bookOwner);
             pw.flush();
             pw.close();
 
@@ -212,10 +256,9 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                     "Book: " + ConsoleColors.CYAN + name + '\n' + ConsoleColors.RESET +
                     "Author: " + ConsoleColors.CYAN + author + '\n' +  ConsoleColors.RESET +
                     "ISBN: " + ConsoleColors.CYAN + bookISBN.getISBN() + '\n' + ConsoleColors.RESET +
-                    "Resume: " + ConsoleColors.BLACK + getResume() + '\n' + ConsoleColors.RESET +
-                    //"Book owned by: " + ConsoleColors.BLUE + bookOwner.getUsername() + ConsoleColors.RESET +
-                    '\n'
+                    "Resume: " + '\n'
             );
+            showResume();
         }
         catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
@@ -224,12 +267,11 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         }
     }
 
-    public User setBookOwner () {
-
-        return bookOwner;
+    public void setBookOwner(String bookOwner) {
+        this.bookOwner = bookOwner;
     }
 
-    public String showResume () {
+    public void showResume () {
         String [] text = resume.split(" ");
         int counter = 0;
         for (String word : text) {
@@ -240,7 +282,6 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 counter = 0;
             }
         }
-        return Arrays.toString(text);
     }
 
 }

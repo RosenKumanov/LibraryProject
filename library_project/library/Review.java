@@ -27,7 +27,7 @@ public class Review implements IUseFiles {
     }
 
     public Review(int ratingByCurrentUser, String commentByCurrentUser) {
-        //this.currentUserID = currentUserID;
+        // this.currentUserID = currentUserID;
         // this.currentBookISBN = currentBookISBN;
         this.ratingByCurrentUser = ratingByCurrentUser;
         this.commentByCurrentUser = commentByCurrentUser;

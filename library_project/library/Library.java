@@ -33,6 +33,7 @@ public class Library {
         }
     }
 
+    //TODO add an option to get books with and without owners
     private static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
         File booksFile = new File(Book.filepath);
@@ -43,8 +44,12 @@ public class Library {
                 String[] bookFields = sc.nextLine().split(",");
                 //TODO create a function to get all reviews from file
                 Set<Review> reviews = new HashSet<>();
-                if(bookFields.length < 6) {
+                if(bookFields.length == 4) {
                     Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","));
+                    allBooks.add(book);
+                }
+                else if(bookFields.length == 5) {
+                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), bookFields[4]);
                     allBooks.add(book);
                 }
                 else {

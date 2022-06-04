@@ -11,7 +11,6 @@ import java.util.*;
 
 public class User implements IUseFiles {
     public static final String filepath = "library_project/files/users.csv";
-    public static final String root = "library_project/files/";
 
     private final int ID;
     private String username;
@@ -140,7 +139,6 @@ public class User implements IUseFiles {
         updateInfo();
     }
 
-    //TODO fix function to read properly from the book file; make another function for adding favouriteBook
     private Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
 
@@ -356,8 +354,6 @@ public class User implements IUseFiles {
         }
 
     }
-
-    //TODO set specific exception
 
     public void writeToFile() {
         try {
