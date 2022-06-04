@@ -15,22 +15,22 @@ public class Review implements IUseFiles {
     protected int ratingByCurrentUser;
     private static String commentByCurrentUser;
 
-    User currentUserID;
-    library_project.library.ISBNnum currentBookISBN;
-    library_project.library.Book currentBook;
+    private String currentUserID;
+    private ISBNnum currentBookISBN;
+    private Book currentBook;
 
     public Review() {
     }
 
-    public int getRatingByCurrentUser() {
-        return ratingByCurrentUser;
-    }
-
-    public Review(int ratingByCurrentUser, String commentByCurrentUser) {
+    public Review(String currentUserID, ISBNnum currentBookISBN, int ratingByCurrentUser, String commentByCurrentUser) {
         // this.currentUserID = currentUserID;
         // this.currentBookISBN = currentBookISBN;
         this.ratingByCurrentUser = ratingByCurrentUser;
         this.commentByCurrentUser = commentByCurrentUser;
+    }
+
+    public int getRatingByCurrentUser() {
+        return ratingByCurrentUser;
     }
 
     public static Comparable<String> addComments () {
@@ -65,10 +65,13 @@ public class Review implements IUseFiles {
         }
     }
 
-    public static void addRating () {
+    public void setCurrentUserID(String currentUserID) {
+        this.currentUserID = currentUserID;
+    }
+
+    public static void addRating (User user) {
         System.out.println("You can rate this book with a grade from 0 to 5. Please vote!");
-        Review review = new Review();
-        review.setRatingByCurrentUser();
+        //review.setRatingByCurrentUser();
     }
 
     @Override
@@ -87,7 +90,7 @@ public class Review implements IUseFiles {
             System.out.println(ratingByCurrentUser + '\n' + commentByCurrentUser);
         }
         catch (IOException e) {
-            System.out.println( ConsoleColors.BLUE_BOLD + currentUserID.getUsername() + ConsoleColors.RED + ", you failed to add a comment!" + ConsoleColors.RESET);
+            //System.out.println( ConsoleColors.BLUE_BOLD + currentUserID.getUsername() + ConsoleColors.RED + ", you failed to add a comment!" + ConsoleColors.RESET);
 
         }
     }
