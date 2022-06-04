@@ -26,7 +26,11 @@ public interface IUseFiles {
                         break;
                     }
                 }
-                pw.println(fields[0] + "," + fields[1] + "," + fields[2] + "," + fields[3] + "," + fields[4]);
+                for(int i = 0; i < fields.length - 1; i++) {
+                    pw.print(fields[i] + ",");
+                }
+                pw.print(fields[fields.length - 1]);
+                pw.println();
             }
             scan.close();
             pw.flush();
