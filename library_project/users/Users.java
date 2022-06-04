@@ -37,7 +37,7 @@ public class Users {
         for(User user : allUsers) {
             if(user.getUsername().equalsIgnoreCase(inputUsername)) {
                 if(User.encryptPassword(inputPassword).equals(String.valueOf(user.getPassword()))) {
-                    System.out.println(ConsoleColors.GREEN + "\n       You have logged in successfully!\n" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN + "\n      You have logged in successfully!\n" + ConsoleColors.RESET);
                     System.out.println("              Welcome, " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET + "!");
                     return user;
                 }
@@ -97,36 +97,39 @@ public class Users {
         System.out.println("Type your desired username: ");
         String username = sc.nextLine();
 
-        assert allUsers != null;
-        for(User user : allUsers) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
-                System.out.println(ConsoleColors.YELLOW + "Username " + username + " already exists!" + ConsoleColors.RESET);
-                return null;
+        if (allUsers != null) {
+            for (User user : allUsers) {
+                if (user.getUsername().equalsIgnoreCase(username)) {
+                    System.out.println(ConsoleColors.YELLOW + "Username " + username + " already exists!" + ConsoleColors.RESET);
+                    return null;
+                }
             }
         }
 
         System.out.println("Type your desired password: ");
         String password = sc.nextLine();
 
-        while(isPasswordWeak(password)) {
-            System.out.println(ConsoleColors.YELLOW + "You need to include at least 3 of the following: \n" + ConsoleColors.RESET);
+        while (isPasswordWeak(password)) {
+            System.out.println(ConsoleColors.YELLOW + "Your password must be at least 8 characters and it needs to include at least 3 of the following: \n" + ConsoleColors.RESET);
             System.out.println("1. Lower case letters");
             System.out.println("2. Upper case letters");
             System.out.println("3. Numbers");
-            System.out.println("4. Symbols");
+            System.out.println("4. Symbols\n");
             password = sc.nextLine();
         }
 
         System.out.println("Type your email address: ");
         String email = sc.nextLine();
 
-        for(User user : allUsers) {
-            if(user.getEmail().equalsIgnoreCase(email)) {
-                System.out.println(ConsoleColors.YELLOW + "Email address " + email + " already exists!" + ConsoleColors.RESET);
-                return null;
+        if (allUsers != null) {
+            for (User user : allUsers) {
+                if (user.getEmail().equalsIgnoreCase(email)) {
+                    System.out.println(ConsoleColors.YELLOW + "Email address " + email + " already exists!" + ConsoleColors.RESET);
+                    return null;
+                }
             }
         }
-        return new User(username, password, name, email);
+            return new User(username, password, name, email);
     }
 
     public static boolean isPasswordWeak(String password) {
