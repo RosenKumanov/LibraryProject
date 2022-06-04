@@ -76,10 +76,15 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             }
             else {
                 System.out.println("Only the Book Owner can Edit a book!");
+                return;
             }
         } catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Something went wrong - IO exception");
+            return;
         }
+
+        System.out.println(ConsoleColors.GREEN + "\nSuccessfully updated book!\n" + ConsoleColors.RESET);
+
 
     }
 
@@ -114,7 +119,10 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 "4. Edit Book resume" + '\n' +
                 "5. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
         int command = getInput();
-
+        while(command < 1 || command > 5) {
+            System.out.println(ConsoleColors.YELLOW + "You need to type a number between 1-5: ");
+            command = getInput();
+        }
 
         switch (command) {
             case 1:
@@ -128,9 +136,8 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 updateFile(filepath,author,editedItem);
                 break;
             case 3:
-                System.out.println("Type the new book ISBN: ");
-                editedItem = scan.nextLine();
-                updateFile(filepath, ISBNnum.setISBNnum().getISBN(),editedItem);
+                ISBNnum newISBN = ISBNnum.setISBNnum();
+                updateFile(filepath, bookISBN.getISBN(),newISBN.getISBN());
                 break;
             case 4:
                 System.out.println("Type the new book resume: ");
@@ -143,6 +150,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 System.out.println(ConsoleColors.RED_BOLD + "Wrong Input");
                 editBookOptions();
         }
+
     }
 
     public Set<library_project.library.Review> showAllReviews() {
@@ -256,9 +264,10 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                     "Book: " + ConsoleColors.CYAN + name + '\n' + ConsoleColors.RESET +
                     "Author: " + ConsoleColors.CYAN + author + '\n' +  ConsoleColors.RESET +
                     "ISBN: " + ConsoleColors.CYAN + bookISBN.getISBN() + '\n' + ConsoleColors.RESET +
-                    "Resume: " + '\n'
-            );
+                    "Resume: ");
+            System.out.print(ConsoleColors.CYAN);
             showResume();
+            System.out.println(ConsoleColors.RESET);
         }
         catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);

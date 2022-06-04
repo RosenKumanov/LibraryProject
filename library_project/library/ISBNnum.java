@@ -129,7 +129,7 @@ public class ISBNnum {
                 System.out.println('\n' + "( Book ISBN " + ConsoleColors.YELLOW_UNDERLINED + ISBN + ConsoleColors.RESET +" is valid! )" + '\n');
             } else {
                 System.out.println('\n' + ConsoleColors.YELLOW_UNDERLINED + ISBN + ConsoleColors.RED_BOLD + " is not valid!" + ConsoleColors.RESET);
-                ISBNnum.optionsISBNinput();
+
             }
         } catch (Exception e) {
             System.out.println( '\n' + ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET + '\n');
