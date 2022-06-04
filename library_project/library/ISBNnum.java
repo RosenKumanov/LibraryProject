@@ -2,9 +2,7 @@ package library_project.library;
 
 import library_project.utils.ConsoleColors;
 import library_project.utils.Menu;
-import library_project.utils.Utils;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -128,43 +126,40 @@ public class ISBNnum {
             ISBN = br.readLine();
 
             if (isISBN(ISBN)) {
-                System.out.println("Book IBSN: " + ISBN);
+                System.out.println('\n' + "( Book ISBN " + ConsoleColors.YELLOW_UNDERLINED + ISBN + ConsoleColors.RESET +" is valid! )" + '\n');
             } else {
-                System.out.println(ConsoleColors.RED + ISBN + " is not valid!" + ConsoleColors.RESET);
-                ISBNnum.options();
+                System.out.println('\n' + ConsoleColors.YELLOW_UNDERLINED + ISBN + ConsoleColors.RED_BOLD + " is not valid!" + ConsoleColors.RESET);
+                ISBNnum.optionsISBNinput();
             }
         } catch (Exception e) {
-            System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
-            ISBNnum.options();
+            System.out.println( '\n' + ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET + '\n');
+            ISBNnum.optionsISBNinput();
 
         }
         return new library_project.library.ISBNnum(ISBN);
     }
 
-    protected static void options() {
+    protected static void optionsISBNinput() {
         InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
         BufferedReader br = new BufferedReader(in);
         try {
             System.out.println("---------");
-            System.out.println("Options:" + "\n" + "1. Try again           " + "2. Exit");
+            System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
             int command = Integer.parseInt(br.readLine());
             if (command == 1) {
                 ISBNnum.setISBNnum();
             } else if (command == 2) {
                 //to exit to the main menu
-                System.out.println("Exiting to the main menu...");
-                Menu.start();
+                System.out.println("Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
+                Menu.start(); // TODO can we have "Menu.options();" here?
             } else {
-                System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
-                ISBNnum.options();
+                System.out.println(ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET);
+                ISBNnum.optionsISBNinput();
             }
         } catch (IOException e2){
-                System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
-                ISBNnum.options();
-            }
-
+            System.out.println(ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET);
+            ISBNnum.optionsISBNinput();
         }
+
     }
-
-
-
+}

@@ -5,11 +5,7 @@ import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 
 import java.io.*;
-import java.util.List;
 import java.util.Scanner;
-import java.util.SortedMap;
-
-import static library_project.users.User.filepath;
 
 public class Review implements IUseFiles {
 
@@ -17,54 +13,62 @@ public class Review implements IUseFiles {
 
     Scanner scan = new Scanner(System.in);
     protected int ratingByCurrentUser;
-    private String commentByCurrentUser;
+    private static String commentByCurrentUser;
 
-    User currentUser;
+    User currentUserID;
+    library_project.library.ISBNnum currentBookISBN;
     library_project.library.Book currentBook;
 
-    public Review(int ratingByCurrentUser, String commentByCurrentUser) {
-        this.ratingByCurrentUser = ratingByCurrentUser;
-        this.commentByCurrentUser = commentByCurrentUser;
+    public Review() {
     }
 
     public int getRatingByCurrentUser() {
         return ratingByCurrentUser;
     }
 
-    public String getCommentByCurrentUser() {
-        return commentByCurrentUser;
+    public Review(int ratingByCurrentUser, String commentByCurrentUser) {
+        //this.currentUserID = currentUserID;
+        // this.currentBookISBN = currentBookISBN;
+        this.ratingByCurrentUser = ratingByCurrentUser;
+        this.commentByCurrentUser = commentByCurrentUser;
     }
 
-    public String addComments () {
+    public static Comparable<String> addComments () {
         System.out.println(ConsoleColors.YELLOW + "You can add your comment for this book here: " + ConsoleColors.RESET);
         InputStreamReader in = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(in);
         try {
-            commentByCurrentUser = new String(br.readLine());
+            commentByCurrentUser = br.readLine().replaceAll("," , "/");
         } catch (IOException e) {
-            System.out.println("You failed to add a comment!");;
+            System.out.println("You failed to add a comment!");
         }
         System.out.println("Thank you for commenting!");
         return commentByCurrentUser;
     }
 
-    public static void addRating () {
-        int ratingByCurrentUser = 0;
-
+    public void setRatingByCurrentUser() {
+        this.ratingByCurrentUser = ratingByCurrentUser;
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(in);
         try {
-            InputStreamReader in = new InputStreamReader(System.in);
-            BufferedReader br = new BufferedReader(in);
-            System.out.println("You can rate this book with a grade from 0 to 5. Please vote!");
-            //store user entered value into variable num
-            ratingByCurrentUser = Integer.parseInt(br.readLine());
+            int ratingByCurrentUser = Integer.parseInt(br.readLine());
+
             if (ratingByCurrentUser < 0 || ratingByCurrentUser > 5) {
                 System.out.println("Please, enter a number from 0 to 5!");
+                setRatingByCurrentUser();
             } else {
-                System.out.println(ConsoleColors.GREEN + "You rated this book with " +ConsoleColors.BLUE +ratingByCurrentUser + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.GREEN + "You rated this book with " + ConsoleColors.BLUE + ratingByCurrentUser + ConsoleColors.RESET);
             }
-        } catch (Exception e) {
-            System.out.println(ConsoleColors.RED + "Please, enter a number from 0 to 5!" + ConsoleColors.RESET);
+        } catch (IOException e) {
+            System.out.println("wrong");
+            setRatingByCurrentUser();
         }
+    }
+
+    public static void addRating () {
+        System.out.println("You can rate this book with a grade from 0 to 5. Please vote!");
+        Review review = new Review();
+        review.setRatingByCurrentUser();
     }
 
     @Override
@@ -75,18 +79,17 @@ public class Review implements IUseFiles {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println(ratingByCurrentUser + "|" + commentByCurrentUser);
+            pw.println( ratingByCurrentUser + "," + commentByCurrentUser);
             pw.flush();
             pw.close();
 
-            System.out.println(ConsoleColors.GREEN + "Successfully added comment! " + currentUser.getUsername() + ", thank you, for your review!" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Successfully added comment! Thank you, for your review!" + ConsoleColors.RESET);
+            System.out.println(ratingByCurrentUser + '\n' + commentByCurrentUser);
         }
         catch (IOException e) {
-            System.out.println(ConsoleColors.RED + currentUser.getUsername() + ", you failed to add a comment!" + ConsoleColors.RESET);
+            System.out.println( ConsoleColors.BLUE_BOLD + currentUserID.getUsername() + ConsoleColors.RED + ", you failed to add a comment!" + ConsoleColors.RESET);
 
         }
     }
-
-
 
 }
