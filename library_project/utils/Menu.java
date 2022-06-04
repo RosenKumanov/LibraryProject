@@ -89,6 +89,7 @@ public class Menu {
     }
 
     private static void exploreBooks(Library library, User user) {
+        library = Library.generateMainLibrary();
         System.out.println();
         System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("|" + ConsoleColors.BLUE + "                                        EXPLORE BOOKS                                        " + ConsoleColors.PURPLE + "|");
@@ -142,6 +143,7 @@ public class Menu {
     }
 
     private static void myLibrary(Library library, User user) {
+        library = Library.generateMainLibrary();
         System.out.println();
         System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("|" + ConsoleColors.BLUE + "                MY LIBRARY                " + ConsoleColors.PURPLE + "|");
@@ -191,6 +193,7 @@ public class Menu {
     }
 
     private static void favouriteBooks(Library library, User user) {
+        library = Library.generateMainLibrary();
         System.out.println();
         System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("|" + ConsoleColors.BLUE + "              FAVOURITE BOOKS             " + ConsoleColors.PURPLE + "|");
