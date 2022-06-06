@@ -1,7 +1,9 @@
 package library_project.utils;
 
 import library_project.library.Book;
+import library_project.library.ISBNnum;
 import library_project.library.Library;
+import library_project.library.Review;
 import library_project.users.User;
 import library_project.users.Users;
 
@@ -137,7 +139,6 @@ public class Menu {
                 bookInteract(library, user, allBooks[command-1]);
             }
             //getBookByID(int ID) - a method which returns a book object by provided ID. It should find it in the file
-
 
         }
     }
@@ -296,18 +297,21 @@ public class Menu {
         }
         switch(input) {
             case 1:
+                Review.addRating(user.getUsername(), book.bookISBN.getISBN());
+                options(library, user);
             case 2:
-                return;
+                Review.addComments(user.getUsername(), book.bookISBN.getISBN());
+                options(library, user);
             case 3:
                 user.addBookToFavourites(book);
                 myLibrary(library, user);
             case 4:
                 System.out.println(ConsoleColors.CYAN);
-                System.out.println(book.getResume());
+                book.showResume();
                 System.out.println(ConsoleColors.RESET);
                 myLibrary(library, user);
             case 5:
-                //editBook(user) method
+                book.editBook(user.getUsername());
             case 6:
                 options(library, user);
         }
@@ -338,8 +342,11 @@ public class Menu {
         }
         switch(input) {
             case 1:
+                Review.addRating(user.getUsername(), book.bookISBN.getISBN());
+                options(library, user);
             case 2:
-                return;
+                Review.addComments(user.getUsername(), book.bookISBN.getISBN());
+                options(library, user);
             case 3:
                 user.addBookToLibrary(book);
                 favouriteBooks(library, user);
@@ -348,11 +355,11 @@ public class Menu {
                 favouriteBooks(library, user);
             case 5:
                 System.out.println(ConsoleColors.CYAN);
-                System.out.println(book.getResume());
+                book.showResume();
                 System.out.println(ConsoleColors.RESET);
                 favouriteBooks(library, user);
             case 6:
-                //editBook(user) method
+                book.editBook(user.getUsername());
             case 7:
                 options(library, user);
         }
@@ -377,8 +384,11 @@ public class Menu {
         }
         switch(input) {
             case 1:
+                Review.addRating(user.getUsername(), book.bookISBN.getISBN());
+                exploreBooks(library, user);
             case 2:
-                return;
+                Review.addComments(user.getUsername(), book.bookISBN.getISBN());
+                exploreBooks(library, user);
             case 3:
                 user.addBookToLibrary(book);
                 options(library, user);
@@ -392,6 +402,7 @@ public class Menu {
                 options(library, user);
             case 6:
                 book.editBook(user.getUsername());
+
             case 7:
                 options(library, user);
         }
