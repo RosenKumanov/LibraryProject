@@ -1,30 +1,26 @@
 package library_project.library;
 
-import library_project.users.User;
 import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 import library_project.utils.Menu;
 
 import java.io.*;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Book implements IUseFiles { //TODO encapsulate fields
+public class Book implements IUseFiles {
     Scanner scan = new Scanner(System.in);
     public static final String filepath = "library_project/files/books.csv";
     private String name;
     private String author;
     private String resume;
-    double averageRating;
-    public library_project.library.ISBNnum bookISBN;
+    double averageRating = 0;
+    public ISBNnum bookISBN;
     private String bookOwner;
     private DecimalFormat df = new DecimalFormat("x.x");
-    private Set<library_project.library.Review> bookReviews;
-
-
+    private Set<Review> bookReviews;
 
     public Book() {
     }
@@ -44,7 +40,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         this.resume = resume;
     }
 
-    public Book(String name, String author, library_project.library.ISBNnum bookISBN, String resume, double averageRating, Set<library_project.library.Review> bookReviews) {
+    public Book(String name, String author, ISBNnum bookISBN, String resume, double averageRating, Set<Review> bookReviews) {
         this.name = name;
         this.author = author;
         this.bookISBN = bookISBN;
@@ -56,26 +52,51 @@ public class Book implements IUseFiles { //TODO encapsulate fields
     public String toString() {
         return "Book:" + ConsoleColors.CYAN + name + '\n' + ConsoleColors.RESET +
                 "Author: " + ConsoleColors.CYAN + author + '\n' + ConsoleColors.RESET +
-                "ISBN: " + ConsoleColors.CYAN + bookISBN + '\n' + ConsoleColors.RESET +
+                "ISBN: " + ConsoleColors.CYAN + getBookISBN().toString() + '\n' + ConsoleColors.RESET +
                 "Rating: " + ConsoleColors.CYAN + averageRating + '\n'+ ConsoleColors.RESET +
-                "Resume: " + ConsoleColors.CYAN + resume + '\n' ;
+                "Resume: ";
     }
 
-    public void updateRating () {
-        library_project.library.Review review = new library_project.library.Review();
-        int ratingByCurrentUser = review.getRatingByCurrentUser();
-        averageRating = (averageRating+ratingByCurrentUser)/bookReviews.size();
-        System.out.println(ConsoleColors.YELLOW + "Thank you for your rating!" + ConsoleColors.RESET);
+    public double updateRating (String user) { // TODO update this function
+        Review review = Review.addRating(user, bookISBN.getISBN());
+        averageRating = (getAverageRating() + review.getRatingByCurrentUser())/bookReviews.size();
+        System.out.println();
         System.out.println("The Rating of this book is: " + averageRating);
+        return averageRating;
     }
 
-    public void editBook(String username) { //TODO
+    public Set<Review> getAllReviewsFromFile () {  //създава сетове от ревюта за конкретната книга
+        Set<Review> allReviews = new HashSet<>(); // TODO Stefi to learn the theory
+        File reviewsFile = new File(Review.filepath);
+
+        try {
+            Scanner scan = new Scanner(reviewsFile);
+            while (scan.hasNextLine()) {
+                String[] reviewFields = scan.nextLine().split(",");
+                if (reviewFields[1].equals(bookISBN.getISBN())) {
+                    Review review;
+                    if (reviewFields[3] == null) {
+                        review = new Review(reviewFields[0], reviewFields[1], Integer.parseInt(reviewFields[2]));
+                    } else {
+                        review = new Review(reviewFields[0], reviewFields[1], Integer.parseInt(reviewFields[2]), reviewFields[3]);
+                    }
+                    allReviews.add(review);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(ConsoleColors.RED_BOLD + "Missing Reviews file" + ConsoleColors.RESET);
+        }
+        return allReviews;
+    }
+
+    public void editBook(String username) {
         try {
             if (bookOwner.equalsIgnoreCase(username)) {
                 editBookOptions();
             }
             else {
-                System.out.println("Only the Book Owner can Edit a book!");
+                System.out.println(ConsoleColors.YELLOW_BACKGROUND + ConsoleColors.BLUE_BOLD + "Only the Book Owner can Edit a book!" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.YELLOW + "Choose an option!" + ConsoleColors.RESET);
                 return;
             }
         } catch (IOException e) {
@@ -84,7 +105,6 @@ public class Book implements IUseFiles { //TODO encapsulate fields
         }
 
         System.out.println(ConsoleColors.GREEN + "\nSuccessfully updated book!\n" + ConsoleColors.RESET);
-
 
     }
 
@@ -129,20 +149,27 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 System.out.println("Type the new book name: ");
                 String editedItem = scan.nextLine();
                 updateFile(filepath,name,editedItem);
+                System.out.println("Book name was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 break;
             case 2:
                 System.out.println("Type the new book author: ");
                 editedItem = scan.nextLine();
                 updateFile(filepath,author,editedItem);
+                System.out.println("Book Author was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 break;
             case 3:
                 ISBNnum newISBN = ISBNnum.setISBNnum();
                 updateFile(filepath, bookISBN.getISBN(),newISBN.getISBN());
+                System.out.println("Book ISBN was updated to: " + ConsoleColors.CYAN_BOLD + newISBN.getISBN() + ConsoleColors.RESET + '\n');
                 break;
             case 4:
                 System.out.println("Type the new book resume: ");
                 editedItem = scan.nextLine();
                 updateFile(filepath,resume,editedItem.replaceAll(",", "/"));
+                System.out.println("Book resume was updated to: ");
+                System.out.print( ConsoleColors.CYAN_BOLD);
+                showResume();
+                System.out.println(ConsoleColors.RESET);
                 break;
             case 5:
                 Menu.start();
@@ -151,34 +178,20 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 editBookOptions();
         }
 
-    }
+    } // TODO resume is not saving
 
-    public Set<library_project.library.Review> showAllReviews() {
-        bookReviews = new HashSet<>();
-        File booksFile = new File(library_project.library.Review.filepath);
-
-        try {
-            Scanner sc = new Scanner(booksFile);
-            while (sc.hasNextLine()) {
-                String[] reviewFields = sc.nextLine().split(",");
-                library_project.library.Review review = new library_project.library.Review( Integer.parseInt(reviewFields[0]), reviewFields[1].replaceAll("/", ","));
-                bookReviews.add(review);
-                sc.close();
+    public void showAllReviews() {
+        for ( Review review:bookReviews) {
+            if (review.getCommentByCurrentUser() != null) {
+                System.out.println(ConsoleColors.BLUE_UNDERLINED + review.getCurrentUser() + ':' + ConsoleColors.RESET);
+                System.out.print(review.getRatingByCurrentUser() > 3 ? ConsoleColors.GREEN : ConsoleColors.YELLOW);
+                review.showComment();
+                System.out.println(ConsoleColors.BLACK + "Rating:" + ConsoleColors.RESET + review.getRatingByCurrentUser() + "/5" + '\n');
             }
         }
-        catch (FileNotFoundException e) {
-            System.out.println(ConsoleColors.RED + "Could not open file!");
-        }
-
-        return bookReviews;
     }
 
-    private void addReviewToSet (library_project.library.Review review) {
-        bookReviews.add(review);
-        updateRating();
-    }
-
-    private library_project.library.ISBNnum getBookISBN() {
+    private ISBNnum getBookISBN() {
         return bookISBN;
     }
 
@@ -209,7 +222,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
             bookToAdd.author = br.readLine();
 
-            bookToAdd.bookISBN = library_project.library.ISBNnum.setISBNnum();
+            bookToAdd.bookISBN = ISBNnum.setISBNnum();
 
             System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
 
@@ -242,7 +255,6 @@ public class Book implements IUseFiles { //TODO encapsulate fields
             }
 
         }
-
 
         bookToAdd.writeToFile();
         return bookToAdd;
@@ -291,6 +303,7 @@ public class Book implements IUseFiles { //TODO encapsulate fields
                 counter = 0;
             }
         }
+
     }
 
 }
