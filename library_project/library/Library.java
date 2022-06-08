@@ -27,11 +27,6 @@ public class Library {
         return new Library(getAllBooksFromFile());
     }
 
-    public void showAllBooks() {
-        for(Book book : books) {
-            System.out.println("Title: " + book.getBookName() + " | written by: " + book.getAuthor() + " | Rating: " + book.getAverageRating() + "\n\n" + book.getResume() + "\n");
-        }
-    }
 
     //TODO add an option to get books with and without owners
     private static Set<Book> getAllBooksFromFile() {
@@ -42,20 +37,23 @@ public class Library {
             Scanner sc = new Scanner(booksFile);
             while(sc.hasNextLine()) {
                 String[] bookFields = sc.nextLine().split(",");
-                //TODO create a function to get all reviews from file
+
                 Set<Review> reviews = new HashSet<>();
+                Book book;
+
                 if(bookFields.length == 4) {
-                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","));
-                    allBooks.add(book);
+                    book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","));
                 }
                 else if(bookFields.length == 5) {
-                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), bookFields[4]);
-                    allBooks.add(book);
+                    book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), bookFields[4]);
+
                 }
                 else {
-                    Book book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), Double.parseDouble(bookFields[4]), reviews);
-                    allBooks.add(book);
+                    book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3].replaceAll("/", ","), Double.parseDouble(bookFields[4]), reviews);
                 }
+                book.getAllReviewsFromFile();
+                book.updateAverageRating();
+                allBooks.add(book);
             }
             sc.close();
         }
