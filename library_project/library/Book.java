@@ -3,6 +3,7 @@ package library_project.library;
 import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 import library_project.utils.Menu;
+import library_project.utils.Utils;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -45,7 +46,8 @@ public class Book implements IUseFiles {
         this.author = author;
         this.bookISBN = bookISBN;
         this.resume = resume;
-        this.averageRating = averageRating;
+
+        updateAverageRating();
     }
 
     @Override
@@ -57,15 +59,64 @@ public class Book implements IUseFiles {
                 "Resume: ";
     }
 
-    public double updateRating (String user) { // TODO update this function
-        Review review = Review.addRating(user, bookISBN.getISBN());
-        averageRating = (getAverageRating() + review.getRatingByCurrentUser())/bookReviews.size();
-        System.out.println();
-        System.out.println("The Rating of this book is: " + averageRating);
-        return averageRating;
+    protected void updateAverageRating () {
+        bookReviews = getAllReviewsFromFile();
+        double allRatings = 0;
+        int rateCount = 0;
+        for(Review review : bookReviews) {
+            if(review.getRatingByCurrentUser() != 0) {
+                allRatings += review.getRatingByCurrentUser();
+                rateCount++;
+            }
+        }
+        averageRating = allRatings / rateCount;
     }
 
-    public Set<Review> getAllReviewsFromFile () {  //създава сетове от ревюта за конкретната книга
+    public void rateBook(String username) {
+        bookReviews = getAllReviewsFromFile();
+
+        if(bookReviews.size() != 0) {
+            for (Review review : bookReviews) {
+                if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN()) && review.getRatingByCurrentUser() != 0) {
+                    System.out.println("You have already rated this book. Would you like to change your rating? Y/N:");
+                    if (Utils.yesOrNo()) {
+                        Review.updateRating(username, bookISBN.getISBN());
+                    } else {
+                        return;
+                    }
+                } else if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
+                    Review.updateRating(review.getCurrentUser(), review.getCurrentBookISBN());
+                } else {
+                    Review.addRating(username, bookISBN.getISBN());
+                }
+            }
+        }
+        else {
+            Review.addRating(username, bookISBN.getISBN());
+        }
+    }
+
+    public void commentBook(String username) {
+        if(bookReviews.size() != 0) {
+            for (Review review : bookReviews) {
+                if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
+                    if(!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
+                        System.out.println(ConsoleColors.YELLOW + "You have already commented on this book." + ConsoleColors.RESET);
+                        return;
+                    }
+                    else {
+                        Review.addComment(username, bookISBN.getISBN());
+                    }
+                }
+            }
+        }
+        else {
+            Review.addNewComment(username, bookISBN.getISBN());
+        }
+
+    }
+
+    public Set<Review> getAllReviewsFromFile () {  //създава сет от ревюта за конкретната книга
         Set<Review> allReviews = new HashSet<>(); // TODO Stefi to learn the theory
         File reviewsFile = new File(Review.filepath);
 
@@ -75,14 +126,19 @@ public class Book implements IUseFiles {
                 String[] reviewFields = scan.nextLine().split(",");
                 if (reviewFields[1].equals(bookISBN.getISBN())) {
                     Review review;
-                    if (reviewFields[3] == null) {
-                        review = new Review(reviewFields[0], reviewFields[1], Integer.parseInt(reviewFields[2]));
-                    } else {
+//                    if (reviewFields[3].equalsIgnoreCase("no comment") && Utils.isNumeric(reviewFields[2])) {
+//                        review = new Review(reviewFields[0], reviewFields[1], Integer.parseInt(reviewFields[2]));
+                    if(Utils.isNumeric(reviewFields[2])){
                         review = new Review(reviewFields[0], reviewFields[1], Integer.parseInt(reviewFields[2]), reviewFields[3]);
+                    }
+                    else {
+                        review = new Review(reviewFields[0], reviewFields[1], 0, reviewFields[3]);
                     }
                     allReviews.add(review);
                 }
             }
+            scan.close();
+
         } catch (FileNotFoundException e) {
             System.out.println(ConsoleColors.RED_BOLD + "Missing Reviews file" + ConsoleColors.RESET);
         }
@@ -165,9 +221,10 @@ public class Book implements IUseFiles {
             case 4:
                 System.out.println("Type the new book resume: ");
                 editedItem = scan.nextLine();
-                updateFile(filepath,resume,editedItem.replaceAll(",", "/"));
+                updateFile(filepath,resume.replaceAll(",", "/"),editedItem.replaceAll(",", "/"));
+                resume = editedItem;
                 System.out.println("Book resume was updated to: ");
-                System.out.print( ConsoleColors.CYAN_BOLD);
+                System.out.print(ConsoleColors.CYAN_BOLD);
                 showResume();
                 System.out.println(ConsoleColors.RESET);
                 break;
@@ -178,15 +235,17 @@ public class Book implements IUseFiles {
                 editBookOptions();
         }
 
-    } // TODO resume is not saving
+    }
 
     public void showAllReviews() {
-        for ( Review review:bookReviews) {
-            if (review.getCommentByCurrentUser() != null) {
+        bookReviews = getAllReviewsFromFile();
+
+        for ( Review review : bookReviews) {
+            if (!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
                 System.out.println(ConsoleColors.BLUE_UNDERLINED + review.getCurrentUser() + ':' + ConsoleColors.RESET);
                 System.out.print(review.getRatingByCurrentUser() > 3 ? ConsoleColors.GREEN : ConsoleColors.YELLOW);
                 review.showComment();
-                System.out.println(ConsoleColors.BLACK + "Rating:" + ConsoleColors.RESET + review.getRatingByCurrentUser() + "/5" + '\n');
+                System.out.println(ConsoleColors.PURPLE + "Rating:" + ConsoleColors.RESET + (review.getRatingByCurrentUser() != 0 ? review.getRatingByCurrentUser() + "/5" : "No rating\n"));
             }
         }
     }

@@ -119,7 +119,7 @@ public class Users {
         }
 
         System.out.println("Type your email address: ");
-        String email = sc.nextLine();
+        String email = getValidEmail();
 
         if (allUsers != null) {
             for (User user : allUsers) {
@@ -130,6 +130,26 @@ public class Users {
             }
         }
             return new User(username, password, name, email);
+    }
+
+    private static String getValidEmail() {
+        Scanner sc = new Scanner(System.in);
+        String email = sc.nextLine();
+
+        while(true) {
+            if(email == null) {
+                System.out.println("You need to type something: ");
+                email = sc.nextLine();
+            }
+            else if(!email.contains("@") || !email.contains(".")) {
+                System.out.println("Email is not valid! Try again: ");
+                email = sc.nextLine();
+            }
+            else {
+                break;
+            }
+        }
+        return email;
     }
 
     public static boolean isPasswordWeak(String password) {

@@ -30,19 +30,31 @@ public class Review implements IUseFiles {
         this.ratingByCurrentUser = ratingByCurrentUser;
     }
 
-    public int getRatingByCurrentUser() {
-        return ratingByCurrentUser;
+    public static void addComment(String user, String ISBN) {
+        String comment;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\nWrite your comment here: ");
+
+        comment = sc.nextLine();
+        System.out.println(ConsoleColors.GREEN + "\nThank you for commenting!\n" + ConsoleColors.RESET);
+
+        try {
+            updateCommentInFile(user, ISBN, comment);
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Issue updating file!" + ConsoleColors.RESET);
+        }
     }
 
-    public static void addComments (String user, String ISBN) { //TODO to update - add rating if you want to leave a comment!
+    public static void addNewComment(String user, String ISBN) { //TODO to update - add rating if you want to leave a comment!
         Review newComment = new Review();
-        System.out.println(ConsoleColors.YELLOW + "You can add your comment for this book here: " + ConsoleColors.RESET);
+        System.out.println("\nWrite your comment here: ");
         Scanner scan = new Scanner(System.in);
+
         newComment.commentByCurrentUser = scan.nextLine();
-        System.out.println("Thank you for commenting!");
+        System.out.println("\nThank you for commenting!\n");
         newComment.setCurrentUser(user);
         newComment.setCurrentBookISBN(ISBN);
-        scan.close();
         newComment.writeToFile();
     }
 
@@ -54,7 +66,8 @@ public class Review implements IUseFiles {
         this.currentBookISBN = currentBookISBN;
     }
 
-    public static Review addRating (String user, String ISBN) {
+    public static void addRating (String user, String ISBN) {
+
         Review newRating = new Review();
         System.out.println(ConsoleColors.YELLOW_BOLD + "You can rate this book with a grade from 1 to 5. Please vote!" + ConsoleColors.RESET);
         Scanner scan = new Scanner(System.in);
@@ -74,9 +87,7 @@ public class Review implements IUseFiles {
         }
         newRating.setCurrentUser(user);
         newRating.setCurrentBookISBN(ISBN);
-        scan.close();
         newRating.writeToFile();
-        return newRating;
     }
 
     public String getCurrentUser() {
@@ -91,9 +102,100 @@ public class Review implements IUseFiles {
         return commentByCurrentUser;
     }
 
-    @Override
-    public void updateFile(String fileToUpdate, String old, String replace) throws IOException { //TODO
-        // to update the review file after a comment is added by the same user and for the same book.
+    public static void updateRating (String user, String ISBN) {
+        int newRating = 0;
+        System.out.println(ConsoleColors.YELLOW + "\nYou can rate this book with a grade from 1 to 5. Please vote!" + ConsoleColors.RESET);
+        Scanner scan = new Scanner(System.in);
+
+        try {
+            newRating = Integer.parseInt(scan.nextLine());
+            if (newRating < 1 || newRating > 5) {
+                System.out.println("Please, enter a number from 1 to 5!");
+                addRating(user, ISBN);
+            } else {
+                System.out.println(ConsoleColors.GREEN + "\nYou rated this book with " + ConsoleColors.BLUE + newRating + ConsoleColors.RESET);
+            }
+        }
+        catch (NumberFormatException e1) {
+            System.out.println(ConsoleColors.RED_UNDERLINED + "Wrong input!" + ConsoleColors.RESET );
+            addRating(user, ISBN);
+        }
+        try {
+            updateRatingInFile(user, ISBN, newRating);
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Issue opening reviews file!" + ConsoleColors.RESET);
+        }
+
+
+    }
+
+    private static void updateRatingInFile(String username, String ISBN, int newRating) throws IOException {
+        File oldFile = new File(filepath);
+        File tempFile = new File("library_project/files/temp.csv");
+
+        FileWriter fw = new FileWriter(tempFile);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+
+        Scanner scan = new Scanner(oldFile);
+
+        while (scan.hasNextLine()) {
+            String[] fields = scan.nextLine().split(",");
+            if(fields[0].equalsIgnoreCase(username) && fields[1].equalsIgnoreCase(ISBN)) {
+                fields[2] = String.valueOf(newRating);
+            }
+            for(int i = 0; i < fields.length - 1; i++) {
+                pw.print(fields[i] + ",");
+            }
+            pw.print(fields[fields.length - 1]);
+            pw.println();
+        }
+        scan.close();
+        bw.close();
+        fw.close();
+        pw.flush();
+        pw.close();
+
+        if (!oldFile.delete()) {
+            System.out.println("Unable to delete");
+        }
+        File dump = new File(filepath);
+        tempFile.renameTo(dump);
+    }
+
+    private static void updateCommentInFile(String username, String ISBN, String comment) throws IOException {
+        File oldFile = new File(filepath);
+        File tempFile = new File("library_project/files/temp.csv");
+
+        FileWriter fw = new FileWriter(tempFile);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+
+        Scanner scan = new Scanner(oldFile);
+
+        while (scan.hasNextLine()) {
+            String[] fields = scan.nextLine().split(",");
+            if(fields[0].equalsIgnoreCase(username) && fields[1].equalsIgnoreCase(ISBN)) {
+                fields[3] = comment;
+            }
+            for(int i = 0; i < fields.length - 1; i++) {
+                pw.print(fields[i] + ",");
+            }
+            pw.print(fields[fields.length - 1]);
+            pw.println();
+        }
+        scan.close();
+        bw.close();
+        fw.close();
+        pw.flush();
+        pw.close();
+
+        if (!oldFile.delete()) {
+            System.out.println("Unable to delete");
+        }
+        File dump = new File(filepath);
+        tempFile.renameTo(dump);
+
     }
 
     @Override
@@ -105,15 +207,15 @@ public class Review implements IUseFiles {
             PrintWriter pw = new PrintWriter(bw);
 
             if (commentByCurrentUser != null) {
-            pw.println(getCurrentUser() + "," + getCurrentBookISBN() + "," + "no rating" + "," + commentByCurrentUser.replaceAll(",", "/"));
-            pw.flush();
-            pw.close();
+                pw.println(getCurrentUser() + "," + getCurrentBookISBN() + "," + "no rating" + "," + commentByCurrentUser.replaceAll(",", "/"));
+                pw.flush();
+                pw.close();
                 System.out.println( ConsoleColors.BLUE_UNDERLINED + currentUser + ConsoleColors.RESET +  ConsoleColors.YELLOW + ", your comment: " + ConsoleColors.PURPLE);
                 showComment();
                 System.out.println(ConsoleColors.RESET);
 
             } else if (ratingByCurrentUser != 0) {
-                pw.println(currentUser + "," + currentBookISBN + "," + ratingByCurrentUser + "," + null);
+                pw.println(currentUser + "," + currentBookISBN + "," + ratingByCurrentUser + "," + "no comment");
                 pw.flush();
                 pw.close();
             }
@@ -135,5 +237,9 @@ public class Review implements IUseFiles {
                 counter = 0;
             }
         }
+    }
+
+    public int getRatingByCurrentUser() {
+        return ratingByCurrentUser;
     }
 }
