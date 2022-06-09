@@ -168,8 +168,10 @@ public class User implements IUseFiles {
                         else {
                             //TODO add function for getting all reviews from file
                             Set<Review> reviews = new HashSet<>();
+
                             book = new Book(bookFields[0], bookFields[1], new ISBNnum(bookFields[2]), bookFields[3], Double.parseDouble(bookFields[4]), reviews);
                         }
+                        book.updateAverageRating();
                         allBooks.add(book);
                         break;
                     }

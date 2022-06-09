@@ -55,8 +55,8 @@ public class Users {
 
         File usersFile = new File(User.filepath);
 
-        try {
-            Scanner sc = new Scanner(usersFile);
+        try(Scanner sc = new Scanner(usersFile)) {
+
             if(!sc.hasNextLine()) {
                 System.out.println("No users are registered yet.");
                 return null;

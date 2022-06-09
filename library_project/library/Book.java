@@ -8,6 +8,7 @@ import library_project.utils.Utils;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -59,7 +60,7 @@ public class Book implements IUseFiles {
                 "Resume: ";
     }
 
-    protected void updateAverageRating () {
+    public void updateAverageRating () {
         bookReviews = getAllReviewsFromFile();
         double allRatings = 0;
         int rateCount = 0;
@@ -78,7 +79,7 @@ public class Book implements IUseFiles {
         if(bookReviews.size() != 0) {
             for (Review review : bookReviews) {
                 if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN()) && review.getRatingByCurrentUser() != 0) {
-                    System.out.println("You have already rated this book. Would you like to change your rating? Y/N:");
+                    System.out.println("\nYou have already rated this book. Would you like to change your rating? Y/N:");
                     if (Utils.yesOrNo()) {
                         Review.updateRating(username, bookISBN.getISBN());
                     } else {
@@ -151,8 +152,8 @@ public class Book implements IUseFiles {
                 editBookOptions();
             }
             else {
-                System.out.println(ConsoleColors.YELLOW_BACKGROUND + ConsoleColors.BLUE_BOLD + "Only the Book Owner can Edit a book!" + ConsoleColors.RESET);
-                System.out.println(ConsoleColors.YELLOW + "Choose an option!" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.YELLOW + "Only the Book Owner can Edit a book!" + ConsoleColors.RESET);
+                System.out.println("Choose another option: " + ConsoleColors.RESET);
                 return;
             }
         } catch (IOException e) {
@@ -231,7 +232,7 @@ public class Book implements IUseFiles {
             case 5:
                 Menu.start();
             default:
-                System.out.println(ConsoleColors.RED_BOLD + "Wrong Input");
+                System.out.println(ConsoleColors.RED + "Wrong Input");
                 editBookOptions();
         }
 
@@ -239,13 +240,16 @@ public class Book implements IUseFiles {
 
     public void showAllReviews() {
         bookReviews = getAllReviewsFromFile();
+        if(bookReviews.size() == 0) {
+            System.out.println("\nThere are no comments for this book yet.\n");
+        }
 
         for ( Review review : bookReviews) {
             if (!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
-                System.out.println(ConsoleColors.BLUE_UNDERLINED + review.getCurrentUser() + ':' + ConsoleColors.RESET);
+                System.out.println('\n' + ConsoleColors.BLUE + review.getCurrentUser() + ':' + ConsoleColors.RESET);
                 System.out.print(review.getRatingByCurrentUser() > 3 ? ConsoleColors.GREEN : ConsoleColors.YELLOW);
                 review.showComment();
-                System.out.println(ConsoleColors.PURPLE + "Rating:" + ConsoleColors.RESET + (review.getRatingByCurrentUser() != 0 ? review.getRatingByCurrentUser() + "/5" : "No rating\n"));
+                System.out.println(ConsoleColors.PURPLE + "\nRating:" + ConsoleColors.RESET + (review.getRatingByCurrentUser() != 0 ? review.getRatingByCurrentUser() + "/5" : "No rating\n"));
             }
         }
     }
@@ -270,7 +274,9 @@ public class Book implements IUseFiles {
         return resume;
     }
 
-    public static Book addNewBook (String user) {
+    public static void addNewBook (String user) {
+        Library library = Library.generateMainLibrary();
+        Set<Book> allBooks = library.getBooks();
         Book bookToAdd = new Book();
         try {
             System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
@@ -278,6 +284,18 @@ public class Book implements IUseFiles {
             BufferedReader br = new BufferedReader(in);
 
             bookToAdd.name = br.readLine();
+            for(Book book : allBooks) {
+                if(bookToAdd.name.equalsIgnoreCase(book.getBookName())) {
+                    System.out.println(ConsoleColors.YELLOW + "\nThis book is already available in our Library.\n" + ConsoleColors.RESET);
+                    System.out.println("Would you like to try to add a different book? Y/N:");
+                    if(Utils.yesOrNo()) {
+                        addNewBook(user);
+                    }
+                    else {
+                        return;
+                    }
+                }
+            }
             System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
             bookToAdd.author = br.readLine();
 
@@ -312,11 +330,9 @@ public class Book implements IUseFiles {
                 System.out.println('\n' + "Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 Menu.start();
             }
-
         }
 
         bookToAdd.writeToFile();
-        return bookToAdd;
     }
 
     @Override
