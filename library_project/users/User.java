@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class User implements IUseFiles {
-    public static final String filepath = "library_project/files/users.csv";
+    public static final String FILEPATH = "library_project/files/users.csv";
 
     private final int ID;
     private String username;
@@ -48,7 +48,7 @@ public class User implements IUseFiles {
 
     private int getLastID() {
 
-        File usersFile = new File(filepath);
+        File usersFile = new File(FILEPATH);
         int lastID = 0;
         try {
             Scanner sc = new Scanner(usersFile);
@@ -143,7 +143,7 @@ public class User implements IUseFiles {
         Set<Book> allBooks = new HashSet<>();
 
         try {
-            File booksFile = new File(Book.filepath);
+            File booksFile = new File(Book.FILEPATH);
             File personalLibraryFile = new File(personalLibrary.getLibraryFilepath());
 
             Scanner scan = new Scanner(personalLibraryFile);
@@ -213,6 +213,7 @@ public class User implements IUseFiles {
             for(Book book : library.getBooks()) {
                 for(String ISBN : favouriteISBNs) {
                     if (book.bookISBN.getISBN().equals(ISBN)) {
+                        book.updateAverageRating();
                         favouriteBooks[index] = book;
                         index++;
                     }
@@ -237,7 +238,7 @@ public class User implements IUseFiles {
 
     public void changeEmail() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Type the new email address you'd like to use: ");
+        System.out.println("\nType the new email address you'd like to use: ");
 
         String input = sc.nextLine();
         while(input.contains(" ") || !input.contains("@") || !input.contains(".")) {
@@ -250,7 +251,7 @@ public class User implements IUseFiles {
 
     private void updateEmailAddress(String newEmail) {
         try {
-            updateFile(filepath, email, newEmail);
+            updateFile(FILEPATH, email, newEmail);
 
         } catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Failed to update email - filepath missing" + ConsoleColors.RESET);
@@ -283,7 +284,7 @@ public class User implements IUseFiles {
 
     private void updatePassword(String oldPassword, String newPassword) {
         try {
-            updateFile(filepath, encryptPassword(oldPassword), encryptPassword(newPassword));
+            updateFile(FILEPATH, encryptPassword(oldPassword), encryptPassword(newPassword));
 
         } catch (IOException e) {
             System.out.println(ConsoleColors.RED + "Failed to update password - filepath missing" + ConsoleColors.RESET);
@@ -360,7 +361,7 @@ public class User implements IUseFiles {
     public void writeToFile() {
         try {
 
-            FileWriter fw = new FileWriter(filepath, true);
+            FileWriter fw = new FileWriter(FILEPATH, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 

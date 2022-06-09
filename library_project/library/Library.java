@@ -14,7 +14,6 @@ public class Library {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-//TODO move getAllBooks() to a separate function, as default constructor should not fetch all books
 
     public Library() {
 
@@ -27,11 +26,9 @@ public class Library {
         return new Library(getAllBooksFromFile());
     }
 
-
-    //TODO add an option to get books with and without owners
     private static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
-        File booksFile = new File(Book.filepath);
+        File booksFile = new File(Book.FILEPATH);
 
         try {
             Scanner sc = new Scanner(booksFile);
@@ -62,6 +59,14 @@ public class Library {
         }
 
         return allBooks;
+    }
+
+    public static Book[] sortBooks(Set<Book> books) {
+        Book[] sortedBooks = new Book[books.size()];
+
+        //TODO Stefi's wonderful code will be here
+
+        return sortedBooks;
     }
 
     public Set<Book> getBooks() {

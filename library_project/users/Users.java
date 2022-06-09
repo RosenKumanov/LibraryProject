@@ -53,7 +53,7 @@ public class Users {
     public static Set<User> getExistingUsersFromFile() {
         Set<User> users = new HashSet<>();
 
-        File usersFile = new File(User.filepath);
+        File usersFile = new File(User.FILEPATH);
 
         try(Scanner sc = new Scanner(usersFile)) {
 

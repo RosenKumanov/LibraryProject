@@ -8,17 +8,17 @@ import library_project.utils.Utils;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Book implements IUseFiles {
     Scanner scan = new Scanner(System.in);
-    public static final String filepath = "library_project/files/books.csv";
+    public static final String FILEPATH = "library_project/files/books.csv";
+
     private String name;
     private String author;
     private String resume;
-    double averageRating = 0;
+    private double averageRating = 0;
     public ISBNnum bookISBN;
     private String bookOwner;
     private DecimalFormat df = new DecimalFormat("x.x");
@@ -205,24 +205,24 @@ public class Book implements IUseFiles {
             case 1:
                 System.out.println("Type the new book name: ");
                 String editedItem = scan.nextLine();
-                updateFile(filepath,name,editedItem);
+                updateFile(FILEPATH,name,editedItem);
                 System.out.println("Book name was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 break;
             case 2:
                 System.out.println("Type the new book author: ");
                 editedItem = scan.nextLine();
-                updateFile(filepath,author,editedItem);
+                updateFile(FILEPATH,author,editedItem);
                 System.out.println("Book Author was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 break;
             case 3:
                 ISBNnum newISBN = ISBNnum.setISBNnum();
-                updateFile(filepath, bookISBN.getISBN(),newISBN.getISBN());
+                updateFile(FILEPATH, bookISBN.getISBN(),newISBN.getISBN());
                 System.out.println("Book ISBN was updated to: " + ConsoleColors.CYAN_BOLD + newISBN.getISBN() + ConsoleColors.RESET + '\n');
                 break;
             case 4:
                 System.out.println("Type the new book resume: ");
                 editedItem = scan.nextLine();
-                updateFile(filepath,resume.replaceAll(",", "/"),editedItem.replaceAll(",", "/"));
+                updateFile(FILEPATH,resume.replaceAll(",", "/"),editedItem.replaceAll(",", "/"));
                 resume = editedItem;
                 System.out.println("Book resume was updated to: ");
                 System.out.print(ConsoleColors.CYAN_BOLD);
@@ -339,7 +339,7 @@ public class Book implements IUseFiles {
     public void writeToFile() {
         try {
 
-            FileWriter fw = new FileWriter(filepath, true);
+            FileWriter fw = new FileWriter(FILEPATH, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
@@ -357,9 +357,7 @@ public class Book implements IUseFiles {
             System.out.println(ConsoleColors.RESET);
         }
         catch (IOException e) {
-            System.out.println(ConsoleColors.RED + "Book was not uploaded!" + ConsoleColors.RESET);
-            Menu.start();
-
+            System.out.println(ConsoleColors.YELLOW + "Failed to upload book!" + ConsoleColors.RESET);
         }
     }
 
