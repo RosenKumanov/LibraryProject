@@ -15,7 +15,9 @@ public interface IUseFiles {
             FileWriter fw = new FileWriter(tempFile);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
+
             Scanner scan = new Scanner(oldFile);
+
             while (scan.hasNextLine()) {
                 String[] fields = scan.nextLine().split(",");
 

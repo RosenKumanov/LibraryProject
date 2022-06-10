@@ -1,6 +1,5 @@
 package library_project.utils;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Utils {
@@ -12,7 +11,12 @@ public class Utils {
         System.exit(-1);
     }
 
-    public static void PressKeyToContinue() {
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public static void pressKeyToContinue() {
         try {
             System.out.println("\nPress "+ ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + " to continue: ");
             System.in.read();

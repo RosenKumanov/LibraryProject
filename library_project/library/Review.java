@@ -46,7 +46,7 @@ public class Review implements IUseFiles {
         }
     }
 
-    public static void addNewComment(String user, String ISBN) { //TODO to update - add rating if you want to leave a comment!
+    public static void addNewComment(String user, String ISBN) {
         Review newComment = new Review();
         System.out.println("\nWrite your comment here: ");
         Scanner scan = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Review implements IUseFiles {
     public static void addRating (String user, String ISBN) {
 
         Review newRating = new Review();
-        System.out.println(ConsoleColors.YELLOW_BOLD + "You can rate this book with a grade from 1 to 5. Please vote!" + ConsoleColors.RESET);
+        System.out.println("You can rate this book with a grade from 1 to 5. Type a number here: ");
         Scanner scan = new Scanner(System.in);
 
         try {

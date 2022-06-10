@@ -98,6 +98,8 @@ public class Book implements IUseFiles {
     }
 
     public void commentBook(String username) {
+        bookReviews = getAllReviewsFromFile();
+
         if(bookReviews.size() != 0) {
             for (Review review : bookReviews) {
                 if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
@@ -254,32 +256,17 @@ public class Book implements IUseFiles {
         }
     }
 
-    private ISBNnum getBookISBN() {
-        return bookISBN;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public String getBookName() {
-        return name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getResume() {
-        return resume;
-    }
-
     public static void addNewBook (String user) {
         Library library = Library.generateMainLibrary();
         Set<Book> allBooks = library.getBooks();
         Book bookToAdd = new Book();
+
+        System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println("|" + ConsoleColors.BLUE + "               ADD NEW BOOK               " + ConsoleColors.PURPLE + "|");
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" + ConsoleColors.CYAN);
+
         try {
-            System.out.println(ConsoleColors.YELLOW + "Type book name: " + ConsoleColors.RESET);
+            System.out.println("Type the book title and press " + ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + ":");
             InputStreamReader in = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(in);
 
@@ -296,12 +283,12 @@ public class Book implements IUseFiles {
                     }
                 }
             }
-            System.out.println(ConsoleColors.YELLOW + "Type book author: " + ConsoleColors.RESET);
+            System.out.println("Type the book author and press " + ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + ":");
             bookToAdd.author = br.readLine();
 
             bookToAdd.bookISBN = ISBNnum.setISBNnum();
 
-            System.out.println(ConsoleColors.YELLOW + "Type book resume: " + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW + "Type the book resume (you can leave this empty, if you wish): " + ConsoleColors.RESET);
 
             bookToAdd.resume = br.readLine();
 
@@ -343,14 +330,19 @@ public class Book implements IUseFiles {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            pw.println( name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",","/") + "," + bookOwner);
+            if(!resume.equals("")) {
+                pw.println(name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",", "/") + "," + bookOwner);
+            }
+            else {
+                pw.println(name + "," + author + "," + bookISBN.getISBN() + "," + "-" + "," + bookOwner);
+            }
             pw.flush();
             pw.close();
 
-            System.out.println( '\n' + ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "SUCCESSFULLY UPLOADED : "+ ConsoleColors.RESET + '\n' +
-                    "Book: " + ConsoleColors.CYAN + name + '\n' + ConsoleColors.RESET +
-                    "Author: " + ConsoleColors.CYAN + author + '\n' +  ConsoleColors.RESET +
-                    "ISBN: " + ConsoleColors.CYAN + bookISBN.getISBN() + '\n' + ConsoleColors.RESET +
+            System.out.println( '\n' + ConsoleColors.CYAN + "SUCCESSFULLY UPLOADED: "+ ConsoleColors.RESET + '\n' +
+                    "Book: " + ConsoleColors.GREEN + name + '\n' + ConsoleColors.RESET +
+                    "Author: " + ConsoleColors.GREEN + author + '\n' +  ConsoleColors.RESET +
+                    "ISBN: " + ConsoleColors.GREEN + bookISBN.getISBN() + '\n' + ConsoleColors.RESET +
                     "Resume: ");
             System.out.print(ConsoleColors.CYAN);
             showResume();
@@ -360,23 +352,44 @@ public class Book implements IUseFiles {
             System.out.println(ConsoleColors.YELLOW + "Failed to upload book!" + ConsoleColors.RESET);
         }
     }
-
     public void setBookOwner(String bookOwner) {
         this.bookOwner = bookOwner;
     }
 
     public void showResume () {
-        String [] text = resume.split(" ");
-        int counter = 0;
-        for (String word : text) {
-            System.out.print(word + " ");
-            counter++;
-            if (counter >= 12) {
-                System.out.println();
-                counter = 0;
+        if (!resume.equals("-") && !resume.equals("")) {
+            String[] text = resume.split(" ");
+            int counter = 0;
+            for (String word : text) {
+                System.out.print(word + " ");
+                counter++;
+                if (counter >= 12) {
+                    System.out.println();
+                    counter = 0;
+                }
             }
         }
 
+        else {
+            System.out.println(ConsoleColors.YELLOW + "no resume available" + ConsoleColors.RESET);
+        }
     }
+
+    private ISBNnum getBookISBN() {
+        return bookISBN;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public String getBookName() {
+        return name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
 
 }
