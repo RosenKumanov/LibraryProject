@@ -13,13 +13,13 @@ public class User implements IUseFiles {
     public static final String FILEPATH = "library_project/files/users.csv";
 
     private final int ID;
-    private String username;
+    private final String username;
     private String password;
-    private String firstName;
+    private final String firstName;
     private String email;
     private PersonalLibrary personalLibrary;
     private Book[] favouriteBooks;
-    private String favouriteBooksFilepath;
+    private final String favouriteBooksFilepath;
 
     public User(String username, String password, String firstName, String email) {
         this.ID = getLastID() + 1;
@@ -261,16 +261,18 @@ public class User implements IUseFiles {
 
     public void changePassword() {
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Type your old password: ");
         String oldPassword = sc.nextLine();
+
         while(!encryptPassword(oldPassword).equals(String.valueOf(password))) {
             System.out.println(ConsoleColors.YELLOW + "\nWrong password! Try again: " + ConsoleColors.RESET);
             oldPassword = sc.nextLine();
         }
         System.out.println("Type the new password you'd like to use: ");
-
         String newPassword = sc.nextLine();
-        while(Users.isPasswordWeak(newPassword)) {
+
+        while(UserRepo.isPasswordWeak(newPassword)) {
             System.out.println(ConsoleColors.YELLOW + "You need to include at least 3 of the following: \n" + ConsoleColors.RESET);
             System.out.println("1. Lower case letters");
             System.out.println("2. Upper case letters");
@@ -380,60 +382,28 @@ public class User implements IUseFiles {
         return username;
     }
 
-    public void setUsername(String username) {
-
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
     public PersonalLibrary getPersonalLibrary() {
         return personalLibrary;
     }
 
-    public void setPersonalLibrary(PersonalLibrary personalLibrary) {
-        this.personalLibrary = personalLibrary;
-    }
 
     public Book[] getFavouriteBooks() {
         return favouriteBooks;
-    }
-
-    public void setFavouriteBooks(Book[] favouriteBooks) {
-        this.favouriteBooks = favouriteBooks;
-    }
-
-    public String getFavouriteBooksFilepath() {
-        return favouriteBooksFilepath;
-    }
-
-    public void setFavouriteBooksFilepath(String favouriteBooksFilepath) {
-        this.favouriteBooksFilepath = favouriteBooksFilepath;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void removeFromMyLibrary(Book book) {
+ //TODO
     }
 }
