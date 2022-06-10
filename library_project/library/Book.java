@@ -352,6 +352,7 @@ public class Book implements IUseFiles {
             System.out.println(ConsoleColors.YELLOW + "Failed to upload book!" + ConsoleColors.RESET);
         }
     }
+
     public void setBookOwner(String bookOwner) {
         this.bookOwner = bookOwner;
     }
