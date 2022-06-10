@@ -4,9 +4,7 @@ import library_project.utils.ConsoleColors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Library {
     protected Set<Book> books;
@@ -28,7 +26,7 @@ public class Library {
 
     private static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
-        File booksFile = new File(Book.FILEPATH);
+        File booksFile = new File(Book.filepath);
 
         try {
             Scanner sc = new Scanner(booksFile);
@@ -61,12 +59,24 @@ public class Library {
         return allBooks;
     }
 
-    public static Book[] sortBooks(Set<Book> books) {
-        Book[] sortedBooks = new Book[books.size()];
+    public static Set<Book> sortBooks(Set<Book> books) {
 
-        //TODO Stefi's wonderful code will be here
+        Book[] arrayOfSortedBooks = new Book[books.size()];
+        books.toArray(arrayOfSortedBooks);
 
-        return sortedBooks;
+        Book temp;
+
+        for (int i = 0; i < books.size(); i++) {
+            for (int j = 1; j < books.size()-1; j++) {
+                if (arrayOfSortedBooks[j-1].getBookName().compareToIgnoreCase(arrayOfSortedBooks[j].getBookName()) > 0) {
+                    temp = arrayOfSortedBooks[j-1];
+                    arrayOfSortedBooks[j-1] = arrayOfSortedBooks[j];
+                    arrayOfSortedBooks[j] = temp;
+                }
+            }
+        }
+
+        return new HashSet<>(Arrays.asList(arrayOfSortedBooks));
     }
 
     public Set<Book> getBooks() {
