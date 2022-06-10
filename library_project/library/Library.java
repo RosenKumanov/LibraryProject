@@ -26,7 +26,7 @@ public class Library {
 
     private static Set<Book> getAllBooksFromFile() {
         Set<Book> allBooks = new HashSet<>();
-        File booksFile = new File(Book.filepath);
+        File booksFile = new File(Book.FILEPATH);
 
         try {
             Scanner sc = new Scanner(booksFile);
