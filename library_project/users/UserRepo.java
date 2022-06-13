@@ -19,7 +19,7 @@ public class UserRepo {
         User user = loginForm();
 
         while(user == null) {
-            System.out.println(ConsoleColors.YELLOW + "\nUnsuccessful log in attempt - wrong \n"
+            System.out.println(ConsoleColors.YELLOW + "\nUnsuccessful log in attempt - wrong "
                     + ConsoleColors.RED + "username "  + ConsoleColors.YELLOW + "or " + ConsoleColors.RED + "password\n" + ConsoleColors.RESET);
             System.out.println("Would you like to try again? Y/N:");
             if(Utils.yesOrNo()) {
@@ -45,7 +45,7 @@ public class UserRepo {
 
         assert allUsers != null;
         for(User user : allUsers) {
-            if(user.getUsername().equalsIgnoreCase(inputUsername)) {
+            if(user.getUsername().equals(inputUsername)) {
                 if(User.encryptPassword(inputPassword).equals(String.valueOf(user.getPassword()))) {
                     System.out.println(ConsoleColors.GREEN + "\n      You have logged in successfully!\n" + ConsoleColors.RESET);
                     System.out.println("              Welcome, " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET + "!");

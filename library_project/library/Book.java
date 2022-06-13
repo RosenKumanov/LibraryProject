@@ -1,5 +1,6 @@
 package library_project.library;
 
+import library_project.users.User;
 import library_project.utils.ConsoleColors;
 import library_project.utils.IUseFiles;
 import library_project.utils.Menu;
@@ -102,15 +103,18 @@ public class Book implements IUseFiles {
 
         if(bookReviews.size() != 0) {
             for (Review review : bookReviews) {
+
                 if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
+
                     if(!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
                         System.out.println(ConsoleColors.YELLOW + "You have already commented on this book." + ConsoleColors.RESET);
                         Utils.pressKeyToContinue();
-                        return;
                     }
                     else {
                         Review.addComment(username, bookISBN.getISBN());
+                        Utils.pressKeyToContinue();
                     }
+                    return;
                 }
             }
         }
@@ -147,10 +151,10 @@ public class Book implements IUseFiles {
         return allReviews;
     }
 
-    public void editBook(String username) {
+    public void editBook(User user) {
         try {
-            if (bookOwner.equalsIgnoreCase(username)) {
-                editBookOptions();
+            if (bookOwner.equalsIgnoreCase(user.getUsername())) {
+                editBookOptions(user);
             }
             else {
                 System.out.println(ConsoleColors.YELLOW + "Only the Book Owner can Edit a book!" + ConsoleColors.RESET);
@@ -188,7 +192,7 @@ public class Book implements IUseFiles {
 
     }
 
-    private void editBookOptions () throws IOException {
+    private void editBookOptions (User user) throws IOException {
         System.out.println("---------");
         System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET +
                 "1. Edit Book name"+ '\n' +
@@ -216,7 +220,7 @@ public class Book implements IUseFiles {
                 System.out.println("Book Author was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 break;
             case 3:
-                ISBNnum newISBN = ISBNnum.setISBNnum();
+                ISBNnum newISBN = ISBNnum.setISBNnum(user);
                 updateFile(FILEPATH, bookISBN.getISBN(),newISBN.getISBN());
                 System.out.println("Book ISBN was updated to: " + ConsoleColors.CYAN_BOLD + newISBN.getISBN() + ConsoleColors.RESET + '\n');
                 break;
@@ -231,10 +235,11 @@ public class Book implements IUseFiles {
                 System.out.println(ConsoleColors.RESET);
                 break;
             case 5:
-                Menu.start();
+                Library library = Library.generateMainLibrary();
+                Menu.options(library, user);
             default:
                 System.out.println(ConsoleColors.RED + "Wrong Input");
-                editBookOptions();
+                editBookOptions(user);
         }
 
     }
@@ -255,7 +260,7 @@ public class Book implements IUseFiles {
         }
     }
 
-    public static void addNewBook (String user) {
+    public static void addNewBook (User user, String username) {
         Library library = Library.generateMainLibrary();
         Set<Book> allBooks = library.getBooks();
         Book bookToAdd = new Book();
@@ -275,7 +280,7 @@ public class Book implements IUseFiles {
                     System.out.println(ConsoleColors.YELLOW + "\nThis book is already available in our Library.\n" + ConsoleColors.RESET);
                     System.out.println("Would you like to try to add a different book? Y/N:");
                     if(Utils.yesOrNo()) {
-                        addNewBook(user);
+                        addNewBook(user, username);
                     }
                     else {
                         return;
@@ -285,13 +290,13 @@ public class Book implements IUseFiles {
             System.out.println("Type the book author and press " + ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + ":");
             bookToAdd.author = br.readLine();
 
-            bookToAdd.bookISBN = ISBNnum.setISBNnum();
+            bookToAdd.bookISBN = ISBNnum.setISBNnum(user);
 
             System.out.println(ConsoleColors.YELLOW + "Type the book resume (you can leave this empty, if you wish): " + ConsoleColors.RESET);
 
             bookToAdd.resume = br.readLine();
 
-            bookToAdd.setBookOwner(user);
+            bookToAdd.setBookOwner(username);
 
         } catch (Exception e) {
             InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
@@ -303,11 +308,11 @@ public class Book implements IUseFiles {
                 System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.YELLOW_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 int command = Integer.parseInt(br.readLine());
                 if (command == 1) {
-                    Book.addNewBook(user);
+                    Book.addNewBook(user, username);
                 } else if (command == 2) {
                     //to exit to the main menu
                     System.out.println('\n' + "Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
-                    Menu.start();
+                    Menu.options(library, user);
                 } else {
                     System.out.println('\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
                 }

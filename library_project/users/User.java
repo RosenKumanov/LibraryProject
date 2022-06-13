@@ -89,6 +89,7 @@ public class User implements IUseFiles {
     }
 
     public void removeFromFavourites(Book book) {
+
         try {
             deleteFavouriteFromFile(favouriteBooksFilepath, book.bookISBN.getISBN());
             System.out.println("Successfully removed " + ConsoleColors.CYAN + book.getBookName() + ConsoleColors.RESET + " from Favourites!");
@@ -99,31 +100,36 @@ public class User implements IUseFiles {
     }
 
     private void deleteFavouriteFromFile(String fileToUpdate, String isbn) throws IOException {
+
         File oldFile = new File(fileToUpdate);
         File tempFile = new File("library_project/files/temp.csv");
 
+        try(
         FileWriter fw = new FileWriter(tempFile);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter pw = new PrintWriter(bw);
+        Scanner scan = new Scanner(oldFile)) {
 
-        Scanner scan = new Scanner(oldFile);
-
-        while(scan.hasNextLine()) {
-            String current = scan.nextLine();
-            if (!isbn.equals(current)) {
-                pw.println(current);
+            while (scan.hasNextLine()) {
+                String current = scan.nextLine();
+                if (!isbn.equals(current)) {
+                    pw.println(current);
+                }
             }
-        }
-            scan.close();
             pw.flush();
             pw.close();
+            scan.close();
+
 
             if (!oldFile.delete()) {
                 System.out.println("Unable to delete");
             }
             File dump = new File(fileToUpdate);
             tempFile.renameTo(dump);
+        } catch (Exception e) {
+            System.out.println("Oops!");
         }
+    }
 
     public void addBookToLibrary(Book book) {
         Set<Book> books = personalLibrary.getBooks();

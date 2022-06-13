@@ -1,7 +1,9 @@
 package library_project.library;
 
+import library_project.users.User;
 import library_project.utils.ConsoleColors;
 import library_project.utils.Menu;
+import library_project.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,10 +43,12 @@ public class ISBNnum {
 
         // find length
         length = number.length();
-        if (length == 13)
+        if (length == 13) {
             return isISBN13(number);
-        else if (length == 10)
+        }
+        else if (length == 10) {
             return isISBN10(number);
+        }
 
         return false;
     }
@@ -110,9 +114,10 @@ public class ISBNnum {
         }
     }
 
-    public static ISBNnum setISBNnum() {
+    public static ISBNnum setISBNnum(User user) {
+
         String ISBN = null;
-        System.out.println(ConsoleColors.YELLOW + "Type book ISBN (10 or 13 digits): " + ConsoleColors.RESET);
+        System.out.println("Type book ISBN (10 or 13 digits): ");
         InputStreamReader in = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(in);
 
@@ -121,26 +126,44 @@ public class ISBNnum {
 
             while (!isISBN(ISBN)) {
 
-                System.out.println('\n' + ConsoleColors.YELLOW_UNDERLINED + ISBN + ConsoleColors.RED_BOLD + " is not valid!\n" + ConsoleColors.RESET);
+                System.out.println('\n' + ConsoleColors.YELLOW + ISBN + ConsoleColors.RED + " is not valid!\n" + ConsoleColors.RESET);
                 System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" +
                         ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 int command = Integer.parseInt(br.readLine());
+
                 if (command == 1) {
-                    setISBNnum();
+                    setISBNnum(user);
                 }
                 else if (command == 2) {
+                    Library library = Library.generateMainLibrary();
                     System.out.println("Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
-                    Menu.start();
+                    Menu.options(library,user);
                 } else {
-                    System.out.println(ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET);
-                    setISBNnum();
+                    System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+                    System.out.println("\nWould you like to try again? Y/N:");
+                    if(Utils.yesOrNo()) {
+                        setISBNnum(user);
+                    }
+                    else {
+                        Library library = Library.generateMainLibrary();
+                        Menu.options(library, user);
+                    }
+                    setISBNnum(user);
                 }
             }
 
             System.out.println("\n( Book ISBN " + ConsoleColors.YELLOW + ISBN + ConsoleColors.RESET + " is valid! )\n");
         } catch (Exception e) {
-            System.out.println( '\n' + ConsoleColors.RED_BOLD + "Wrong input!" + ConsoleColors.RESET + '\n');
-            setISBNnum();
+            System.out.println( '\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+            System.out.println("\nWould you like to try with another ISBN number? Y/N:");
+            if (Utils.yesOrNo()) {
+                setISBNnum(user);
+            }
+            else {
+                Library library = Library.generateMainLibrary();
+                Menu.options(library, user);
+            }
+
         }
         return new ISBNnum(ISBN);
     }
