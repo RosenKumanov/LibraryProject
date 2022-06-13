@@ -104,21 +104,21 @@ public class User implements IUseFiles {
         File oldFile = new File(fileToUpdate);
         File tempFile = new File("library_project/files/temp.csv");
 
-        try(
         FileWriter fw = new FileWriter(tempFile);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter pw = new PrintWriter(bw);
-        Scanner scan = new Scanner(oldFile)) {
 
-            while (scan.hasNextLine()) {
-                String current = scan.nextLine();
-                if (!isbn.equals(current)) {
-                    pw.println(current);
-                }
+        Scanner scan = new Scanner(oldFile);
+
+        while(scan.hasNextLine()) {
+            String current = scan.nextLine();
+            if (!isbn.equals(current)) {
+                pw.println(current);
             }
-            pw.flush();
-            pw.close();
-            scan.close();
+        }
+        pw.flush();
+        pw.close();
+        scan.close();
 
 
             if (!oldFile.delete()) {
@@ -126,10 +126,7 @@ public class User implements IUseFiles {
             }
             File dump = new File(fileToUpdate);
             tempFile.renameTo(dump);
-        } catch (Exception e) {
-            System.out.println("Oops!");
         }
-    }
 
     public void addBookToLibrary(Book book) {
         Set<Book> books = personalLibrary.getBooks();
@@ -158,8 +155,7 @@ public class User implements IUseFiles {
             while(scan.hasNextLine()) {
                 ISBNs.add(scan.nextLine().trim());
             }
-
-
+            scan.close();
 
             for(String ISBN : ISBNs) {
                 scan = new Scanner(booksFile);

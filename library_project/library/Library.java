@@ -22,7 +22,9 @@ public class Library {
     }
 
     public static Library generateMainLibrary() {
-        return new Library(getAllBooksFromFile());
+        Library library = new Library(getAllBooksFromFile());
+        library.sortBooks();
+        return library;
     }
 
     private static Set<Book> getAllBooksFromFile() {

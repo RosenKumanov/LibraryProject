@@ -67,7 +67,6 @@ public class UserRepo {
         try(Scanner sc = new Scanner(usersFile)) {
 
             if(!sc.hasNextLine()) {
-                System.out.println("No users are registered yet.");
                 return null;
             }
             while(sc.hasNextLine()) {
