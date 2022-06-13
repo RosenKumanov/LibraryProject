@@ -125,10 +125,10 @@ public class UserRepo {
 
         while (isPasswordWeak(password)) {
             System.out.println(ConsoleColors.YELLOW + "Your password must be at least 8 characters and it needs to include at least 3 of the following: \n" + ConsoleColors.RESET);
-            System.out.println("1. Lower case letters");
-            System.out.println("2. Upper case letters");
-            System.out.println("3. Numbers");
-            System.out.println("4. Symbols\n");
+            System.out.println("- Lower case letters");
+            System.out.println("- Upper case letters");
+            System.out.println("- Numbers");
+            System.out.println("- Symbols\n");
             password = sc.nextLine();
         }
 
@@ -171,30 +171,42 @@ public class UserRepo {
         if(pass.length < 8) {
             return true;
         }
+
         boolean lowerCase = false;
         boolean nums = false;
         boolean symbols = false;
         boolean upperCase = false;
+
         for (char c : pass) {
             if (c > 47 && c < 58) {
                 nums = true;
-            } else if (c > 96 && c < 123) {
+            }
+
+            else if (c > 96 && c < 123) {
                 lowerCase = true;
-            } else if (c > 64 && c < 91) {
+            }
+
+            else if (c > 64 && c < 91) {
                 upperCase = true;
-            } else {
+            }
+
+            else {
                 symbols = true;
             }
         }
+
         if(lowerCase && nums && symbols && upperCase) {
             return false;
         }
+
         else if(lowerCase && nums && upperCase) {
             return false;
         }
+
         else if(lowerCase && nums && symbols) {
             return false;
         }
+
         else return !lowerCase || !symbols || !upperCase;
     }
 

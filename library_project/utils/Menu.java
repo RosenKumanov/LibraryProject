@@ -5,8 +5,6 @@ import library_project.library.Library;
 import library_project.users.User;
 import library_project.users.UserRepo;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Menu {
@@ -23,25 +21,23 @@ public class Menu {
         System.out.println("| " + ConsoleColors.BLUE + "      created by" + ConsoleColors.PURPLE + " Rosen " + ConsoleColors.BLUE + " & " + ConsoleColors.PURPLE + " Stefi  " + ConsoleColors.RESET + "      |");
         System.out.println("|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=|\n\n");
         System.out.println(ConsoleColors.YELLOW + "       1. Register        " + ConsoleColors.GREEN + "2. Log in\n" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.RED +    "                  3. Exit\n\n\n" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED + "                  3. Exit\n\n\n" + ConsoleColors.RESET);
 
         User currentUser;
         Library mainLibrary = Library.generateMainLibrary();
 
         int command = getInput();
-        while(command < 1 || command > 3) {
+        while (command < 1 || command > 3) {
             System.out.println("Type a number between 1-3: ");
             command = getInput();
         }
-        if(command == 1) {
+        if (command == 1) {
             UserRepo.register();
             firstScreen();
-        }
-        else if (command == 2) {
+        } else if (command == 2) {
             currentUser = UserRepo.logIn();
             options(mainLibrary, currentUser);
-        }
-        else {
+        } else {
             System.exit(0);
         }
     }
@@ -63,12 +59,12 @@ public class Menu {
 
         int command = getInput();
 
-        while(command < 1 || command > 6) {
+        while (command < 1 || command > 6) {
             System.out.println("You need to type a number between 1-6:");
             command = getInput();
         }
 
-        switch(command) {
+        switch (command) {
             case 1:
                 exploreBooks(user);
                 break;
@@ -95,18 +91,17 @@ public class Menu {
         Library library = Library.generateMainLibrary();
 
         System.out.println();
-        System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("|" + ConsoleColors.BLUE + "                                        EXPLORE BOOKS                                        " + ConsoleColors.PURPLE + "|");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
 
         int bookCounter = 0;
-        if(library.getBooks() == null) {
+        if (library.getBooks() == null) {
             System.out.println(ConsoleColors.YELLOW + "\nNo books in our library yet. Sorry!" + ConsoleColors.RESET);
             System.out.println("Returning to main menu...\n\n");
             Utils.pressKeyToContinue();
             options(library, user);
-        }
-        else {
+        } else {
             printAllBooks(library, user);
 
         }
@@ -116,23 +111,18 @@ public class Menu {
         Utils.clearConsole();
         Library library = Library.generateMainLibrary();
 
-
-
-
         System.out.println();
-        System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("|" + ConsoleColors.BLUE + "                                         MY LIBRARY                                          " + ConsoleColors.PURPLE + "|");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
 
         int bookCounter = 0;
-        if(user.getPersonalLibrary().getBooks().size() == 0) {
+        if (user.getPersonalLibrary().getBooks().size() == 0) {
             System.out.println("\nYou don't have any books added here yet.");
             System.out.println("Returning to main menu...\n\n");
             Utils.pressKeyToContinue();
             options(library, user);
-        }
-
-        else {
+        } else {
             printAllLibraryBooks(library, user);
         }
     }
@@ -141,7 +131,7 @@ public class Menu {
         Library library = Library.generateMainLibrary();
 
         System.out.println();
-        System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("|" + ConsoleColors.BLUE + "                                  MY TOP 10 FAVOURITE BOOKS                                  " + ConsoleColors.PURPLE + "|");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
 
@@ -151,8 +141,7 @@ public class Menu {
             System.out.println("\nNo books added to \"Favourites\" yet - returning to main menu...\n");
             Utils.pressKeyToContinue();
             options(library, user);
-        }
-        else {
+        } else {
 
             int bookCounter = 0;
             boolean color = true;
@@ -160,24 +149,25 @@ public class Menu {
             for (Book book : favouriteBooks) {
                 if (book != null) {
                     color = isColor(color);
-                    System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + ConsoleColors.RESET + "   Rating: " + ((book.getAverageRating() > 0) ? book.getAverageRating() : "Not yet rated"));
+                    System.out.println(++bookCounter + ". " + book.getBookName() + ", written by " + book.getAuthor() + ConsoleColors.RESET + "   Rating: " + ((book.getAverageRating() > 0) ? String.format("%.1f", book.getAverageRating()) : "Not yet rated"));
                     System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
 
                 }
             }
-            System.out.println("\n                                     " + ConsoleColors.RED + (++bookCounter) + ". Go back" + ConsoleColors.RESET);
+            System.out.println("\n                                     " + ConsoleColors.RED + "B. Go back" + ConsoleColors.RESET);
 
-            System.out.println("Choose a " + ConsoleColors.GREEN + "book " + ConsoleColors.RESET + "and type it's number.");
-            System.out.println("If you wish to " + ConsoleColors.YELLOW + "go back " + ConsoleColors.RESET + "- type B.");
+            System.out.println("Choose a " + ConsoleColors.GREEN + "book " + ConsoleColors.RESET + "and type it's" + ConsoleColors.PURPLE + " number" + ConsoleColors.RESET);
+            System.out.println("If you wish to " + ConsoleColors.YELLOW + "go back " + ConsoleColors.RESET + "- type " + ConsoleColors.PURPLE + "B");
             System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
-            int command = getInput();
+            int command = getFavInput();
 
-            while (command < 1 || command > bookCounter) {
-                System.out.println("You need to type a number between 1-" + bookCounter + ":");
-                command = getInput();
+            while (command < 0 || command > bookCounter) {
+                System.out.println("You need to type a number between " + ConsoleColors.PURPLE + "1-" + bookCounter
+                        + ConsoleColors.RESET + " or the letter " + ConsoleColors.PURPLE + "B" + ConsoleColors.RESET + ":");
+                command = getFavInput();
             }
-            if (command == bookCounter) {
+            if (command == 0) {
                 options(library, user);
             } else {
                 favouriteBookInteract(user, favouriteBooks[command - 1]);
@@ -190,7 +180,7 @@ public class Menu {
         System.out.println();
         System.out.println(ConsoleColors.PURPLE + "-=-=-=-=-=-=-=-=");
         System.out.println("| " + ConsoleColors.BLUE + "ACCOUNT INFO" + ConsoleColors.PURPLE + " |");
-        System.out.println("-=-=-=-=-=-=-=-=\n\n" +  ConsoleColors.RESET);
+        System.out.println("-=-=-=-=-=-=-=-=\n\n" + ConsoleColors.RESET);
         System.out.println("YOUR NAME: " + ConsoleColors.CYAN + user.getFirstName() + ConsoleColors.RESET);
         System.out.println("USERNAME: " + ConsoleColors.CYAN + user.getUsername() + ConsoleColors.RESET);
         System.out.println("EMAIL ADDRESS: " + ConsoleColors.CYAN + user.getEmail() + ConsoleColors.RESET);
@@ -201,30 +191,27 @@ public class Menu {
         System.out.println("3. Go back");
 
         int input = getInput();
-        while(input < 1 || input > 3) {
+        while (input < 1 || input > 3) {
             System.out.println("Type a number between 1-3: ");
             input = getInput();
         }
         if (input == 1) {
             user.changePassword();
             accountInfo(library, user);
-        }
-        else if (input == 2) {
+        } else if (input == 2) {
             user.changeEmail();
             accountInfo(library, user);
-        }
-        else {
+        } else {
             options(library, user);
         }
 
     }
 
     private static boolean isColor(boolean color) {
-        if(color) {
+        if (color) {
             System.out.print(ConsoleColors.BLUE);
             color = false;
-        }
-        else {
+        } else {
             System.out.print(ConsoleColors.CYAN);
             color = true;
         }
@@ -248,7 +235,7 @@ public class Menu {
 
         allBooks = Library.sortBooks(library.getBooks());
 
-        for(currentPage = 0; currentPage <= pages; currentPage++) {
+        for (currentPage = 0; currentPage <= pages; currentPage++) {
             for (bookIndex = 0; bookIndex < 10; bookIndex++) {
                 color = isColor(color);
 
@@ -259,8 +246,7 @@ public class Menu {
                             ? String.format("%.1f", allBooks[bookIndex + (currentPage * 10)].getAverageRating())
                             : "Not yet rated") + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
-                }
-                else {
+                } else {
                     break;
                 }
             }
@@ -269,7 +255,7 @@ public class Menu {
                     + ConsoleColors.BLUE + (currentPage != pages - 1 ? "                    " : "   N. Next page    ")
                     + ConsoleColors.RED + "       B. Go back\n" + ConsoleColors.RESET);
 
-            System.out.println("To select a "+ ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
+            System.out.println("To select a " + ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
                     + ConsoleColors.RESET + "To select an " + ConsoleColors.YELLOW + "option" + ConsoleColors.RESET + " - type it's corresponding " + ConsoleColors.PURPLE + "letter" + ConsoleColors.RESET);
             System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
@@ -286,11 +272,9 @@ public class Menu {
                 Utils.clearConsole();
             } else if (command == 11 && currentPage != 0) {
                 currentPage -= 2;
-            }
-            else if((command - 1 + (currentPage * 10)) < allBooks.length){
+            } else if ((command - 1 + (currentPage * 10)) < allBooks.length) {
                 bookInteract(user, allBooks[command - 1 + (currentPage * 10)]);
-            }
-            else {
+            } else {
                 System.out.println(ConsoleColors.YELLOW + "\nNo book available on the spot you selected.\n" + ConsoleColors.RESET);
                 currentPage -= 1;
             }
@@ -318,7 +302,7 @@ public class Menu {
                     System.out.println((bookIndex + 1) + ". " + allBooks[bookIndex + (currentPage * 10)].getBookName()
                             + ", written by " + allBooks[bookIndex + (currentPage * 10)].getAuthor() + ConsoleColors.RESET
                             + "   Rating: " + ((allBooks[bookIndex + (currentPage * 10)].getAverageRating() > 0)
-                            ? allBooks[bookIndex + (currentPage * 10)].getAverageRating()
+                            ? String.format(".%1f", allBooks[bookIndex + (currentPage * 10)].getAverageRating())
                             : "Not yet rated") + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.PURPLE
                             + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
@@ -332,7 +316,7 @@ public class Menu {
                     + ConsoleColors.BLUE + (currentPage != pages - 1 ? "                    " : "       N. Next page ")
                     + ConsoleColors.RED + "      B. Go back \n" + ConsoleColors.RESET);
 
-            System.out.println("To select a "+ ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
+            System.out.println("To select a " + ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
                     + ConsoleColors.RESET + "To select an " + ConsoleColors.YELLOW + "option" + ConsoleColors.RESET + " - type it's corresponding " + ConsoleColors.PURPLE + "letter" + ConsoleColors.RESET);
             System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
@@ -349,11 +333,9 @@ public class Menu {
                 Utils.clearConsole();
             } else if (command == 11 && currentPage != 0) {
                 currentPage -= 2;
-            }
-            else if((command - 1 + (currentPage * 10)) < allBooks.length){
+            } else if ((command - 1 + (currentPage * 10)) < allBooks.length) {
                 libraryBookInteract(library, user, allBooks[command - 1 + (currentPage * 10)]);
-            }
-            else {
+            } else {
                 System.out.println(ConsoleColors.YELLOW + "\nNo book available on the spot you selected.\n" + ConsoleColors.RESET);
                 currentPage -= 1;
             }
@@ -383,11 +365,11 @@ public class Menu {
         System.out.print(ConsoleColors.RESET);
 
         int input = getInput();
-        while(input < 1 || input > 8) {
+        while (input < 1 || input > 8) {
             System.out.println("Type a number between 1-8: ");
             input = getInput();
         }
-        switch(input) {
+        switch (input) {
             case 1:
                 book.rateBook(user.getUsername());
                 libraryBookInteract(library, user, book);
@@ -440,11 +422,11 @@ public class Menu {
         System.out.print(ConsoleColors.RESET);
 
         int input = getInput();
-        while(input < 1 || input > 8) {
+        while (input < 1 || input > 8) {
             System.out.println("Type a number between 1-8: ");
             input = getInput();
         }
-        switch(input) {
+        switch (input) {
             case 1:
                 book.rateBook(user.getUsername());
                 favouriteBookInteract(user, book);
@@ -496,11 +478,11 @@ public class Menu {
         System.out.println("8. Go back" + ConsoleColors.RESET);
 
         int input = getInput();
-        while(input < 1 || input > 8) {
+        while (input < 1 || input > 8) {
             System.out.println("Type a number between 1-8: ");
             input = getInput();
         }
-        switch(input) {
+        switch (input) {
             case 1:
                 book.rateBook(user.getUsername());
                 bookInteract(user, book);
@@ -535,16 +517,15 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        while(true) {
-            if(input.isEmpty()) {
+        while (true) {
+            if (input.isEmpty()) {
                 System.out.println("You need to type something!");
                 input = sc.nextLine();
                 continue;
             }
             try {
                 return Integer.parseInt(input);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("You need to type a number!");
                 input = sc.nextLine();
             }
@@ -553,29 +534,45 @@ public class Menu {
 
     }
 
+    private static int getFavInput() {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+
+        while (true) {
+            if (input.isEmpty()) {
+                System.out.println("You need to type something!");
+                input = sc.nextLine();
+            } else if (input.trim().equalsIgnoreCase("B")) {
+                return 0;
+            } else {
+                try {
+                    return Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    System.out.println(ConsoleColors.YELLOW + "Wrong input!" + ConsoleColors.RESET);
+                }
+            }
+        }
+    }
+
     private static int getPageInput() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        while(true) {
-            if(input.isEmpty()) {
+        while (true) {
+            if (input.isEmpty()) {
                 System.out.println("You need to type something!");
                 input = sc.nextLine();
                 continue;
-            }
-            else if (input.trim().equalsIgnoreCase("P")){
+            } else if (input.trim().equalsIgnoreCase("P")) {
                 return 11;
-            }
-            else if (input.trim().equalsIgnoreCase("N")){
+            } else if (input.trim().equalsIgnoreCase("N")) {
                 return 12;
-            }
-            else if(input.trim().equalsIgnoreCase("B")){
+            } else if (input.trim().equalsIgnoreCase("B")) {
                 return 13;
             }
             try {
                 return Integer.parseInt(input);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println(ConsoleColors.YELLOW + "You need to type a number or one of the letters:");
                 input = sc.nextLine();
             }
