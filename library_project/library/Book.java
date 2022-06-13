@@ -105,6 +105,7 @@ public class Book implements IUseFiles {
                 if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
                     if(!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
                         System.out.println(ConsoleColors.YELLOW + "You have already commented on this book." + ConsoleColors.RESET);
+                        Utils.pressKeyToContinue();
                         return;
                     }
                     else {
@@ -113,10 +114,8 @@ public class Book implements IUseFiles {
                 }
             }
         }
-        else {
-            Review.addNewComment(username, bookISBN.getISBN());
-        }
 
+        Review.addNewComment(username, bookISBN.getISBN());
     }
 
     public Set<Review> getAllReviewsFromFile () {  //създава сет от ревюта за конкретната книга
@@ -297,6 +296,7 @@ public class Book implements IUseFiles {
         } catch (Exception e) {
             InputStreamReader in = new InputStreamReader(System.in);  //create BufferedReader class object to get input from user
             BufferedReader br = new BufferedReader(in);
+
             try {
                 System.out.println('\n' + ConsoleColors.BLACK_BOLD + ConsoleColors.RED_BACKGROUND + "Something went wrong :(");
                 System.out.println("---------");
@@ -321,7 +321,6 @@ public class Book implements IUseFiles {
 
         bookToAdd.writeToFile();
     }
-
     @Override
     public void writeToFile() {
         try {

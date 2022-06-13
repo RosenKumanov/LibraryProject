@@ -404,6 +404,12 @@ public class User implements IUseFiles {
     }
 
     public void removeFromMyLibrary(Book book) {
- //TODO
+        try {
+            deleteFavouriteFromFile(personalLibrary.getLibraryFilepath(), book.bookISBN.getISBN());
+            System.out.println("Successfully removed " + ConsoleColors.CYAN + book.getBookName() + ConsoleColors.RESET + " from " + ConsoleColors.CYAN + "My library" + ConsoleColors.RESET + "!");
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Issue with favourite books filepath!" + ConsoleColors.RESET);
+        }
+        updateInfo();
     }
 }

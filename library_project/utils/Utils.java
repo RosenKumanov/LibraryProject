@@ -38,6 +38,7 @@ public class Utils {
 
     public static boolean yesOrNo() {
         Scanner sc = new Scanner(System.in);
+
         String input = sc.nextLine();
         while(!input.trim().equalsIgnoreCase("Y") && !input.trim().equalsIgnoreCase("N")) {
             System.out.println(ConsoleColors.YELLOW + "Wrong input! Type either Y or N: " + ConsoleColors.RESET);

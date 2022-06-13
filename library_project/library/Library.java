@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Library {
+
     protected Set<Book> books;
 
     public void setBooks(Set<Book> books) {
@@ -59,7 +60,7 @@ public class Library {
         return allBooks;
     }
 
-    public static Set<Book> sortBooks(Set<Book> books) {
+    public void sortBooks() {
 
         Book[] arrayOfSortedBooks = new Book[books.size()];
         books.toArray(arrayOfSortedBooks);
@@ -76,7 +77,7 @@ public class Library {
             }
         }
 
-        return new HashSet<>(Arrays.asList(arrayOfSortedBooks));
+        books = new HashSet<>(Arrays.asList(arrayOfSortedBooks));
     }
 
     public Set<Book> getBooks() {

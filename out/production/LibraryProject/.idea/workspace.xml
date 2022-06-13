@@ -1,81 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="LibraryProject:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="Updates made:&#10;- fixed issue with changing user info after registering&#10;- fixed adding the same book &#10;- fixed some UI issues/visuals">
-      <change beforePath="$PROJECT_DIR$/library_project/files/60pgpFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/60pgpPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/akuzinoFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/akuzinoPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/atilaFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/atilaPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/atilchoFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/atilchoPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/bookReview.csv" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/files/bookReview.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/divinecomedyFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/divinecomedyPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/dobromirFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/dobromirPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/kostaFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/kostaPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/newtestFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/newtestPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/stefiFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/stefiPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/test1FavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/test1PersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testingFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testingPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testusername1FavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/testusername1PersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/tonyFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/tonyPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/files/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/yaniFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/files/yaniPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/library/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/library/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/users/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/users/UserFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/utils/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library_project/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/60pgpFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/60pgpPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/akuzinoFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/akuzinoPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/bookReview.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/bookReview.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/divinecomedyFavouriteBooks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/divinecomedyFavouriteBooks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/divinecomedyPersonalLibrary.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/divinecomedyPersonalLibrary.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/dobromirFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/dobromirPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/kostaFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/kostaPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/newtestFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/newtestPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/stefiFavouriteBooks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/stefiFavouriteBooks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/stefiPersonalLibrary.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/stefiPersonalLibrary.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/test1FavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/test1PersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testingFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testingPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testusername1FavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/testusername1PersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/tonyFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/tonyPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/yaniFavouriteBooks.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/files/yaniPersonalLibrary.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Review.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/users/Users.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Utils.class" afterDir="false" />
-    </list>
+    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="slight change" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,12 +21,12 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
+    <option name="BRANCH" value="main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Improvements&amp;MoreFixes" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -122,6 +53,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\buiik\IdeaProjects\LibraryProject\testing_package\files" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="library_project.users" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DemoClass (1)">
@@ -387,7 +321,35 @@
       <option name="project" value="LOCAL" />
       <updated>1654786053966</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Fixed some more bugs&#10;Worked on the menu, making it more user-friendly &#10;added the option to go back to first screen upon failing to register or login">
+      <created>1654875327711</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1654875327711</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Fixed some more bugs&#10;Worked on the menu, making it more user-friendly &#10;added the option to go back to first screen upon failing to register or login">
+      <created>1654875400836</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1654875400836</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Fixed some more bugs&#10;Worked on the menu, making it more user-friendly &#10;added the option to go back to first screen upon failing to register or login">
+      <created>1654875622817</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1654875622817</updated>
+    </task>
+    <task id="LOCAL-00035" summary="slight change">
+      <created>1654876490191</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1654876490191</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -416,6 +378,8 @@
     <MESSAGE value="Added password Encryption &#10;Added check if password is strong&#10;Added some more menus &#10;Fixed writting to files for Favourite and MyLibrary files" />
     <MESSAGE value="First fully working state&#10;- fixed most bugs &#10;- fixed menus &#10;Bugs to fix: &#10;- newly registered users can't get data updated on the initial run" />
     <MESSAGE value="Updates made:&#10;- fixed issue with changing user info after registering&#10;- fixed adding the same book &#10;- fixed some UI issues/visuals" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates made:&#10;- fixed issue with changing user info after registering&#10;- fixed adding the same book &#10;- fixed some UI issues/visuals" />
+    <MESSAGE value="Fixed some more bugs&#10;Worked on the menu, making it more user-friendly &#10;added the option to go back to first screen upon failing to register or login" />
+    <MESSAGE value="slight change" />
+    <option name="LAST_COMMIT_MESSAGE" value="slight change" />
   </component>
 </project>

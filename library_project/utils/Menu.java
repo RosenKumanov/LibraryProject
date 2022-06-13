@@ -91,6 +91,8 @@ public class Menu {
     private static void exploreBooks(Library library, User user) {
         Utils.clearConsole();
         library = Library.generateMainLibrary();
+        library.sortBooks();
+
         System.out.println();
         System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("|" + ConsoleColors.BLUE + "                                        EXPLORE BOOKS                                        " + ConsoleColors.PURPLE + "|");
@@ -112,6 +114,8 @@ public class Menu {
     private static void myLibrary(Library library, User user) {
         Utils.clearConsole();
         library = Library.generateMainLibrary();
+
+
 
 
         System.out.println();
@@ -298,6 +302,7 @@ public class Menu {
         boolean color = true;
 
         Book[] allBooks = new Book[user.getPersonalLibrary().getBooks().size()];
+
         int bookIndex = 0;
         int pages = allBooks.length / 10;
         int currentPage;
@@ -368,6 +373,8 @@ public class Menu {
         System.out.println(ConsoleColors.PURPLE + "------------------------------|" + ConsoleColors.CYAN);
         System.out.println("3. Add to \"Favourites\"");
         System.out.println(ConsoleColors.PURPLE + "------------------------------|" + ConsoleColors.CYAN);
+        System.out.println("4. Remove from \"My Library\"");
+        System.out.println(ConsoleColors.PURPLE + "------------------------------|" + ConsoleColors.CYAN);
         System.out.println("5. Show book resume");
         System.out.println(ConsoleColors.PURPLE + "------------------------------|" + ConsoleColors.CYAN);
         System.out.println("6. Edit book");
@@ -386,33 +393,33 @@ public class Menu {
             case 1:
                 book.rateBook(user.getUsername());
                 Utils.pressKeyToContinue();
-                myLibrary(library, user);
+                libraryBookInteract(library, user, book);
             case 2:
                 book.commentBook(user.getUsername());
                 Utils.pressKeyToContinue();
-                options(library, user);
+                libraryBookInteract(library, user, book);
             case 3:
                 user.addBookToFavourites(book);
                 Utils.pressKeyToContinue();
-                myLibrary(library, user);
+                libraryBookInteract(library, user, book);
             case 4:
-                //TODO must finish this method!
-                System.out.println("Finish this method first, Roska!");
                 user.removeFromMyLibrary(book);
+                Utils.pressKeyToContinue();
+                myLibrary(library, user);
             case 5:
                 System.out.println(ConsoleColors.CYAN);
                 book.showResume();
                 System.out.println(ConsoleColors.RESET);
                 Utils.pressKeyToContinue();
-                myLibrary(library, user);
+                libraryBookInteract(library, user, book);
             case 6:
                 book.editBook(user.getUsername());
                 Utils.pressKeyToContinue();
-                myLibrary(library, user);
+                libraryBookInteract(library, user, book);
             case 7:
                 book.showAllReviews();
                 Utils.pressKeyToContinue();
-                myLibrary(library, user);
+                libraryBookInteract(library, user, book);
             case 8:
                 options(library, user);
         }
