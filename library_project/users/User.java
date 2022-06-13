@@ -202,6 +202,7 @@ public class User implements IUseFiles {
 
             String[] favouriteISBNs = new String[10];
             int index = 0;
+
             while(scan.hasNextLine()) {
                 favouriteISBNs[index] = scan.nextLine();
                 index++;
@@ -209,11 +210,14 @@ public class User implements IUseFiles {
             scan.close();
 
             index = 0;
+
             if(library.getBooks().isEmpty()) {
                 return null;
             }
             for(Book book : library.getBooks()) {
+
                 for(String ISBN : favouriteISBNs) {
+
                     if (book.bookISBN.getISBN().equals(ISBN)) {
                         book.updateAverageRating();
                         favouriteBooks[index] = book;
@@ -362,6 +366,16 @@ public class User implements IUseFiles {
 
     }
 
+    public void removeFromMyLibrary(Book book) {
+        try {
+            deleteFavouriteFromFile(personalLibrary.getLibraryFilepath(), book.bookISBN.getISBN());
+            System.out.println("Successfully removed " + ConsoleColors.CYAN + book.getBookName() + ConsoleColors.RESET + " from " + ConsoleColors.CYAN + "My library" + ConsoleColors.RESET + "!");
+        } catch (IOException e) {
+            System.out.println(ConsoleColors.RED + "Issue with favourite books filepath!" + ConsoleColors.RESET);
+        }
+        updateInfo();
+    }
+
     public void writeToFile() {
         try {
 
@@ -403,15 +417,5 @@ public class User implements IUseFiles {
 
     public String getEmail() {
         return email;
-    }
-
-    public void removeFromMyLibrary(Book book) {
-        try {
-            deleteFavouriteFromFile(personalLibrary.getLibraryFilepath(), book.bookISBN.getISBN());
-            System.out.println("Successfully removed " + ConsoleColors.CYAN + book.getBookName() + ConsoleColors.RESET + " from " + ConsoleColors.CYAN + "My library" + ConsoleColors.RESET + "!");
-        } catch (IOException e) {
-            System.out.println(ConsoleColors.RED + "Issue with favourite books filepath!" + ConsoleColors.RESET);
-        }
-        updateInfo();
     }
 }

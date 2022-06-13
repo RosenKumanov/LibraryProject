@@ -5,6 +5,8 @@ import library_project.library.Library;
 import library_project.users.User;
 import library_project.users.UserRepo;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Menu {
@@ -68,13 +70,13 @@ public class Menu {
 
         switch(command) {
             case 1:
-                exploreBooks(library, user);
+                exploreBooks(user);
                 break;
             case 2:
-                myLibrary(library, user);
+                myLibrary(user);
                 break;
             case 3:
-                favouriteBooks(library, user);
+                favouriteBooks(user);
                 break;
             case 4:
                 addNewBook(user);
@@ -88,10 +90,9 @@ public class Menu {
 
     }
 
-    private static void exploreBooks(Library library, User user) {
+    private static void exploreBooks(User user) {
         Utils.clearConsole();
-        library = Library.generateMainLibrary();
-        library.sortBooks();
+        Library library = Library.generateMainLibrary();
 
         System.out.println();
         System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -111,9 +112,9 @@ public class Menu {
         }
     }
 
-    private static void myLibrary(Library library, User user) {
+    private static void myLibrary(User user) {
         Utils.clearConsole();
-        library = Library.generateMainLibrary();
+        Library library = Library.generateMainLibrary();
 
 
 
@@ -136,9 +137,8 @@ public class Menu {
         }
     }
 
-    private static void favouriteBooks(Library library, User user) {
-        Utils.clearConsole();
-        library = Library.generateMainLibrary();
+    private static void favouriteBooks(User user) {
+        Library library = Library.generateMainLibrary();
 
         System.out.println();
         System.out.println(ConsoleColors.PURPLE +    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -153,7 +153,6 @@ public class Menu {
             options(library, user);
         }
         else {
-            System.out.println("\nChoose a book to interact with: \n");
 
             int bookCounter = 0;
             boolean color = true;
@@ -169,7 +168,8 @@ public class Menu {
             System.out.println("\n                                     " + ConsoleColors.RED + (++bookCounter) + ". Go back" + ConsoleColors.RESET);
 
             System.out.println("Choose a " + ConsoleColors.GREEN + "book " + ConsoleColors.RESET + "and type it's number.");
-            System.out.println("If you wish to " + ConsoleColors.YELLOW + "go back " + ConsoleColors.RESET + "- type " + bookCounter + ":");
+            System.out.println("If you wish to " + ConsoleColors.YELLOW + "go back " + ConsoleColors.RESET + "- type B.");
+            System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
             int command = getInput();
 
@@ -180,7 +180,7 @@ public class Menu {
             if (command == bookCounter) {
                 options(library, user);
             } else {
-                favouriteBookInteract(library, user, favouriteBooks[command - 1]);
+                favouriteBookInteract(user, favouriteBooks[command - 1]);
             }
         }
     }
@@ -242,14 +242,11 @@ public class Menu {
         boolean color = true;
 
         Book[] allBooks = new Book[library.getBooks().size()];
-        int bookIndex = 0;
+        int bookIndex;
         int pages = (allBooks.length - 1) / 10;
         int currentPage;
 
-        for (Book book : library.getBooks()) {
-            allBooks[bookIndex] = book;
-            bookIndex++;
-        }
+        allBooks = Library.sortBooks(library.getBooks());
 
         for(currentPage = 0; currentPage <= pages; currentPage++) {
             for (bookIndex = 0; bookIndex < 10; bookIndex++) {
@@ -259,7 +256,7 @@ public class Menu {
                     System.out.println((bookIndex + 1) + ". " + allBooks[bookIndex + (currentPage * 10)].getBookName()
                             + ", written by " + allBooks[bookIndex + (currentPage * 10)].getAuthor() + ConsoleColors.RESET
                             + "   Rating: " + ((allBooks[bookIndex + (currentPage * 10)].getAverageRating() > 0)
-                            ? allBooks[bookIndex + (currentPage * 10)].getAverageRating()
+                            ? String.format("%.1f", allBooks[bookIndex + (currentPage * 10)].getAverageRating())
                             : "Not yet rated") + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + ConsoleColors.RESET);
                 }
@@ -274,7 +271,7 @@ public class Menu {
 
             System.out.println("To select a "+ ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
                     + ConsoleColors.RESET + "To select an " + ConsoleColors.YELLOW + "option" + ConsoleColors.RESET + " - type it's corresponding " + ConsoleColors.PURPLE + "letter" + ConsoleColors.RESET);
-            System.out.println("Type your input here: ");
+            System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
             int command = getPageInput();
 
@@ -291,7 +288,7 @@ public class Menu {
                 currentPage -= 2;
             }
             else if((command - 1 + (currentPage * 10)) < allBooks.length){
-                bookInteract(library, user, allBooks[command - 1 + (currentPage * 10)]);
+                bookInteract(user, allBooks[command - 1 + (currentPage * 10)]);
             }
             else {
                 System.out.println(ConsoleColors.YELLOW + "\nNo book available on the spot you selected.\n" + ConsoleColors.RESET);
@@ -307,14 +304,11 @@ public class Menu {
 
         Book[] allBooks = new Book[user.getPersonalLibrary().getBooks().size()];
 
-        int bookIndex = 0;
+        int bookIndex;
         int pages = (allBooks.length - 1) / 10;
         int currentPage;
 
-        for (Book book : user.getPersonalLibrary().getBooks()) {
-            allBooks[bookIndex] = book;
-            bookIndex++;
-        }
+        allBooks = Library.sortBooks(user.getPersonalLibrary().getBooks());
 
         for (currentPage = 0; currentPage <= pages; currentPage++) {
             for (bookIndex = 0; bookIndex < 10; bookIndex++) {
@@ -340,7 +334,7 @@ public class Menu {
 
             System.out.println("To select a "+ ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET
                     + ConsoleColors.RESET + "To select an " + ConsoleColors.YELLOW + "option" + ConsoleColors.RESET + " - type it's corresponding " + ConsoleColors.PURPLE + "letter" + ConsoleColors.RESET);
-            System.out.println("Type your input here: ");
+            System.out.println(ConsoleColors.CYAN + "Type your input here: " + ConsoleColors.RESET);
 
             int command = getPageInput();
 
@@ -405,7 +399,7 @@ public class Menu {
                 libraryBookInteract(library, user, book);
             case 4:
                 user.removeFromMyLibrary(book);
-                myLibrary(library, user);
+                myLibrary(user);
             case 5:
                 System.out.println(ConsoleColors.CYAN);
                 book.showResume();
@@ -424,7 +418,7 @@ public class Menu {
         }
     }
 
-    private static void favouriteBookInteract(Library library, User user, Book book) {
+    private static void favouriteBookInteract(User user, Book book) {
         System.out.println("\nSelected book: " + ConsoleColors.CYAN + book.getBookName().toUpperCase() + ConsoleColors.RESET);
         System.out.println();
         System.out.println("Options: \n " + ConsoleColors.CYAN);
@@ -453,35 +447,35 @@ public class Menu {
         switch(input) {
             case 1:
                 book.rateBook(user.getUsername());
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 2:
                 book.commentBook(user.getUsername());
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 3:
                 user.addBookToLibrary(book);
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 4:
                 user.removeFromFavourites(book);
-                favouriteBooks(library, user);
+                favouriteBooks(user);
             case 5:
                 System.out.println(ConsoleColors.CYAN);
                 book.showResume();
                 System.out.println(ConsoleColors.RESET);
                 Utils.pressKeyToContinue();
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 6:
                 book.editBook(user);
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 7:
                 book.showAllReviews();
                 Utils.pressKeyToContinue();
-                favouriteBookInteract(library, user, book);
+                favouriteBookInteract(user, book);
             case 8:
-                favouriteBooks(library, user);
+                favouriteBooks(user);
         }
     }
 
-    private static void bookInteract(Library library, User user, Book book) {
+    private static void bookInteract(User user, Book book) {
         System.out.println("\nSelected book: " + ConsoleColors.CYAN + book.getBookName().toUpperCase() + ConsoleColors.RESET);
         System.out.println();
         System.out.println("Options: \n" + ConsoleColors.CYAN);
@@ -509,31 +503,31 @@ public class Menu {
         switch(input) {
             case 1:
                 book.rateBook(user.getUsername());
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 2:
                 book.commentBook(user.getUsername());
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 3:
                 user.addBookToLibrary(book);
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 4:
                 user.addBookToFavourites(book);
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 5:
                 System.out.println(ConsoleColors.CYAN);
                 book.showResume();
                 System.out.println(ConsoleColors.RESET);
                 Utils.pressKeyToContinue();
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 6:
                 book.showAllReviews();
                 Utils.pressKeyToContinue();
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 7:
                 book.editBook(user);
-                bookInteract(library, user, book);
+                bookInteract(user, book);
             case 8:
-                exploreBooks(library, user);
+                exploreBooks(user);
         }
     }
 

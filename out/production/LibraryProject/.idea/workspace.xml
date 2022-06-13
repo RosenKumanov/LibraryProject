@@ -6,7 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="slight change" />
+    <list default="true" id="2ddfab9e-1176-4a86-968e-2dbf692e483e" name="Changes" comment="What was done:&#10;&#10;- fixed bookInteract menus&#10;- made some QoL changes&#10;- fixed commands on pagination&#10;- some design fixes">
+      <change beforePath="$PROJECT_DIR$/library_project/demo/DemoClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/demo/DemoClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/library/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/library/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library_project/utils/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/library_project/utils/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/demo/DemoClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/library/Library.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LibraryProject/library_project/utils/Menu.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -349,7 +356,28 @@
       <option name="project" value="LOCAL" />
       <updated>1654876490191</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="What was done:&#10;&#10;- Fixed issue with leaving a review &#10;- Written and tested out removing books from Personal library">
+      <created>1655113060880</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1655113060880</updated>
+    </task>
+    <task id="LOCAL-00037" summary="What was done:&#10;&#10;- Fixed issue with leaving a review &#10;- Written and tested out removing books from Personal library">
+      <created>1655118599641</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1655118599641</updated>
+    </task>
+    <task id="LOCAL-00038" summary="What was done:&#10;&#10;- fixed bookInteract menus&#10;- made some QoL changes&#10;- fixed commands on pagination&#10;- some design fixes">
+      <created>1655126141716</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1655126141716</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,6 +408,8 @@
     <MESSAGE value="Updates made:&#10;- fixed issue with changing user info after registering&#10;- fixed adding the same book &#10;- fixed some UI issues/visuals" />
     <MESSAGE value="Fixed some more bugs&#10;Worked on the menu, making it more user-friendly &#10;added the option to go back to first screen upon failing to register or login" />
     <MESSAGE value="slight change" />
-    <option name="LAST_COMMIT_MESSAGE" value="slight change" />
+    <MESSAGE value="What was done:&#10;&#10;- Fixed issue with leaving a review &#10;- Written and tested out removing books from Personal library" />
+    <MESSAGE value="What was done:&#10;&#10;- fixed bookInteract menus&#10;- made some QoL changes&#10;- fixed commands on pagination&#10;- some design fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="What was done:&#10;&#10;- fixed bookInteract menus&#10;- made some QoL changes&#10;- fixed commands on pagination&#10;- some design fixes" />
   </component>
 </project>

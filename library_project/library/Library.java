@@ -23,7 +23,6 @@ public class Library {
 
     public static Library generateMainLibrary() {
         Library library = new Library(getAllBooksFromFile());
-        library.sortBooks();
         return library;
     }
 
@@ -62,24 +61,29 @@ public class Library {
         return allBooks;
     }
 
-    public void sortBooks() {
+    public static Book[] sortBooks(Set<Book> books) {
 
         Book[] arrayOfSortedBooks = new Book[books.size()];
         books.toArray(arrayOfSortedBooks);
 
         Book temp;
 
-        for (int i = 0; i < books.size(); i++) {
-            for (int j = 1; j < books.size()-1; j++) {
-                if (arrayOfSortedBooks[j-1].getBookName().compareToIgnoreCase(arrayOfSortedBooks[j].getBookName()) > 0) {
-                    temp = arrayOfSortedBooks[j-1];
-                    arrayOfSortedBooks[j-1] = arrayOfSortedBooks[j];
-                    arrayOfSortedBooks[j] = temp;
+        for (int i = 0; i < books.size() - 1; i++) {
+
+            for (int j = 1; j < books.size(); j++) {
+
+                if(arrayOfSortedBooks[j] != null && arrayOfSortedBooks[j-1] != null) {
+                    if (arrayOfSortedBooks[j-1].getBookName().compareToIgnoreCase(arrayOfSortedBooks[j].getBookName()) > 0) {
+
+                        temp = arrayOfSortedBooks[j - 1];
+                        arrayOfSortedBooks[j - 1] = arrayOfSortedBooks[j];
+                        arrayOfSortedBooks[j] = temp;
+                    }
                 }
             }
         }
 
-        books = new HashSet<>(Arrays.asList(arrayOfSortedBooks));
+        return arrayOfSortedBooks;
     }
 
     public Set<Book> getBooks() {

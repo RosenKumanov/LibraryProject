@@ -90,6 +90,7 @@ public class Book implements IUseFiles {
                     Review.updateRating(review.getCurrentUser(), review.getCurrentBookISBN());
                 } else {
                     Review.addRating(username, bookISBN.getISBN());
+                    return;
                 }
             }
         }
