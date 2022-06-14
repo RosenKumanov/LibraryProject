@@ -20,7 +20,7 @@ public class Menu {
         System.out.println("| " + ConsoleColors.BLUE + "   DIGITAL LIBRARY " + ConsoleColors.PURPLE + "\"A-TEAM\"" + ConsoleColors.BLUE + " HOMEPAGE   " + ConsoleColors.RESET + " |");
         System.out.println("| " + ConsoleColors.BLUE + "      created by" + ConsoleColors.PURPLE + " Rosen " + ConsoleColors.BLUE + " & " + ConsoleColors.PURPLE + " Stefi  " + ConsoleColors.RESET + "      |");
         System.out.println("|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=|\n\n");
-        System.out.println(ConsoleColors.YELLOW + "       1. Register        " + ConsoleColors.GREEN + "2. Log in\n" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.YELLOW + "      1. Register         " + ConsoleColors.GREEN + "2. Log in\n\n" + ConsoleColors.RESET);
         System.out.println(ConsoleColors.RED + "                  3. Exit\n\n\n" + ConsoleColors.RESET);
 
         User currentUser;
@@ -38,6 +38,7 @@ public class Menu {
             currentUser = UserRepo.logIn();
             options(mainLibrary, currentUser);
         } else {
+            System.out.println(ConsoleColors.CYAN + "Come again!" + ConsoleColors.RESET);
             System.exit(0);
         }
     }

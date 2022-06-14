@@ -24,12 +24,6 @@ public class Review implements IUseFiles {
         this.commentByCurrentUser = commentByCurrentUser;
     }
 
-    public Review( String currentUser, String currentBookISBN, int ratingByCurrentUser) {
-        this.currentUser = currentUser;
-        this.currentBookISBN = currentBookISBN;
-        this.ratingByCurrentUser = ratingByCurrentUser;
-    }
-
     public static void addComment(String user, String ISBN) {
         String comment;
         Scanner sc = new Scanner(System.in);
@@ -82,7 +76,7 @@ public class Review implements IUseFiles {
             }
         }
           catch (NumberFormatException e1) {
-            System.out.println(ConsoleColors.RED_UNDERLINED + "Wrong input!" + ConsoleColors.RESET );
+            System.out.println(ConsoleColors.YELLOW + "Wrong input! You need to type a number between 1-5!\n" + ConsoleColors.RESET );
             addRating(user, ISBN);
         }
         newRating.setCurrentUser(user);

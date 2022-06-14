@@ -13,7 +13,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Book implements IUseFiles {
-    Scanner scan = new Scanner(System.in);
     public static final String FILEPATH = "library_project/files/books.csv";
 
     private String name;
@@ -22,7 +21,6 @@ public class Book implements IUseFiles {
     private double averageRating = 0;
     public ISBNnum bookISBN;
     private String bookOwner;
-    private DecimalFormat df = new DecimalFormat("x.x");
     private Set<Review> bookReviews;
 
     public Book() {
@@ -80,7 +78,7 @@ public class Book implements IUseFiles {
         if(bookReviews.size() != 0) {
             for (Review review : bookReviews) {
                 if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN()) && review.getRatingByCurrentUser() != 0) {
-                    System.out.println("\nYou have already rated this book. Would you like to change your rating? Y/N:");
+                    System.out.println(ConsoleColors.YELLOW + "\nYou have already rated this book. Would you like to change your rating? Y/N:" + ConsoleColors.RESET);
                     if (Utils.yesOrNo()) {
                         Review.updateRating(username, bookISBN.getISBN());
                     }
@@ -209,6 +207,10 @@ public class Book implements IUseFiles {
             case 1:
                 System.out.println("Type the new book name: ");
                 String editedItem = scan.nextLine();
+                while(editedItem.isEmpty()) {
+                    System.out.println(ConsoleColors.YELLOW + "Book must have a title!" + ConsoleColors.RESET);
+                    editedItem = scan.nextLine();
+                }
                 updateFile(FILEPATH,name,editedItem);
                 System.out.println("Book name was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 this.name = editedItem;
@@ -216,6 +218,10 @@ public class Book implements IUseFiles {
             case 2:
                 System.out.println("Type the new book author: ");
                 editedItem = scan.nextLine();
+                while(editedItem.isEmpty()) {
+                    System.out.println(ConsoleColors.YELLOW + "Book must have an author!" + ConsoleColors.RESET);
+                    editedItem = scan.nextLine();
+                }
                 updateFile(FILEPATH,author,editedItem);
                 System.out.println("Book Author was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
                 this.author = editedItem;
@@ -234,7 +240,7 @@ public class Book implements IUseFiles {
                 resume = editedItem;
                 System.out.println("Book resume was updated to: ");
 
-                System.out.print(ConsoleColors.CYAN_BOLD);
+                System.out.print(ConsoleColors.CYAN);
                 showResume();
                 System.out.println(ConsoleColors.RESET);
 
