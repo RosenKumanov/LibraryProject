@@ -38,7 +38,7 @@ public class ISBNnum {
                 // don't store, only check
                 Long.parseLong(number);
             }
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException nfe) {
             // not a number
             return false;
         }
@@ -122,7 +122,7 @@ public class ISBNnum {
             while (!isISBN(ISBN)) {
 
                 System.out.println('\n' + ConsoleColors.YELLOW + ISBN + ConsoleColors.RED + " is not valid!\n" + ConsoleColors.RESET);
-                System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" +
+                System.out.println(ConsoleColors.CYAN + "Options:" + "\n" +
                         ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 int command = Integer.parseInt(br.readLine());
 
@@ -134,7 +134,7 @@ public class ISBNnum {
                     System.out.println("Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                     Menu.options(library,user);
                 } else {
-                    System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.YELLOW + "Wrong input!" + ConsoleColors.RESET);
                     System.out.println("\nWould you like to try again? Y/N:");
                     if(Utils.yesOrNo()) {
                         ISBN = setISBNnum(user).toString();
@@ -148,7 +148,7 @@ public class ISBNnum {
 
         }
         catch (IOException e) {
-            System.out.println( '\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+            System.out.println( '\n' + ConsoleColors.YELLOW + "Wrong input!" + ConsoleColors.RESET);
             System.out.println("\nWould you like to try with another ISBN number? Y/N:");
 
             if (Utils.yesOrNo()) {

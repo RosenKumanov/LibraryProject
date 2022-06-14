@@ -252,7 +252,7 @@ public class Menu {
             }
 
             System.out.println("\n" + ConsoleColors.PURPLE + (currentPage == 0 ? "                " : "P. Previous page")
-                    + ConsoleColors.BLUE + (currentPage != pages - 1 ? "                    " : "   N. Next page    ")
+                    + ConsoleColors.BLUE + (currentPage > pages - 1 ? "                    " : "   N. Next page    ")
                     + ConsoleColors.RED + "       B. Go back\n" + ConsoleColors.RESET);
 
             System.out.println("To select a " + ConsoleColors.GREEN + "book" + ConsoleColors.RESET + " - choose one and type it's " + ConsoleColors.PURPLE + "number\n" + ConsoleColors.RESET

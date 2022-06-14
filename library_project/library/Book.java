@@ -190,8 +190,10 @@ public class Book implements IUseFiles {
     }
 
     private void editBookOptions (User user) throws IOException {
+        Scanner scan = new Scanner(System.in);
+
         System.out.println("---------");
-        System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.WHITE_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET +
+        System.out.println(ConsoleColors.CYAN + "Options:" + "\n" + ConsoleColors.RESET +
                 "1. Edit Book name"+ '\n' +
                 "2. Edit Book Author " + "\n" +
                 "3. Edit Book ISBN" + '\n' +
@@ -209,27 +211,34 @@ public class Book implements IUseFiles {
                 String editedItem = scan.nextLine();
                 updateFile(FILEPATH,name,editedItem);
                 System.out.println("Book name was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
+                this.name = editedItem;
                 break;
             case 2:
                 System.out.println("Type the new book author: ");
                 editedItem = scan.nextLine();
                 updateFile(FILEPATH,author,editedItem);
                 System.out.println("Book Author was updated to: " + ConsoleColors.CYAN_BOLD + editedItem + ConsoleColors.RESET + '\n');
+                this.author = editedItem;
                 break;
             case 3:
                 ISBNnum newISBN = ISBNnum.setISBNnum(user);
                 updateFile(FILEPATH, bookISBN.getISBN(),newISBN.getISBN());
                 System.out.println("Book ISBN was updated to: " + ConsoleColors.CYAN_BOLD + newISBN.getISBN() + ConsoleColors.RESET + '\n');
+                this.bookISBN = newISBN;
                 break;
             case 4:
                 System.out.println("Type the new book resume: ");
                 editedItem = scan.nextLine();
+
                 updateFile(FILEPATH,resume.replaceAll(",", "/"),editedItem.replaceAll(",", "/"));
                 resume = editedItem;
                 System.out.println("Book resume was updated to: ");
+
                 System.out.print(ConsoleColors.CYAN_BOLD);
                 showResume();
                 System.out.println(ConsoleColors.RESET);
+
+
                 break;
             case 5:
                 Library library = Library.generateMainLibrary();
@@ -312,9 +321,9 @@ public class Book implements IUseFiles {
             BufferedReader br = new BufferedReader(in);
 
             try {
-                System.out.println('\n' + ConsoleColors.BLACK_BOLD + ConsoleColors.RED_BACKGROUND + "Something went wrong :(");
+                System.out.println('\n' + ConsoleColors.YELLOW + "Something went wrong :(");
                 System.out.println("---------");
-                System.out.println(ConsoleColors.BLACK_BOLD + ConsoleColors.YELLOW_BACKGROUND + "Options:" + "\n" + ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.CYAN + "Options:" + "\n" + ConsoleColors.RESET + "1. Try again"+ '\n' + "2. Exit to " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 int command = Integer.parseInt(br.readLine());
                 if (command == 1) {
                     Book.addNewBook(user, username);
@@ -323,10 +332,10 @@ public class Book implements IUseFiles {
                     System.out.println('\n' + "Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                     Menu.options(library, user);
                 } else {
-                    System.out.println('\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+                    System.out.println('\n' + ConsoleColors.YELLOW + "Wrong input!" + ConsoleColors.RESET);
                 }
             } catch (IOException e2){
-                System.out.println('\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
+                System.out.println('\n' + ConsoleColors.YELLOW + "Wrong input!" + ConsoleColors.RESET);
                 //to exit to the main menu
                 System.out.println('\n' + "Exiting to the " + ConsoleColors.PURPLE_BOLD + "MAIN MENU" + ConsoleColors.RESET);
                 Menu.start();
@@ -343,7 +352,7 @@ public class Book implements IUseFiles {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
 
-            if(!resume.equals("")) {
+            if(!resume.isEmpty()) {
                 pw.println(name + "," + author + "," + bookISBN.getISBN() + "," + resume.replaceAll(",", "/") + "," + bookOwner);
             }
             else {
