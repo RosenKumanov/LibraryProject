@@ -302,7 +302,7 @@ public class Menu {
                     System.out.println((bookIndex + 1) + ". " + allBooks[bookIndex + (currentPage * 10)].getBookName()
                             + ", written by " + allBooks[bookIndex + (currentPage * 10)].getAuthor() + ConsoleColors.RESET
                             + "   Rating: " + ((allBooks[bookIndex + (currentPage * 10)].getAverageRating() > 0)
-                            ? String.format(".%1f", allBooks[bookIndex + (currentPage * 10)].getAverageRating())
+                            ? String.format("%.1f", allBooks[bookIndex + (currentPage * 10)].getAverageRating())
                             : "Not yet rated") + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.PURPLE
                             + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="

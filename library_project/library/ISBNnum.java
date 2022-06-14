@@ -6,6 +6,7 @@ import library_project.utils.Menu;
 import library_project.utils.Utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ISBNnum {
@@ -32,6 +33,7 @@ public class ISBNnum {
             // ISBN-10 ends with X or x
             char ch = number.charAt(9);
             ch = Character.toUpperCase(ch);
+
             if (ch != 'X') {
                 // don't store, only check
                 Long.parseLong(number);
@@ -79,10 +81,7 @@ public class ISBNnum {
         }
 
         // check sum
-        if (sum % 11 == 0)
-            return true;
-
-        return false;
+        return sum % 11 == 0;
     }
 
     private static boolean isISBN13(String number) {
@@ -107,17 +106,13 @@ public class ISBNnum {
             sum += (multiple * digit);
         }
 
-        if (sum % 10 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return sum % 10 == 0;
     }
 
     public static ISBNnum setISBNnum(User user) {
 
         String ISBN = null;
-        System.out.println("Type book ISBN (10 or 13 digits): ");
+        System.out.println(ConsoleColors.CYAN + "Type book " + ConsoleColors.GREEN + "ISBN" + ConsoleColors.CYAN + " (10 or 13 digits):" + ConsoleColors.RESET);
         InputStreamReader in = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(in);
 
@@ -132,7 +127,7 @@ public class ISBNnum {
                 int command = Integer.parseInt(br.readLine());
 
                 if (command == 1) {
-                    setISBNnum(user);
+                    ISBN = setISBNnum(user).toString();
                 }
                 else if (command == 2) {
                     Library library = Library.generateMainLibrary();
@@ -148,14 +143,15 @@ public class ISBNnum {
                         Library library = Library.generateMainLibrary();
                         Menu.options(library, user);
                     }
-                    setISBNnum(user);
                 }
             }
+           // System.out.println("\n( Book ISBN " + ConsoleColors.YELLOW + ISBN + ConsoleColors.RESET + " is valid! )\n");
 
-            System.out.println("\n( Book ISBN " + ConsoleColors.YELLOW + ISBN + ConsoleColors.RESET + " is valid! )\n");
-        } catch (Exception e) {
+        }
+        catch (IOException e) {
             System.out.println( '\n' + ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
             System.out.println("\nWould you like to try with another ISBN number? Y/N:");
+
             if (Utils.yesOrNo()) {
                 setISBNnum(user);
             }
@@ -163,9 +159,13 @@ public class ISBNnum {
                 Library library = Library.generateMainLibrary();
                 Menu.options(library, user);
             }
-
         }
         return new ISBNnum(ISBN);
+    }
+
+    @Override
+    public String toString() {
+        return ISBN;
     }
 
     public String getISBN() {

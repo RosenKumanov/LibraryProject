@@ -243,6 +243,7 @@ public class Book implements IUseFiles {
 
     public void showAllReviews() {
         bookReviews = getAllReviewsFromFile();
+
         if(bookReviews.size() == 0) {
             System.out.println("\nThere are no comments for this book yet.\n");
         }
@@ -250,7 +251,7 @@ public class Book implements IUseFiles {
         for ( Review review : bookReviews) {
             if (!review.getCommentByCurrentUser().equalsIgnoreCase("no comment")) {
                 System.out.println('\n' + ConsoleColors.BLUE + review.getCurrentUser() + ':' + ConsoleColors.RESET);
-                System.out.print(review.getRatingByCurrentUser() > 3 ? ConsoleColors.GREEN : ConsoleColors.YELLOW);
+                System.out.print(ConsoleColors.GREEN);
                 review.showComment();
                 System.out.println(ConsoleColors.PURPLE + "\nRating:" + ConsoleColors.RESET + (review.getRatingByCurrentUser() != 0 ? review.getRatingByCurrentUser() + "/5" : "No rating\n"));
             }
@@ -273,6 +274,11 @@ public class Book implements IUseFiles {
             BufferedReader br = new BufferedReader(in);
 
             bookToAdd.name = br.readLine();
+            while(bookToAdd.name.length() <= 1) {
+                System.out.println(ConsoleColors.YELLOW + "Book title should include at least 2 characters!\n" + ConsoleColors.RESET);
+                bookToAdd.name = br.readLine();
+            }
+
             for(Book book : allBooks) {
                 if(bookToAdd.name.equalsIgnoreCase(book.getBookName())) {
                     System.out.println(ConsoleColors.YELLOW + "\nThis book is already available in our Library.\n" + ConsoleColors.RESET);
@@ -285,12 +291,17 @@ public class Book implements IUseFiles {
                     }
                 }
             }
-            System.out.println("Type the book author and press " + ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + ":");
+            System.out.println(ConsoleColors.CYAN + "Type the book author and press " + ConsoleColors.GREEN + "Enter" + ConsoleColors.RESET + ":");
             bookToAdd.author = br.readLine();
+
+            while(bookToAdd.author.length() < 3) {
+                System.out.println(ConsoleColors.YELLOW + "Author must have a name!\n" + ConsoleColors.RESET);
+                bookToAdd.author = br.readLine();
+            }
 
             bookToAdd.bookISBN = ISBNnum.setISBNnum(user);
 
-            System.out.println(ConsoleColors.YELLOW + "Type the book resume (you can leave this empty, if you wish): " + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.CYAN + "Type the book" + ConsoleColors.GREEN + " resume" + ConsoleColors.CYAN + " (you can leave this empty, if you wish): " + ConsoleColors.RESET);
 
             bookToAdd.resume = br.readLine();
 
