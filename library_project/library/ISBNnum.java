@@ -137,7 +137,7 @@ public class ISBNnum {
                     System.out.println(ConsoleColors.RED + "Wrong input!" + ConsoleColors.RESET);
                     System.out.println("\nWould you like to try again? Y/N:");
                     if(Utils.yesOrNo()) {
-                        setISBNnum(user);
+                        ISBN = setISBNnum(user).toString();
                     }
                     else {
                         Library library = Library.generateMainLibrary();
@@ -145,7 +145,6 @@ public class ISBNnum {
                     }
                 }
             }
-           // System.out.println("\n( Book ISBN " + ConsoleColors.YELLOW + ISBN + ConsoleColors.RESET + " is valid! )\n");
 
         }
         catch (IOException e) {
@@ -153,7 +152,18 @@ public class ISBNnum {
             System.out.println("\nWould you like to try with another ISBN number? Y/N:");
 
             if (Utils.yesOrNo()) {
-                setISBNnum(user);
+                ISBN = setISBNnum(user).toString();
+            }
+            else {
+                Library library = Library.generateMainLibrary();
+                Menu.options(library, user);
+            }
+        }
+        while(isISBNPresent(ISBN)) {
+            System.out.println(ConsoleColors.YELLOW + "There is a book registered with this ISBN number already.\n" + ConsoleColors.RESET);
+            System.out.println("Would you like to try again? Y/N:");
+            if(Utils.yesOrNo()) {
+                ISBN = setISBNnum(user).toString();
             }
             else {
                 Library library = Library.generateMainLibrary();
@@ -161,6 +171,19 @@ public class ISBNnum {
             }
         }
         return new ISBNnum(ISBN);
+    }
+
+    private static boolean isISBNPresent(String ISBN) {
+
+        Library library = Library.generateMainLibrary();
+
+        for(Book book : library.getBooks()) {
+            if(book.bookISBN.getISBN().equalsIgnoreCase(ISBN)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

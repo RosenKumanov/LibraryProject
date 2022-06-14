@@ -22,8 +22,7 @@ public class Library {
     }
 
     public static Library generateMainLibrary() {
-        Library library = new Library(getAllBooksFromFile());
-        return library;
+        return new Library(getAllBooksFromFile());
     }
 
     private static Set<Book> getAllBooksFromFile() {
