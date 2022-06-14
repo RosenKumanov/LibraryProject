@@ -83,20 +83,16 @@ public class Book implements IUseFiles {
                     System.out.println("\nYou have already rated this book. Would you like to change your rating? Y/N:");
                     if (Utils.yesOrNo()) {
                         Review.updateRating(username, bookISBN.getISBN());
-                    } else {
-                        return;
                     }
+                    return;
                 } else if (review.getCurrentUser().equalsIgnoreCase(username) && review.getCurrentBookISBN().equalsIgnoreCase(bookISBN.getISBN())) {
                     Review.updateRating(review.getCurrentUser(), review.getCurrentBookISBN());
-                } else {
-                    Review.addRating(username, bookISBN.getISBN());
                     return;
                 }
             }
         }
-        else {
-            Review.addRating(username, bookISBN.getISBN());
-        }
+
+        Review.addRating(username, bookISBN.getISBN());
     }
 
     public void commentBook(String username) {
@@ -263,11 +259,12 @@ public class Book implements IUseFiles {
 
     public static void addNewBook (User user, String username) {
         Library library = Library.generateMainLibrary();
+
         Set<Book> allBooks = library.getBooks();
         Book bookToAdd = new Book();
 
         System.out.println(ConsoleColors.PURPLE + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-        System.out.println("|" + ConsoleColors.BLUE + "               ADD NEW BOOK               " + ConsoleColors.PURPLE + "|");
+        System.out.println("|" + ConsoleColors.BLUE + "               ADD NEW BOOK              " + ConsoleColors.PURPLE + "|");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" + ConsoleColors.CYAN);
 
         try {

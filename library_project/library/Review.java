@@ -104,21 +104,23 @@ public class Review implements IUseFiles {
 
     public static void updateRating (String user, String ISBN) {
         int newRating = 0;
-        System.out.println(ConsoleColors.YELLOW + "\nYou can rate this book with a grade from 1 to 5. Please vote!" + ConsoleColors.RESET);
+
+        System.out.println("\nYou can rate this book with a grade from 1 to 5. Please vote!" + ConsoleColors.RESET);
         Scanner scan = new Scanner(System.in);
 
         try {
             newRating = Integer.parseInt(scan.nextLine());
+
             if (newRating < 1 || newRating > 5) {
-                System.out.println("Please, enter a number from 1 to 5!");
-                addRating(user, ISBN);
+                System.out.println(ConsoleColors.YELLOW + "Please, enter a number from 1 to 5!" + ConsoleColors.RESET);
+                updateRating(user, ISBN);
             } else {
                 System.out.println(ConsoleColors.GREEN + "\nYou rated this book with " + ConsoleColors.BLUE + newRating + ConsoleColors.RESET);
             }
         }
         catch (NumberFormatException e1) {
             System.out.println(ConsoleColors.RED_UNDERLINED + "Wrong input!" + ConsoleColors.RESET );
-            addRating(user, ISBN);
+            updateRating(user, ISBN);
         }
         try {
             updateRatingInFile(user, ISBN, newRating);
